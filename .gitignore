@@ -1,0 +1,12 @@
+/target/
+*.settings/
+*.springBeans
+*.db
+*.swp
+*.exe
+*.o
+*.recommenders
+*.metadata
+*.classpath
+*.project
+*.class
