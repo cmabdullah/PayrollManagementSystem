@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.abdullah.PayrollManagementSystem.dao.Userinfo;
@@ -31,6 +32,18 @@ UserinfoService userinfoService;
 		return "usersinfo";
 	}
 	
+	
+	@RequestMapping("/registration")
+	public String createNotice() {
+		return "registration";
+	}
+	
+	//notice beans will inject automatically
+		@RequestMapping(value = "/docreate", method=RequestMethod.POST)
+	public String doCreate(Model model, Userinfo userinfo) {
+			System.out.println(userinfo);
+			return "registrationsuccess";
+	}
 	
 		//http://localhost:8081/PayrollManagementSystem/test?id=2018
 		//Getting URL Parameters

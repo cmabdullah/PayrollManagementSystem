@@ -18,7 +18,9 @@
 	<!-- name is: ${one } -->
 
 
-
+<a href="${pageContext.request.contextPath}/usersinfo">Show Users Info</a><br><!--for appropriate path
+read context path from page context-->
+<a href="${pageContext.request.contextPath}/registration">registration</a>
 	
 	
 	
