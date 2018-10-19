@@ -1,0 +1,42 @@
+package com.abdullah.PayrollManagementSystem.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.abdullah.PayrollManagementSystem.dao.Userinfo;
+import com.abdullah.PayrollManagementSystem.service.UserinfoService;
+@Controller
+public class UsersInfoController {
+UserinfoService userinfoService;
+	
+	@Autowired
+	public void setUserinfoService(UserinfoService userinfoService) {
+		this.userinfoService = userinfoService;
+	}
+
+	@RequestMapping("/usersinfo")
+	public String asd(Model model) {
+		
+		List<Userinfo> usersinfo = userinfoService.getCurrent();
+		
+		//first usersinfo is key, last usersinfo is value
+		model.addAttribute("usersinfo",usersinfo);
+		
+		//return usersinfo is webpage url
+		return "usersinfo";
+	}
+	
+	
+		//http://localhost:8081/PayrollManagementSystem/test?id=2018
+		//Getting URL Parameters
+		@RequestMapping("/test")
+		public String showTest(Model model , @RequestParam("id")String id) {
+			System.out.println("ID is : "+id);
+			return "home";
+		}
+}
