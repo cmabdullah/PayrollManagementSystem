@@ -38,7 +38,8 @@ UserinfoService userinfoService;
 	
 	
 	@RequestMapping("/registration")
-	public String createNotice() {
+	public String createRegister(Model model) {
+		model.addAttribute(new Userinfo());//add attribute into model
 		return "registration";
 	}
 	
@@ -53,8 +54,7 @@ UserinfoService userinfoService;
 				for (ObjectError error: errors) {
 					System.out.println(error.getDefaultMessage());
 				}
-			}else {
-				System.out.println("Form is validet");
+				return "registration";
 			}
 			
 			return "registrationsuccess";
