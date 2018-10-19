@@ -4,6 +4,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.abdullah.PayrollManagementSystem.validation.ValidEmail;
+
 public class Userinfo {
 	private int id;
 	@Size(min=2  ,max=100 , message="Name must be between 2 to 100")
@@ -19,7 +21,9 @@ public class Userinfo {
 	@Size(min=4  ,max=250, message="address must be between 4 to 250")
 	private String address;
 	@NotNull
-	@Pattern(regexp=".*\\@.*\\..*", message = "Not a valied email address")
+	//@Pattern(regexp=".*\\@.*\\..*", message = "Not a valied email address")
+	// ValideEmail Annotation created by us, see import com.spring.web.validation.ValidEmail; package
+	@ValidEmail
 	private String email;
 	private int phone;
 	
