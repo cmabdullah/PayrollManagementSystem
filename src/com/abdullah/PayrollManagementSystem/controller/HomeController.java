@@ -1,10 +1,10 @@
-package com.abdullah.PayrollManagementSystem;
+package com.abdullah.PayrollManagementSystem.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
-public class Test {
+public class HomeController {
 	@RequestMapping("/")
 	public String asd(Model model) {
 		String name= "haider";
