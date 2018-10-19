@@ -19,9 +19,14 @@
 	<security:http use-expressions="true">
 		<security:form-login />
 		<security:intercept-url pattern="/" access="permitAll" />
+		<!--change default spring login path-->
+		<security:form-login login-page="/login"
+			authentication-failure-url="/login?error=true" />
 		<security:intercept-url pattern="/usersinfo" access="permitAll" />
 		<!--Permit all static resources like bootstrup library and so one...-->
 		<security:intercept-url pattern="/static/**" access="permitAll" />
+		<!--Give login url permission-->
+		<security:intercept-url pattern="/login" access="permitAll" />
 		<security:intercept-url pattern="/registration" access="isAuthenticated()" />
 		<security:intercept-url pattern="/docreate" access="isAuthenticated()" />
 		<security:intercept-url pattern="/**" access="denyAll" />
