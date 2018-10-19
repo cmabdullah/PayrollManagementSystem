@@ -14,7 +14,25 @@
 					password="123" />
 			</security:user-service>
 		</security:authentication-provider>
+		
+		<!--added new authontication provider where reference datasource = dataSource -->
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource" />
+		</security:authentication-provider>
+		
+		
 	</security:authentication-manager>
+	
+<!-- 
+where this query is written i dont know
+Your login attempt was not successful, try again.
+
+Reason: PreparedStatementCallback; bad SQL grammar [select username,authority from authorities where username = ?]; nested exception is java.sql.SQLSyntaxErrorException: Table 'PayrollManagementSystem.authorities' doesn't exist
+
+
+ -->
+	
+	
 	
 	<security:http use-expressions="true">
 		<security:form-login />
