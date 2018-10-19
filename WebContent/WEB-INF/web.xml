@@ -29,4 +29,17 @@
       <res-auth>Container</res-auth>
   </resource-ref> 
   
+  
+  
+  <!--listener added-->
+  <listener>
+  <listener-class>org.springframework.web.context.ContextLoaderListener
+	</listener-class>
+  </listener>
+
+  	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:com/abdullah/PayrollManagementSystem/config/dao-context.xml</param-value>
+	</context-param>
+
 </web-app>
