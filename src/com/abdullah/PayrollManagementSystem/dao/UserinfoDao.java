@@ -1,5 +1,6 @@
 package com.abdullah.PayrollManagementSystem.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -15,7 +16,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-@Component("UserinfoDao")
+@Component("userinfoDao")
 public class UserinfoDao {
 	private NamedParameterJdbcTemplate jdbc;
 
@@ -23,7 +24,7 @@ public class UserinfoDao {
 		System.out.println("Beans are configured");
 	}
 
-	// @Autowired
+	@Autowired
 	public void setDataSource(DataSource jdbc) {
 		this.jdbc = new NamedParameterJdbcTemplate(jdbc);
 	}

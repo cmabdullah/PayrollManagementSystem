@@ -39,7 +39,11 @@
 
   	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:com/abdullah/PayrollManagementSystem/config/dao-context.xml</param-value>
+		<param-value>
+		classpath:com/abdullah/PayrollManagementSystem/config/dao-context.xml
+		classpath:com/abdullah/PayrollManagementSystem/config/service-context.xml
+
+		</param-value>
 	</context-param>
 
 </web-app>

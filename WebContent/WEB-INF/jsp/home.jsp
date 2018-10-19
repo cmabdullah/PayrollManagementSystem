@@ -19,14 +19,14 @@
 
 
 
-	<sql:query var="rs" dataSource="jdbc/spring">
-			select id, username, password, usertype from userinfo
-		</sql:query>
-	<!--For each loop-->
-	<c:forEach var="row" items="${rs.rows}">
-		    userame: ${row.username}<br />
-		    password: ${row.password}<br />
-	</c:forEach>
+	
+	<!--retrive data from controller-->
+<c:forEach var="userinfo" items="${usersinfo}">
+    ID: ${userinfo.id}<br/>
+    Username: ${userinfo.username}<br/>
+    Usertype: ${userinfo.usertype}<br/>
+    Address: ${userinfo.address}<br/>
+</c:forEach>	
 	
 </body>
 </html>
