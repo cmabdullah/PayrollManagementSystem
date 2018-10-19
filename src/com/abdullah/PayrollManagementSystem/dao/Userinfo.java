@@ -1,7 +1,10 @@
 package com.abdullah.PayrollManagementSystem.dao;
 
+import javax.validation.constraints.Size;
+
 public class Userinfo {
 	private int id;
+	@Size(min=2  ,max=100)
 	private String username;
 	private String password;
 	private String usertype;
