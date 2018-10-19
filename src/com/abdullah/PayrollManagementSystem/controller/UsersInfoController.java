@@ -56,7 +56,7 @@ UserinfoService userinfoService;
 				}
 				return "registration";
 			}
-			
+			userinfoService.create(userinfo);//save data into database
 			return "registrationsuccess";
 	}
 	

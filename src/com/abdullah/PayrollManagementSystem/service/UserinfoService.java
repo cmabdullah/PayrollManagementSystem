@@ -21,5 +21,9 @@ public class UserinfoService {
 	public List<Userinfo> getCurrent(){
 		return userinfoDao.getUserinfos();
 	}
+
+	public void create(Userinfo userinfo) {
+		userinfoDao.create(userinfo);	
+	}
 	
 }
