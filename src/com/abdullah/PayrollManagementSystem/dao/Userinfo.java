@@ -1,16 +1,25 @@
 package com.abdullah.PayrollManagementSystem.dao;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class Userinfo {
 	private int id;
-	@Size(min=2  ,max=100)
+	@Size(min=2  ,max=100 , message="Name must be between 2 to 100")
 	private String username;
+	@Size(min=3  ,max=250, message="username must be between 3 to 250")
 	private String password;
+	
 	private String usertype;
+	
 	private String status;
+	@Size(min=4  ,max=250, message="Fullname must be between 4 to 250")
 	private String fullname;
+	@Size(min=4  ,max=250, message="address must be between 4 to 250")
 	private String address;
+	@NotNull
+	@Pattern(regexp=".*\\@.*\\..*", message = "Not a valied email address")
 	private String email;
 	private int phone;
 	
