@@ -40,7 +40,7 @@ UserinfoService userinfoService;
 	
 	//notice beans will inject automatically
 		@RequestMapping(value = "/docreate", method=RequestMethod.POST)
-	public String doCreate(Model model, Userinfo userinfo) {
+	public String doCreate(Model model, Userinfo userinfo) {//spring magically inject information what comes from registration into userinfo bean 
 			System.out.println(userinfo);
 			return "registrationsuccess";
 	}
