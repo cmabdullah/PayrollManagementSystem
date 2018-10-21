@@ -12,25 +12,44 @@
 
     <context:component-scan base-package="com.abdullah.PayrollManagementSystem.controller"></context:component-scan>
     <mvc:annotation-driven></mvc:annotation-driven>
+    
     <!--Internal Resource View Resolver-->
+    
+    <!-- Internal Resource View Resolver has not needed any more -->
+    <!-- 
     <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver"
         id="jspViewResolver">
     <property name="prefix" value="/WEB-INF/jsp/"></property>
     <property name="suffix" value=".jsp"></property>
     </bean> 
-<!--Enable bootstrap-->
+	 -->
+	 
+	 
+	 
 
-
-		<mvc:resources location="/resources/" mapping="/static/**" />
-
+	<!--Enable bootstrap-->
+	<mvc:resources location="/resources/" mapping="/static/**" />
 		
-			<!--linking with message properties....-->
+	<!--linking with message properties....-->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		
-		
 	<property name="basename" value="com.abdullah.PayrollManagementSystem.message.message">
+	</property>
+	</bean>
+	
+	<!--Tiles view Resolver-->
+	<bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+	</bean>
+	
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+	<property name="definitions">
+		<list>
+			<value>/WEB-INF/layout/default.xml</value>
+		</list>
 	</property>
 	</bean>
 
