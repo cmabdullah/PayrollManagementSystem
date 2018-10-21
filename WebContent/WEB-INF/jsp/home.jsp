@@ -34,7 +34,7 @@ read context path from page context-->
 	<a href="<c:url value='/j_spring_security_logout'/>">Log Out</a>
 </sec:authorize>
 
-<sec:authorize access="hasRole('admin')">
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<a href="<c:url value='/admin'/>">Admin Page</a>
 </sec:authorize>
 

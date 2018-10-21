@@ -3,6 +3,7 @@ package com.abdullah.PayrollManagementSystem.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import com.abdullah.PayrollManagementSystem.dao.Userinfo;
@@ -22,6 +23,8 @@ public class UserinfoService {
 		return userinfoDao.getUserinfos();
 	}
 
+	//method level security enabled
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	public void create(Userinfo userinfo) {
 		userinfoDao.create(userinfo);	
 	}
