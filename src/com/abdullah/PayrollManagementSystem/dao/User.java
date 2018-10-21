@@ -9,13 +9,13 @@ import com.abdullah.PayrollManagementSystem.validation.ValidEmail;
 
 public class User {
 	//user form validation added
-	@NotBlank(message="username cannot be blank")
-	@Size(min=4  ,max=15)
-	@Pattern(regexp="^\\w{4,}$",message="Username only consist number letter underscore")
+	@NotBlank
+	@Size(min=2  ,max=15)
+	@Pattern(regexp="^\\w{4,}$")
 	private String username;
-	@NotBlank(message="Password cannot be blank.....")
-	@Size(min=8  ,max=15, message="Password must be between 8 to 15 long")
-	@Pattern(regexp="^\\S+$",message="Password cannot contain any space")	
+	@NotBlank
+	@Size(min=4  ,max=15)
+	@Pattern(regexp="^\\S+$")	
 	private String password;
 	@ValidEmail
 	private String email;
