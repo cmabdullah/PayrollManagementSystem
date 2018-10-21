@@ -35,21 +35,21 @@
     <param-value>
 		classpath:com/abdullah/PayrollManagementSystem/config/dao-context.xml
 		classpath:com/abdullah/PayrollManagementSystem/config/service-context.xml
-		
+		classpath:com/abdullah/PayrollManagementSystem/config/security-context.xml
+
 		</param-value>
   </context-param>
-  
-  
-   <!-- Wiring TestFilter -->
- <filter>
- <display-name>TestFilter</display-name>
- <filter-name>TestFilter</filter-name>
- <filter-class>com.abdullah.PayrollManagementSystem.filter.TestFilter</filter-class>
- </filter> 
-
- <filter-mapping>
- <filter-name>TestFilter</filter-name>
- <url-pattern>/*</url-pattern>
- </filter-mapping>
  
+  <!-- Spring security filter is added -->
+  <filter>
+    <display-name>springSecurityFilterChain</display-name>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+
 </web-app>
