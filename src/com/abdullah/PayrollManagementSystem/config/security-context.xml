@@ -13,6 +13,14 @@
 					password="123" />
 			</security:user-service>
 		</security:authentication-provider>
+		
+		
+		
+		<!--added new authontication provider where reference datasource = dataSource -->
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource" />
+		</security:authentication-provider>
+		
 	</security:authentication-manager>
 	
 	
