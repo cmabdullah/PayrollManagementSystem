@@ -45,6 +45,8 @@
 		<security:intercept-url pattern="/static/**" access="permitAll" />
 		<security:intercept-url pattern="/login" access="permitAll" />
 		
+		<security:intercept-url pattern="/denied" access="permitAll" />	
+		
 		<security:intercept-url pattern="/registration" access="isAuthenticated()" />
 		<security:intercept-url pattern="/docreate" access="isAuthenticated()" />
 		<security:intercept-url pattern="/registrationsuccess" access="isAuthenticated()" />
@@ -58,6 +60,10 @@
 		
 		<security:intercept-url pattern="/**" access="denyAll" />
 		<security:logout logout-success-url="/loggedout" />
+	
+		<!--Configure access denied-->
+		<security:access-denied-handler error-page="/denied" />	
+	
 	</security:http>
 
 
