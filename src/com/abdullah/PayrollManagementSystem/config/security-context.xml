@@ -17,9 +17,15 @@
 		
 		
 		<!--added new authontication provider where reference datasource = dataSource -->
+		<!-- case sensitive username -->
 		<security:authentication-provider>
-			<security:jdbc-user-service data-source-ref="dataSource" />
+			<security:jdbc-user-service data-source-ref="dataSource" 
+			authorities-by-username-query="SELECT * FROM authorities where binary username = ?"
+			users-by-username-query="SELECT * FROM users where binary username = ?" />
+		
 		</security:authentication-provider>
+		
+		
 		
 	</security:authentication-manager>
 	
@@ -31,8 +37,7 @@
 			
 			
 		<!-- admin role -->
-		<security:intercept-url pattern="/admin" access="hasRole('admin')" />
-			
+		<security:intercept-url pattern="/admin" access="hasRole('admin')" />	
 		<security:intercept-url pattern="/" access="permitAll" />
 		<security:intercept-url pattern="/usersinfo" access="permitAll" />
 		<!--Permit all static resources like bootstrup library and so one...-->
