@@ -2,17 +2,13 @@
 	pageEncoding="UTF-8"%>
 <!--JSTL prifix added-->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(j_username).focus();
+	});
+</script>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<title>Login Page</title>
-<link
-	href="${pageContext.request.contextPath}/static/lib/bootstrap/css/bootstrap.css"
-	rel="stylesheet" type="text/css" />
-</head>
-<body onload='document.f.j_username.focus();'>
-
+<h3>Login with Username and Password</h3>
 	<div class="col-md-6 col-md-offset-3">
 		<form class="form-horizontal"
 			action="${pageContext.request.contextPath}/j_spring_security_check"
@@ -64,6 +60,3 @@
 	
 	<!--Account create link added-->
 		<p><a href="<c:url value='/newaccount'/>">create new Account</a> </p>
-
-</body>
-</html>

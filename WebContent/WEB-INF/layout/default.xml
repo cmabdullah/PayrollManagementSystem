@@ -3,14 +3,69 @@
 <!-- Tiles Definition File -->
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-	<definition name="home"
+	<definition name="manager.base"
 		template="/WEB-INF/templates/default.jsp">
-		
 		<put-attribute name="title" value="Home"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/content.jsp"></put-attribute>
-		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"></put-attribute>	
-			
-			
+		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"></put-attribute>		
 	</definition>
+	
+	
+	
+	<definition name="home" extends="manager.base">
+		<put-attribute name="title" value="PMS Home"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/home.jsp"></put-attribute>		
+	</definition>
+
+	<definition name="usersinfo" extends="manager.base">
+		<put-attribute name="title" value="Users List"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/usersinfo.jsp"></put-attribute>		
+	</definition>
+ 
+	<definition name="login" extends="manager.base">
+		<put-attribute name="title" value="Notice Login"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/login.jsp"></put-attribute>		
+	</definition>
+
+	<definition name="registration" extends="manager.base">
+		<put-attribute name="title" value="Create New Account"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/registration.jsp"></put-attribute>		
+	</definition>
+
+	<definition name="newaccount" extends="manager.base">
+		<put-attribute name="title" value="Create new account "></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/newaccount.jsp"></put-attribute>		
+	</definition>	
+	
+	<definition name="accountcreated" extends="manager.base">
+		<put-attribute name="title" value="Account created"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/accountcreated.jsp"></put-attribute>		
+	</definition>	
+
+	<definition name="admin" extends="manager.base">
+		<put-attribute name="title" value="Admin panel"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin.jsp"></put-attribute>		
+	</definition>
+	
+	<definition name="registrationsuccess" extends="manager.base">
+		<put-attribute name="title" value="registration success"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/registrationsuccess.jsp"></put-attribute>		
+	</definition>	
+	
+	<definition name="loggedout" extends="manager.base">
+		<put-attribute name="title" value="Logged out Successfully"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/loggedout.jsp"></put-attribute>		
+	</definition>
+
+	<definition name="denied" extends="manager.base">
+		<put-attribute name="title" value="Access Denied....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/denied.jsp"></put-attribute>		
+	</definition>
+
+	<definition name="error" extends="manager.base">
+		<put-attribute name="title" value="Error....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/error.jsp"></put-attribute>		
+	</definition>
+
 </tiles-definitions>
