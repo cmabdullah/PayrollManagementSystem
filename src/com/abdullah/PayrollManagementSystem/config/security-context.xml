@@ -28,6 +28,11 @@
 	<security:http use-expressions="true">
 		<security:form-login login-page="/login"
 			authentication-failure-url="/login?error=true" />
+			
+			
+		<!-- admin role -->
+		<security:intercept-url pattern="/admin" access="hasRole('admin')" />
+			
 		<security:intercept-url pattern="/" access="permitAll" />
 		<security:intercept-url pattern="/usersinfo" access="permitAll" />
 		<!--Permit all static resources like bootstrup library and so one...-->

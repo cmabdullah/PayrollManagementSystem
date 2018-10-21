@@ -24,6 +24,7 @@ read context path from page context-->
 	
 	
 	<p><a href="<c:url value='j_spring_security_logout'/>">Log out</a></p>
+	<p><a href="<c:url value='admin'/>">Admin</a></p>
 	
 </body>
 </html>
