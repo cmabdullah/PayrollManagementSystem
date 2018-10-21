@@ -9,7 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
   <servlet>
     <description></description>
     <display-name>spring</display-name>
@@ -20,32 +19,37 @@
     <servlet-name>spring</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-  
-       <description>Payroll Management System</description>
+  <description>Payroll Management System</description>
   <resource-ref>
-      <description>DB Connection</description>
-      <res-ref-name>jdbc/spring</res-ref-name>
-      <res-type>javax.sql.DataSource</res-type>
-      <res-auth>Container</res-auth>
-  </resource-ref> 
-  
-  
-  
-  <!--listener added-->
+    <description>DB Connection</description>
+    <res-ref-name>jdbc/spring</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
   <listener>
-  <listener-class>org.springframework.web.context.ContextLoaderListener
+    <listener-class>org.springframework.web.context.ContextLoaderListener
 	</listener-class>
   </listener>
-
-  	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
 		classpath:com/abdullah/PayrollManagementSystem/config/dao-context.xml
 		classpath:com/abdullah/PayrollManagementSystem/config/service-context.xml
 		
 		</param-value>
-	</context-param>
+  </context-param>
+  
+  
+   <!-- Wiring TestFilter -->
+ <filter>
+ <display-name>TestFilter</display-name>
+ <filter-name>TestFilter</filter-name>
+ <filter-class>com.abdullah.PayrollManagementSystem.filter.TestFilter</filter-class>
+ </filter> 
 
-
-
+ <filter-mapping>
+ <filter-name>TestFilter</filter-name>
+ <url-pattern>/*</url-pattern>
+ </filter-mapping>
+ 
 </web-app>
