@@ -5,5 +5,12 @@
 <tiles-definitions>
 	<definition name="home"
 		template="/WEB-INF/templates/default.jsp">
+		
+		<put-attribute name="title" value="Home"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/content.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"></put-attribute>	
+			
+			
 	</definition>
 </tiles-definitions>
