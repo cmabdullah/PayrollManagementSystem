@@ -50,6 +50,9 @@
 					<div class="col-md-4">
 						<sf:input id="password" name="password" path="password"
 							type="text" class="form-control input-md" />
+							<!-- Show error message into view -->
+						<sf:errors path="password" cssClass="alert-danger"></sf:errors>
+							
 					</div>
 				</div>
 				<!--Conform Password input-->
