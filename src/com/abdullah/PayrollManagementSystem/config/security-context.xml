@@ -7,13 +7,14 @@
 
 
 	<security:authentication-manager>
+	<!-- 
 		<security:authentication-provider>
 			<security:user-service>
 				<security:user name="abdullah" authorities="admin"
 					password="123" />
 			</security:user-service>
 		</security:authentication-provider>
-		
+	-->
 		
 		
 		<!--added new authontication provider where reference datasource = dataSource -->
@@ -24,6 +25,10 @@
 			users-by-username-query="SELECT * FROM users where binary username = ?" 
 			id="jdbcUserService"
 			/><!--id is needed for mapping remember me key-->
+			
+			
+			<!-- taking reference from passwordEncoder -->
+			<security:password-encoder ref="passwordEncoder"></security:password-encoder>
 		
 		</security:authentication-provider>
 		
@@ -39,8 +44,11 @@
 			
 			
 		<!-- admin role -->
-		<!-- <security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />	-->
-		<security:intercept-url pattern="/admin" access="permitAll" />	
+		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- disable method level security -->
+		<!-- <security:intercept-url pattern="/admin" access="permitAll" />		-->
+		
 		<security:intercept-url pattern="/" access="permitAll" />
 		<security:intercept-url pattern="/usersinfo" access="permitAll" />
 		<!--Permit all static resources like bootstrup library and so one...-->
@@ -74,4 +82,10 @@
 
 
 	<security:global-method-security secured-annotations="enabled"></security:global-method-security>
+	
+	
+	<!--StandardPasswordEncoder class instance -->
+	<bean id="passwordEncoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder">
+	</bean>
 </beans>

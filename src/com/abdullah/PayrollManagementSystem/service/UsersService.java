@@ -25,7 +25,7 @@ public class UsersService {
 		return userDao.exists(username);
 	}
 	//method level security
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	public List<User> getAllUsers() {
 		return userDao.getAllUsers();
 	}
