@@ -36,6 +36,14 @@
 		
 		<security:intercept-url pattern="/registration" access="isAuthenticated()" />
 		<security:intercept-url pattern="/docreate" access="isAuthenticated()" />
+		<security:intercept-url pattern="/registrationsuccess" access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/newaccount" access="permitAll" />
+		<security:intercept-url pattern="/createaccount" access="permitAll" />
+		<security:intercept-url pattern="/accountcreated" access="permitAll" />
+		
+		
+		
 		<security:intercept-url pattern="/**" access="denyAll" />
 	</security:http>
 	
