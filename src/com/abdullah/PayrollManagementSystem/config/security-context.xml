@@ -21,7 +21,9 @@
 		<security:authentication-provider>
 			<security:jdbc-user-service data-source-ref="dataSource" 
 			authorities-by-username-query="SELECT * FROM authorities where binary username = ?"
-			users-by-username-query="SELECT * FROM users where binary username = ?" />
+			users-by-username-query="SELECT * FROM users where binary username = ?" 
+			id="jdbcUserService"
+			/><!--id is needed for mapping remember me key-->
 		
 		</security:authentication-provider>
 		
@@ -63,6 +65,10 @@
 	
 		<!--Configure access denied-->
 		<security:access-denied-handler error-page="/denied" />	
+		
+		<!--remember me config-->
+		<security:remember-me key="noticesAppKey" user-service-ref="jdbcUserService" />
+	
 	
 	</security:http>
 
