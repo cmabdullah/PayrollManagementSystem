@@ -23,6 +23,7 @@ read context path from page context-->
 <a href="${pageContext.request.contextPath}/registration">registration</a>
 	
 	
+	<p><a href="<c:url value='j_spring_security_logout'/>">Log out</a></p>
 	
 </body>
 </html>

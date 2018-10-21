@@ -41,11 +41,13 @@
 		<security:intercept-url pattern="/newaccount" access="permitAll" />
 		<security:intercept-url pattern="/createaccount" access="permitAll" />
 		<security:intercept-url pattern="/accountcreated" access="permitAll" />
+		<security:intercept-url pattern="/loggedout " access="permitAll" />
 		
 		
 		
 		<security:intercept-url pattern="/**" access="denyAll" />
+		<security:logout logout-success-url="/loggedout" />
 	</security:http>
-	
-	
+
+
 </beans>
