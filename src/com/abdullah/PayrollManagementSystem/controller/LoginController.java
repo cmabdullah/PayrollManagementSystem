@@ -1,5 +1,7 @@
 package com.abdullah.PayrollManagementSystem.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,14 @@ public class LoginController {
 		return "login";
 	}
 	
+	@RequestMapping("/admin")
+	public String showAdmin(Model model) {
+		List<User> users = usersService.getAllUsers();
+		model.addAttribute("users", users);
+		return "admin";
+	}
+	
+	
 	@RequestMapping("/newaccount")
 	public String showNewAccount(Model model) {
 		model.addAttribute("user",new User());
@@ -42,6 +52,8 @@ public class LoginController {
 		user.setAuthority("user");
 		user.setEnabled(true);
 		
+		//test print username
+		System.out.println(user.getUsername());
 		if (usersService.exists(user.getUsername())) {
 			result.rejectValue("username", "DuplicateKey.user.username", "this username already exist, please choose different username");
 			return "newaccount";

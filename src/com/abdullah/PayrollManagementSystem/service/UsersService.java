@@ -1,5 +1,7 @@
 package com.abdullah.PayrollManagementSystem.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,9 @@ public class UsersService {
 	
 	public boolean exists(String username) {
 		return userDao.exists(username);
+	}
+	
+	public List<User> getAllUsers() {
+		return userDao.getAllUsers();
 	}
 }
