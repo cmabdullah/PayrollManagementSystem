@@ -8,8 +8,6 @@
 		<tr>
 			<th scope="col">ID</th>
 			<th scope="col">username</th>
-			<th scope="col">usertype</th>
-			<th scope="col">status</th>
 			<th scope="col">fullname</th>
 			<th scope="col">address</th>
 			<th scope="col">email</th>
@@ -19,8 +17,6 @@
 			<tr>
 				<td><c:out value="${userinfo.id}"></c:out></td>
 				<td><c:out value="${userinfo.username}"></c:out></td>
-				<td><c:out value="${userinfo.usertype}"></c:out></td>
-				<td><c:out value="${userinfo.status}"></c:out></td>
 				<td><c:out value="${userinfo.fullname}"></c:out></td>
 				<td><c:out value="${userinfo.address}"></c:out></td>
 				<td><c:out value="${userinfo.email}"></c:out></td>

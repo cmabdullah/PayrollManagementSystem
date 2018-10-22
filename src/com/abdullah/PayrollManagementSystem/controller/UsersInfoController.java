@@ -38,6 +38,11 @@ UserinfoService userinfoService;
 	}
 	
 	
+	
+	
+
+	
+	
 	@RequestMapping("/registration")
 	public String createRegister(Model model) {
 		model.addAttribute(new Userinfo());//add attribute into model
@@ -46,7 +51,7 @@ UserinfoService userinfoService;
 	
 	//notice beans will inject automatically
 		@RequestMapping(value = "/docreate", method=RequestMethod.POST)
-	public String doCreate(Model model,@Valid Userinfo userinfo , BindingResult result) {//spring magically inject information what comes from registration into userinfo bean 
+		public String doCreate(Model model,@Valid Userinfo userinfo , BindingResult result) {//spring magically inject information what comes from registration into userinfo bean 
 			System.out.println(userinfo);
 			
 			

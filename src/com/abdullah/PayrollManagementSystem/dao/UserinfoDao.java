@@ -40,8 +40,6 @@ public class UserinfoDao {
 				Userinfo userinfo = new Userinfo();
 				userinfo.setId(rs.getInt("id"));
 				userinfo.setUsername(rs.getString("username"));
-				userinfo.setPassword(rs.getString("password"));
-
 				userinfo.setFullname(rs.getString("fullname"));
 				userinfo.setAddress(rs.getString("address"));
 				userinfo.setEmail(rs.getString("email"));
@@ -102,8 +100,6 @@ public class UserinfoDao {
 				Userinfo userinfo = new Userinfo();
 				userinfo.setId(rs.getInt("id"));
 				userinfo.setUsername(rs.getString("username"));
-				userinfo.setPassword(rs.getString("password"));
-
 				userinfo.setFullname(rs.getString("fullname"));
 				userinfo.setAddress(rs.getString("address"));
 				userinfo.setEmail(rs.getString("email"));
