@@ -29,4 +29,8 @@ public class UserinfoService {
 		userinfoDao.create(userinfo);	
 	}
 	
+	public boolean exists(String username) {
+		return userinfoDao.exists(username);
+	}
+	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,15 +49,28 @@ UserinfoService userinfoService;
 	public String doCreate(Model model,@Valid Userinfo userinfo , BindingResult result) {//spring magically inject information what comes from registration into userinfo bean 
 			System.out.println(userinfo);
 			
-			//Check form validation
+			
 			if (result.hasErrors()) {
-				List<ObjectError> errors = result.getAllErrors();
-				for (ObjectError error: errors) {
-					System.out.println(error.getDefaultMessage());
-				}
 				return "registration";
 			}
-			userinfoService.create(userinfo);//save data into database
+			
+			userinfo.setEnabled(true);
+			
+			//test print username
+			System.out.println(userinfo.getUsername());
+			if (userinfoService.exists(userinfo.getUsername())) {
+				result.rejectValue("username", "DuplicateKey.userinfo.username", "this username already exist, please choose different username");
+				return "registration";
+			}
+			
+			try {
+				userinfoService.create(userinfo);//save data into database
+			}catch(DuplicateKeyException e) {
+				result.rejectValue("username", "DuplicateKey.user.username", "this username already exist");
+				return "newaccount";
+			}
+			
+			
 			return "registrationsuccess";
 	}
 	

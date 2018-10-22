@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,9 @@ public class UserinfoDao {
 		this.jdbc = new NamedParameterJdbcTemplate(jdbc);
 	}
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	public List<Userinfo> getUserinfos() {
 
 		return jdbc.query("select * from userinfo", new RowMapper<Userinfo>() {
@@ -37,8 +41,7 @@ public class UserinfoDao {
 				userinfo.setId(rs.getInt("id"));
 				userinfo.setUsername(rs.getString("username"));
 				userinfo.setPassword(rs.getString("password"));
-				userinfo.setUsertype(rs.getString("usertype"));
-				userinfo.setStatus(rs.getString("status"));
+
 				userinfo.setFullname(rs.getString("fullname"));
 				userinfo.setAddress(rs.getString("address"));
 				userinfo.setEmail(rs.getString("email"));
@@ -60,10 +63,27 @@ public class UserinfoDao {
 		SqlParameterSource[] params = SqlParameterSourceUtils.createBatch(userinfo.toArray());
 		return jdbc.batchUpdate("insert into userinfo (id,username , password, usertype,status ,fullname,address , email, phone) values (:id,:username,:password, :usertype, :status , :fullname, :address , :email, :phone)", params);
 	}
-
+	@Transactional
 	public boolean create(Userinfo userinfo) {
-		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(userinfo);
-		return jdbc.update("insert into userinfo (id,username , password, usertype,status ,fullname,address , email, phone) values (:id,:username,:password, :usertype, :status , :fullname, :address , :email, :phone)", params) == 1;
+		//BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(userinfo);
+		
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		
+		params.addValue("username", userinfo.getUsername());
+		params.addValue("password", passwordEncoder.encode(userinfo.getPassword()));
+		params.addValue("authority", userinfo.getAuthority()); 
+		params.addValue("enabled", userinfo.isEnabled());
+		
+		params.addValue("fullname", userinfo.getFullname());
+		params.addValue("address", userinfo.getAddress());
+		params.addValue("email", userinfo.getEmail());
+		params.addValue("phone", userinfo.getPhone());
+
+		
+		jdbc.update("insert into userinfo (username,fullname , address, email,phone) values (:username,:fullname,:address, :email, :phone)", params);
+		jdbc.update("insert into users (username,password , enabled) values (:username,:password,:enabled)", params);
+		return jdbc.update("insert into authorities (username , authority) values (:username,:authority)", params) == 1;
+	
 	}
 
 	public boolean update(Userinfo userinfo) {
@@ -83,8 +103,7 @@ public class UserinfoDao {
 				userinfo.setId(rs.getInt("id"));
 				userinfo.setUsername(rs.getString("username"));
 				userinfo.setPassword(rs.getString("password"));
-				userinfo.setUsertype(rs.getString("usertype"));
-				userinfo.setStatus(rs.getString("status"));
+
 				userinfo.setFullname(rs.getString("fullname"));
 				userinfo.setAddress(rs.getString("address"));
 				userinfo.setEmail(rs.getString("email"));
@@ -93,5 +112,9 @@ public class UserinfoDao {
 				return userinfo;// return single object
 			}
 		});
+	}
+	
+	public boolean exists(String username) {
+		return jdbc.queryForObject("select count(*) from users where username=:username", new MapSqlParameterSource("username",username), Integer.class) > 0 ;
 	}
 }

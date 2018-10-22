@@ -13,7 +13,14 @@
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active"><a class="nav-link" href="<c:url value='/'/>">Home
 			</a></li>
+			
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/registration'/>">Registration</a></li>
+			<li class="nav-item"><a class="nav-link " href="#">Disabled</a>
 		</ul>
+		
+
+		
+		
 		<ul class = "nav navbar-nav navbar-right">	
 			<sec:authorize access="!isAuthenticated()">
 				<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/login'/>">Log In</a> </li>

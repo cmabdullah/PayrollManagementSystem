@@ -31,7 +31,7 @@ public class UserDao {
 	@Transactional
 	public boolean create(User user) {
 		//BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(user);
-MapSqlParameterSource params = new MapSqlParameterSource();
+		MapSqlParameterSource params = new MapSqlParameterSource();
 		
 		params.addValue("username", user.getUsername());
 		params.addValue("password", passwordEncoder.encode(user.getPassword()));
