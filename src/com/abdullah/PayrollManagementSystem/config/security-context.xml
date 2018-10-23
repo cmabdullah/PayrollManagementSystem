@@ -57,7 +57,7 @@
 		
 		<security:intercept-url pattern="/denied" access="permitAll" />	
 
-		<security:intercept-url pattern="/registration" access="isAuthenticated()" />
+		<security:intercept-url pattern="/registration" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/docreate" access="isAuthenticated()" />
 		<security:intercept-url pattern="/registrationsuccess" access="isAuthenticated()" />
 		

@@ -14,9 +14,12 @@
 			<li class="nav-item active"><a class="nav-link" href="<c:url value='/'/>">Home
 			</a></li>
 			
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/registration'/>">Registration</a></li>
 			<li class="nav-item"><a class="nav-link " href="<c:url value='/usersinfo'/>">Show All users information</a>
 
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/registration'/>">Registration</a> </li>
+			</sec:authorize>
+		
 		</ul>
 		
 
