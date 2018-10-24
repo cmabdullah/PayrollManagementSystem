@@ -19,6 +19,7 @@
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/registration'/>">Registration</a> </li>
 			</sec:authorize>
+			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/disable_enable_user'/>">Disable_Enable_User</a> </li>
 		
 		</ul>
 		

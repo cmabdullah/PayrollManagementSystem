@@ -65,6 +65,9 @@
 		<security:intercept-url pattern="/createaccount" access="permitAll" />
 		<security:intercept-url pattern="/accountcreated" access="permitAll" />
 		<security:intercept-url pattern="/loggedout " access="permitAll" />
+		<security:intercept-url pattern="/disable_enable_user " access="permitAll" />
+		<security:intercept-url pattern="/disable_enable_user_success " access="permitAll" />
+		<security:intercept-url pattern="/DEU " access="permitAll" />
 		
 		
 		

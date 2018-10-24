@@ -32,5 +32,10 @@ public class UserinfoService {
 	public boolean exists(String username) {
 		return userinfoDao.exists(username);
 	}
+
+	public void disableEnable(Userinfo userinfo) {
+		userinfoDao.disableEnable(userinfo);
+		
+	}
 	
 }

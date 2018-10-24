@@ -96,4 +96,36 @@ UserinfoService userinfoService;
 			System.out.println("ID is : "+id);
 			return "home";
 		}
+		
+		@RequestMapping("/disable_enable_user")
+		public String showDAE(Model model) {
+			model.addAttribute(new Userinfo());//add attribute into model
+			return "disable_enable_user";
+		}
+		
+		
+		@RequestMapping(value = "/DEU", method=RequestMethod.GET)
+		public String enableDisablee(Model model,Userinfo userinfo, BindingResult result) {//spring magically inject information what comes from registration into userinfo bean 
+			System.out.println("Enable disable");
+			System.out.println(userinfo);
+			//enable disable user
+			
+			
+			
+			
+			if (userinfoService.exists(userinfo.getUsername())) {
+				
+				
+				userinfoService.disableEnable(userinfo);
+				
+				return "disable_enable_user_success";
+			}else {
+				result.rejectValue("username", "DuplicateKey.userinfo.username", "this username not exist exist");
+				return "disable_enable_user";
+			}
+			
+		
+			
+			
+	}
 }

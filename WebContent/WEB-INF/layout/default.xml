@@ -69,4 +69,13 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/error.jsp"></put-attribute>		
 	</definition>
 
+	<definition name="disable_enable_user" extends="manager.base">
+		<put-attribute name="title" value="disabled....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/disable_enable_user.jsp"></put-attribute>		
+	</definition>
+	<definition name="disable_enable_user_success" extends="manager.base">
+		<put-attribute name="title" value="disable_enable_user_success....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/disable_enable_user_success.jsp"></put-attribute>		
+	</definition>
+
 </tiles-definitions>

@@ -114,4 +114,10 @@ public class UserinfoDao {
 	public boolean exists(String username) {
 		return jdbc.queryForObject("select count(*) from userinfo where username=:username", new MapSqlParameterSource("username",username), Integer.class) > 0 ;
 	}
+
+	public boolean disableEnable(Userinfo userinfo) {
+		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(userinfo);
+		return jdbc.update("update userinfo set enabled=:enabled where username=:username", params) == 1;
+		
+	}
 }
