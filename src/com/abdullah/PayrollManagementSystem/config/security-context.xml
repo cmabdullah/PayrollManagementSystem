@@ -69,6 +69,9 @@
 		<security:intercept-url pattern="/disable_enable_user_success " access="permitAll" />
 		<security:intercept-url pattern="/DEU " access="permitAll" />
 		
+		<security:intercept-url pattern="/attendance" access="permitAll" />
+		
+		
 		
 		
 		<security:intercept-url pattern="/**" access="denyAll" />

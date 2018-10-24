@@ -77,5 +77,11 @@
 		<put-attribute name="title" value="disable_enable_user_success....."></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/disable_enable_user_success.jsp"></put-attribute>		
 	</definition>
+	
+	<definition name="attendance" extends="manager.base">
+		<put-attribute name="title" value="Give your attendance....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/attendance.jsp"></put-attribute>		
+	</definition>
+	
 
 </tiles-definitions>
