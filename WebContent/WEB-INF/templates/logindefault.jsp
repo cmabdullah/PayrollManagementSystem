@@ -8,24 +8,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><tiles:getAsString name="title"></tiles:getAsString></title>
-<!-- Bootstrap core CSS -->
-    <link href="<c:url value='/static/lib/bootstrap/css/bootstrap.css'/>" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="<c:url value='/static/css/notice-main.css'/>" rel="stylesheet">
-    
-    <link href="<c:url value='/static/css/footerstyle.css'/>" rel="stylesheet">
+    <link href="<c:url value='/static/css/loginstyle.css'/>" rel="stylesheet">
 
 </head>
 <body>
 
-	<div>
-		<tiles:insertAttribute name="header"></tiles:insertAttribute>
-	</div>
-	<main role="main" class="container">
-		<tiles:insertAttribute name="content"></tiles:insertAttribute>
-    </main><!-- /.container -->
-	<div>
-		<tiles:insertAttribute name="footer"></tiles:insertAttribute>
-	</div>
+	
+		<tiles:insertAttribute name="login"></tiles:insertAttribute>
+
+	
 </body>
 </html>

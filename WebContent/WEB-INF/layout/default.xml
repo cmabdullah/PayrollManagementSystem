@@ -11,7 +11,13 @@
 		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"></put-attribute>		
 	</definition>
 	
+	<definition name="login"
+		template="/WEB-INF/templates/logindefault.jsp">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="login" value="/WEB-INF/tiles/login.jsp"></put-attribute>
 	
+	</definition>
+		
 	
 	<definition name="home" extends="manager.base">
 		<put-attribute name="title" value="PMS Home"></put-attribute>
@@ -21,11 +27,6 @@
 	<definition name="usersinfo" extends="manager.base">
 		<put-attribute name="title" value="Users List"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/usersinfo.jsp"></put-attribute>		
-	</definition>
- 
-	<definition name="login" extends="manager.base">
-		<put-attribute name="title" value="Notice Login"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/login.jsp"></put-attribute>		
 	</definition>
 
 	<definition name="registration" extends="manager.base">
@@ -67,8 +68,5 @@
 		<put-attribute name="title" value="Error....."></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/error.jsp"></put-attribute>		
 	</definition>
-
-	
-	
 
 </tiles-definitions>

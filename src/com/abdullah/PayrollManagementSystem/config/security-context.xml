@@ -49,7 +49,7 @@
 		<!-- disable method level security -->
 		<!-- <security:intercept-url pattern="/admin" access="permitAll" />		-->
 		
-		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/" access="isAuthenticated()" />
 		<security:intercept-url pattern="/usersinfo" access="permitAll" />
 		<!--Permit all static resources like bootstrup library and so one...-->
 		<security:intercept-url pattern="/static/**" access="permitAll" />
