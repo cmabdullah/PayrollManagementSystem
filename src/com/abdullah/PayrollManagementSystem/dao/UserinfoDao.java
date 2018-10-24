@@ -61,22 +61,22 @@ public class UserinfoDao {
 		SqlParameterSource[] params = SqlParameterSourceUtils.createBatch(userinfo.toArray());
 		return jdbc.batchUpdate("insert into userinfo (id,username , password, usertype,status ,fullname,address , email, phone) values (:id,:username,:password, :usertype, :status , :fullname, :address , :email, :phone)", params);
 	}
-	//@Transactional
+	@Transactional
 	public boolean create(Userinfo userinfo) {
 		System.out.println("DAO layer info "+ userinfo);
-		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(userinfo);
+		//BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(userinfo);
 		
-//		MapSqlParameterSource params = new MapSqlParameterSource();
-//		
-//		params.addValue("username", userinfo.getUsername());
-//		params.addValue("password", passwordEncoder.encode(userinfo.getPassword()));
-//		params.addValue("authority", userinfo.getAuthority()); 
-//		params.addValue("enabled", userinfo.isEnabled());
-//		
-//		params.addValue("fullname", userinfo.getFullname());
-//		params.addValue("address", userinfo.getAddress());
-//		params.addValue("email", userinfo.getEmail());
-//		params.addValue("phone", userinfo.getPhone());
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		
+		params.addValue("username", userinfo.getUsername());
+		params.addValue("password", passwordEncoder.encode(userinfo.getPassword()));
+		params.addValue("authority", userinfo.getAuthority()); 
+		params.addValue("enabled", userinfo.isEnabled());
+		
+		params.addValue("fullname", userinfo.getFullname());
+		params.addValue("address", userinfo.getAddress());
+		params.addValue("email", userinfo.getEmail());
+		params.addValue("phone", userinfo.getPhone());
 
 		
 		return  jdbc.update("insert into userinfo (username,fullname , address, email,phone ,password , enabled, authority) values (:username,:fullname,:address, :email, :phone,:password,:enabled,:authority)", params) == 1;
