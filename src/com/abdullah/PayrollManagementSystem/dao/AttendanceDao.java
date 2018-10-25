@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 
 
+
 @Component("attendenceDao")
 public class AttendanceDao {
 	
@@ -47,6 +48,27 @@ public class AttendanceDao {
 				attendance.setWorkinghours(rs.getInt("workinghours"));
 				
 				System.out.println("Retriving data from database : " + attendance);
+				
+				return attendance;// return single object
+			}
+		});
+	}
+	
+	public List<Attendance> getLogoutInfoBatch(LocalDate logintime, int userinfo_id) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("logintime", logintime + "%");
+		params.addValue("userinfo_id", userinfo_id);
+		return jdbc.query("SELECT * FROM attendence where logintime <  :logintime AND userinfo_id=:userinfo_id AND logouttime IS NULL", params, new RowMapper<Attendance>() {
+			public Attendance mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Attendance attendance = new Attendance();
+				attendance.setId(rs.getInt("id"));
+				attendance.setLogintime(rs.getTimestamp("logintime").toLocalDateTime());
+				//attendance.setLogouttime(rs.getTimestamp("logouttime").toLocalDateTime());
+				attendance.setUserinfo_id(rs.getInt("userinfo_id"));
+				attendance.setIpaddress(rs.getString("ipaddress"));
+				attendance.setWorkinghours(rs.getInt("workinghours"));
+				
+				System.out.println("Retriving logout from database : " + attendance);
 				
 				return attendance;// return single object
 			}

@@ -39,4 +39,22 @@ public class AttendanceService {
 		return true;
 		
 	}
+
+	public boolean hasLogout(String username, int userinfo_id, LocalDate loginDate) {
+		List<Attendance> lateattendence = attendanceDao.getLogoutInfoBatch(loginDate, userinfo_id);
+		
+		
+		
+		if(lateattendence.size() != 0) //work on this case
+			return true;
+		
+		System.out.println("Mised logout "+lateattendence.get(lateattendence.size()-1));
+		
+		
+		if(lateattendence.size() == 0)
+			return false;
+		
+		
+		return false;
+	}
 }

@@ -74,6 +74,15 @@ public class AttendanceController {
 		model.addAttribute("hasLogin",hasLogin);
 		
 		
+		boolean hasLogout = false;
+		
+		if ( principal != null ){
+			
+			hasLogout = attendanceService.hasLogout(principal.getName() , userinfoService.getUserIdFromName(principal.getName()).getId(), LocalDate.now());
+		}
+		
+		System.out.println("Logout status : " + hasLogout);
+		
 		
 		return "disable_enable_user_success";
 	}
