@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -33,6 +34,7 @@ public class UserinfoDao {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	//old code
 	public List<Userinfo> getUserinfos() {
 
 		return jdbc.query("select * from userinfo", new RowMapper<Userinfo>() {
@@ -49,7 +51,7 @@ public class UserinfoDao {
 			}
 		});
 	}
-
+	//old code
 	public boolean delete(int id) { // delete method
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("id", id);
@@ -89,7 +91,7 @@ public class UserinfoDao {
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(userinfo);
 		return jdbc.update("update userinfo set username=:username,password=:password,usertype=:usertype,status=:status,fullname=:fullname,address=:address,email=:email ,phone=:phone where id=:id", params) == 1;
 	}
-
+	//old code
 	public Userinfo getUserinfo(int id){
 
 		//MapSqlParameterSource params = new MapSqlParameterSource("name", "cm");
@@ -119,5 +121,20 @@ public class UserinfoDao {
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(userinfo);
 		return jdbc.update("update userinfo set enabled=:enabled where username=:username", params) == 1;
 		
+	}
+	
+	public Userinfo getUserIdFromName(String username){
+
+		//MapSqlParameterSource params = new MapSqlParameterSource("name", "cm");
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("username", username);
+		//return jdbc.query("select * from notices where name = 'cm'", new RowMapper<Notice>() {
+		return jdbc.queryForObject("select * from userinfo where username = :username", params, new RowMapper<Userinfo>() {
+			public Userinfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Userinfo userinfo = new Userinfo();
+				userinfo.setId(rs.getInt("id"));
+				return userinfo;// return single object
+			}
+		});
 	}
 }

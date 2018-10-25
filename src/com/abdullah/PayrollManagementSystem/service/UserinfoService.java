@@ -37,5 +37,10 @@ public class UserinfoService {
 		userinfoDao.disableEnable(userinfo);
 		
 	}
+
+	public Userinfo getUserIdFromName(String username) {
+		return userinfoDao.getUserIdFromName(username);
+		
+	}
 	
 }

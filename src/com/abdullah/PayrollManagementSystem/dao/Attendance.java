@@ -14,29 +14,29 @@ public class Attendance {
 	
 	private String ipaddress;
 	
-	private int flag;
+	private int workinghours;
 	
 	public Attendance() {
 
 	}
 	public Attendance( LocalDateTime logintime, LocalDateTime logouttime, int userinfo_id, String ipaddress,
-			int flag) {
+			int workinghours) {
 
 		this.logintime = logintime;
 		this.logouttime = logouttime;
 		this.userinfo_id = userinfo_id;
 		this.ipaddress = ipaddress;
-		this.flag = flag;
+		this.workinghours = workinghours;
 	}
 
 	public Attendance(int id, LocalDateTime logintime, LocalDateTime logouttime, int userinfo_id, String ipaddress,
-			int flag) {
+			int workinghours) {
 		this.id = id;
 		this.logintime = logintime;
 		this.logouttime = logouttime;
 		this.userinfo_id = userinfo_id;
 		this.ipaddress = ipaddress;
-		this.flag = flag;
+		this.workinghours = workinghours;
 	}
 	public int getId() {
 		return id;
@@ -68,16 +68,16 @@ public class Attendance {
 	public void setIpaddress(String ipaddress) {
 		this.ipaddress = ipaddress;
 	}
-	public int getFlag() {
-		return flag;
+	public int getWorkinghours() {
+		return workinghours;
 	}
-	public void setFlag(int flag) {
-		this.flag = flag;
+	public void setWorkinghours(int workinghours) {
+		this.workinghours = workinghours;
 	}
 	@Override
 	public String toString() {
 		return "Attendance [id=" + id + ", logintime=" + logintime + ", logouttime=" + logouttime + ", userinfo_id="
-				+ userinfo_id + ", ipaddress=" + ipaddress + ", flag=" + flag + "]";
+				+ userinfo_id + ", ipaddress=" + ipaddress + ", workinghours=" + workinghours + "]";
 	}
 	
 	
