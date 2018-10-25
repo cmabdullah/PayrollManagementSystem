@@ -58,7 +58,7 @@ public class AttendanceController {
 	    	attendance.setWorkinghours(0);
 			System.out.println("Attendence object test : "+attendance);
 			
-			//attendanceService.create(attendance);
+			attendanceService.create(attendance);
 		}
 		
 		
@@ -70,6 +70,8 @@ public class AttendanceController {
 		}
 		
 		System.out.println("Login status : " + hasLogin);
+		
+		model.addAttribute("hasLogin",hasLogin);
 		
 		
 		
