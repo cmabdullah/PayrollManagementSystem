@@ -70,6 +70,7 @@
 		<security:intercept-url pattern="/DEU " access="permitAll" />
 		
 		<security:intercept-url pattern="/attendance" access="permitAll" />
+		<security:intercept-url pattern="/start" access="permitAll" />
 		
 		
 		

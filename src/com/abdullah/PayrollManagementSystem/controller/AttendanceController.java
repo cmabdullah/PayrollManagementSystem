@@ -9,4 +9,11 @@ public class AttendanceController {
 	public String giveAttendence() {
 		return "disable_enable_user_success";
 	}
+	
+	
+	@RequestMapping("/start")
+	public String startJob() {
+		System.out.println("job started");
+		return "disable_enable_user_success";
+	}
 }

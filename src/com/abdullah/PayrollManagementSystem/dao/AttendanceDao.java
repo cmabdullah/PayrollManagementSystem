@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component("attendenceDao")
-public class AttendenceDao {
+public class AttendanceDao {
 	
 	private NamedParameterJdbcTemplate jdbc;
 	
@@ -17,9 +17,9 @@ public class AttendenceDao {
 		this.jdbc = new NamedParameterJdbcTemplate(jdbc);
 	}
 	
-	public boolean create(Attendence attendence) {
+	public boolean create(Attendance attendence) {
 		System.out.println("Dao layer : "+attendence);
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(attendence);
-		return jdbc.update("insert into attendence (id,logintime , logouttime, userinfo_id) values (:id,:logintime,:logouttime, :userinfo_id)", params) == 1;
+		return jdbc.update("insert into attendence (id,logintime , logouttime, userinfo_id,ipaddress,flag) values (:id,:logintime,:logouttime, :userinfo_id,:ipaddress,:flag)", params) == 1;
 	}
 }
