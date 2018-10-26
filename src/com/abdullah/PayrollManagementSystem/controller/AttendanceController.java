@@ -58,7 +58,7 @@ public class AttendanceController {
 	    	attendance.setWorkinghours(0);
 			System.out.println("Attendence object test : "+attendance);
 			
-			attendanceService.create(attendance);
+			//attendanceService.create(attendance);
 		}
 		
 		

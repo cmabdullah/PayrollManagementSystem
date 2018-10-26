@@ -16,4 +16,7 @@ SELECT * FROM PayrollManagementSystem.attendence where logintime like  '2018-10-
 SELECT * FROM PayrollManagementSystem.attendence where logintime like  '2018-10-25%'  AND userinfo_id=2020 AND logouttime IS NULL;
 
 
-SELECT * FROM PayrollManagementSystem.attendence where logintime <  "2018-10-25%" AND userinfo_id=2020 AND logouttime IS NULL;
+SELECT * FROM PayrollManagementSystem.attendence where logintime <  "2018-10-26%" AND userinfo_id=2020 AND logouttime IS NULL;
+
+
+

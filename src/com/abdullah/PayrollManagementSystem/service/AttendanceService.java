@@ -34,7 +34,11 @@ public class AttendanceService {
 		List<Attendance> attendences = attendanceDao.getLoginInfoBatch(loginDate, userinfo_id);
 		if(attendences.size() == 0)
 			return false;
-		System.out.println("LAst element "+attendences.get(attendences.size()-1));
+		
+		
+		if(attendences.size() != 0) {
+			System.out.println("LAst element "+attendences.get(attendences.size()-1));
+    	}
 		
 		return true;
 		
@@ -45,10 +49,13 @@ public class AttendanceService {
 		
 		
 		
-		if(lateattendence.size() != 0) //work on this case
+		if(lateattendence.size() != 0) { //work on this case
+			System.out.println("Mised logout "+lateattendence.get(lateattendence.size()-1));
 			return true;
+			
+		}
 		
-		System.out.println("Mised logout "+lateattendence.get(lateattendence.size()-1));
+		
 		
 		
 		if(lateattendence.size() == 0)
