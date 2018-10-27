@@ -82,6 +82,11 @@
 		<put-attribute name="title" value="Give your attendance....."></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/attendance.jsp"></put-attribute>		
 	</definition>
+
+	<definition name="block" extends="manager.base">
+		<put-attribute name="title" value="account has been blocked....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/block.jsp"></put-attribute>		
+	</definition>
 	
 
 </tiles-definitions>

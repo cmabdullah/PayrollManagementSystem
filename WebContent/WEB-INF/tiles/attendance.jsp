@@ -5,9 +5,15 @@
 <form method="post" action="${pageContext.request.contextPath}/start"   commandName="userinfo">
 <!-- <input name = "create query" type = "submit"/> -->
 <!-- -->
+<c:if test="${hasLogin == false && hasLogout == false}">
 <button id="submit" name="submit" class="btn btn-primary">start</button> 
+</c:if>
 
+<c:if test="${hasLogin == true && hasLogout == false}">
 
+<button id="submit" name="submit" class="btn btn-primary">Away</button> 
+
+</c:if>
 	
 
 <!-- 

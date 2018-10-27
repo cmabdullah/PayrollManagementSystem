@@ -34,7 +34,28 @@ public class AttendanceController {
 	}
 
 	@RequestMapping("/attendance")
-	public String giveAttendence() {
+	public String giveAttendence( Model model, HttpServletRequest request, Principal principal) {
+		
+		
+		boolean hasLogin = false;
+		if ( principal != null ){
+			hasLogin = attendanceService.hasLogin(principal.getName() , userinfoService.getUserIdFromName(principal.getName()).getId(), LocalDate.now());
+		}
+		System.out.println("Login status : " + hasLogin);
+		model.addAttribute("hasLogin",hasLogin);
+		
+		boolean hasLogout = false;
+		if ( principal != null ){	
+			hasLogout = attendanceService.hasLogout(principal.getName() , userinfoService.getUserIdFromName(principal.getName()).getId(), LocalDate.now());
+		}
+		System.out.println("Logout status : " + hasLogout);
+		model.addAttribute("hasLogout",hasLogout);
+		
+		if(hasLogin == false && hasLogout == true) {
+			//block user
+			return "block";
+		}
+
 		return "attendance";
 	}
 	
@@ -58,30 +79,33 @@ public class AttendanceController {
 	    	attendance.setWorkinghours(0);
 			System.out.println("Attendence object test : "+attendance);
 			
-			//attendanceService.create(attendance);
+			attendanceService.create(attendance);
 		}
 		
 		
-		boolean hasLogin = false;
-		
-		if ( principal != null ){
-			
-			hasLogin = attendanceService.hasLogin(principal.getName() , userinfoService.getUserIdFromName(principal.getName()).getId(), LocalDate.now());
-		}
-		
-		System.out.println("Login status : " + hasLogin);
-		
-		model.addAttribute("hasLogin",hasLogin);
-		
-		
-		boolean hasLogout = false;
-		
-		if ( principal != null ){
-			
-			hasLogout = attendanceService.hasLogout(principal.getName() , userinfoService.getUserIdFromName(principal.getName()).getId(), LocalDate.now());
-		}
-		
-		System.out.println("Logout status : " + hasLogout);
+//		boolean hasLogin = false;
+//		
+//		if ( principal != null ){
+//			
+//			hasLogin = attendanceService.hasLogin(principal.getName() , userinfoService.getUserIdFromName(principal.getName()).getId(), LocalDate.now());
+//		}
+//		
+//		System.out.println("Login status : " + hasLogin);
+//		
+//		model.addAttribute("hasLogin",hasLogin);
+//		
+//		
+//		boolean hasLogout = false;
+//		
+//		if ( principal != null ){
+//			
+//			hasLogout = attendanceService.hasLogout(principal.getName() , userinfoService.getUserIdFromName(principal.getName()).getId(), LocalDate.now());
+//		}
+//		
+//		model.addAttribute("hasLogout",hasLogout);
+//		
+//		
+//		System.out.println("Logout status : " + hasLogout);
 		
 		
 		return "disable_enable_user_success";
