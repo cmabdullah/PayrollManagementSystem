@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,10 @@ public class AttendanceController {
 		this.attendanceService = attendanceService;
 	}
 
+	
+//	@Autowired
+//    private CacheManager cacheManager;
+//	
 	@RequestMapping("/attendance")
 	public String giveAttendence( Model model, HttpServletRequest request, Principal principal) {
 		
@@ -53,6 +58,14 @@ public class AttendanceController {
 		
 		if(hasLogin == false && hasLogout == true) {
 			//block user
+			
+			
+			//remove cash
+//			for(String name:cacheManager.getCacheNames()){
+//	            cacheManager.getCache(name).clear();            // clear cache by name
+//	        }
+			
+			
 			return "block";
 		}
 
