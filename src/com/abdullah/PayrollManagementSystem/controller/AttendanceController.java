@@ -12,6 +12,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.abdullah.PayrollManagementSystem.dao.Attendance;
 import com.abdullah.PayrollManagementSystem.dao.Userinfo;
@@ -75,23 +76,46 @@ public class AttendanceController {
 //	2001:db8::ff00:42:8329
 	
 	@RequestMapping("/start")
-	public String startJob(Model model,@Valid Attendance attendance, HttpServletRequest request, Principal principal) {
-		System.out.println("job started");
-		System.out.println(request.getRemoteAddr());
-		System.out.println(attendance);
-		String username = "";
+	public String startJob(Model model,@Valid Attendance attendance, HttpServletRequest request, Principal principal, @RequestParam(value="away", required=false) String away) {
+		boolean hasLogin = false;
+		boolean hasLogout = true;
+		
 		if( principal != null ) {
-			username = principal.getName();
-			Userinfo userinfo = userinfoService.getUserIdFromName(username);
-	    	System.out.println("Single Notice : "+userinfo);
-	    	attendance.setLogintime(LocalDateTime.now());
-	    	attendance.setUserinfo_id(userinfo.getId());
-	    	attendance.setIpaddress(request.getRemoteAddr());
-	    	attendance.setWorkinghours(0);
-			System.out.println("Attendence object test : "+attendance);
-			
-			attendanceService.create(attendance);
+			hasLogin = attendanceService.hasLogin(principal.getName() , userinfoService.getUserIdFromName(principal.getName()).getId(), LocalDate.now());
+			hasLogout =  attendanceService.hasLogout(principal.getName() , userinfoService.getUserIdFromName(principal.getName()).getId(), LocalDate.now());
 		}
+		
+		
+		if(hasLogin == false && hasLogout == false) {//give permission to login
+			System.out.println("job started");
+			System.out.println(request.getRemoteAddr());
+			System.out.println(attendance);
+			String username = "";
+			if( principal != null ) {
+				username = principal.getName();
+				Userinfo userinfo = userinfoService.getUserIdFromName(username);
+		    	System.out.println("Single Notice : "+userinfo);
+		    	attendance.setLogintime(LocalDateTime.now());
+		    	attendance.setUserinfo_id(userinfo.getId());
+		    	attendance.setIpaddress(request.getRemoteAddr());
+		    	attendance.setWorkinghours(0);
+				System.out.println("Attendence object test : "+attendance);
+				
+				attendanceService.create(attendance);
+			}
+		}
+		
+		
+		
+		if (away != null) {
+			System.out.println("Logout operation");
+			if(hasLogin == true && hasLogout == false) {
+				//give logout permission
+				attendanceService.giveLogoutPermissionAndCalculateWorkingHour(principal.getName() , userinfoService.getUserIdFromName(principal.getName()).getId(), LocalDate.now());
+				
+			}	
+		}
+		
 		
 		
 //		boolean hasLogin = false;

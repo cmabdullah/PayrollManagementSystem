@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 
 
+
 @Component("attendenceDao")
 public class AttendanceDao {
 	
@@ -73,6 +74,11 @@ public class AttendanceDao {
 				return attendance;// return single object
 			}
 		});
+	}
+	
+	public boolean updateAttendence(Attendance attendance) {
+		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(attendance);
+		return jdbc.update("update attendence set logouttime=:logouttime,workinghours=:workinghours  where id=:id", params) == 1;
 	}
 	
 	

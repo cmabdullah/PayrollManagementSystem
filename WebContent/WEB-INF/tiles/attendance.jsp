@@ -11,7 +11,7 @@
 
 <c:if test="${hasLogin == true && hasLogout == false}">
 
-<button id="submit" name="submit" class="btn btn-primary">Away</button> 
+<button id="away" name="away" class="btn btn-primary">Away</button> 
 
 </c:if>
 	
