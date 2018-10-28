@@ -87,9 +87,9 @@ public class UserinfoDao {
 	
 	}
 
-	public boolean update(Userinfo userinfo) {
+	public boolean updateUserEnabledStatus(Userinfo userinfo) {
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(userinfo);
-		return jdbc.update("update userinfo set username=:username,password=:password,usertype=:usertype,status=:status,fullname=:fullname,address=:address,email=:email ,phone=:phone where id=:id", params) == 1;
+		return jdbc.update("update userinfo set enabled=:enabled where username=:username", params) == 1;
 	}
 	//old code
 	public Userinfo getUserinfo(int id){

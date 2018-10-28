@@ -42,5 +42,10 @@ public class UserinfoService {
 		return userinfoDao.getUserIdFromName(username);
 		
 	}
+
+	public void updateUserEnabledStatus(Userinfo userinfo) {
+		userinfoDao.updateUserEnabledStatus(userinfo);
+		
+	}
 	
 }

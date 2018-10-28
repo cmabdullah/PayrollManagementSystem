@@ -35,9 +35,7 @@ public class AttendanceController {
 	}
 
 	
-//	@Autowired
-//    private CacheManager cacheManager;
-//	
+
 	@RequestMapping("/attendance")
 	public String giveAttendence( Model model, HttpServletRequest request, Principal principal) {
 		
@@ -59,11 +57,11 @@ public class AttendanceController {
 		if(hasLogin == false && hasLogout == true) {
 			//block user
 			
-			
-			//remove cash
-//			for(String name:cacheManager.getCacheNames()){
-//	            cacheManager.getCache(name).clear();            // clear cache by name
-//	        }
+			Userinfo userinfo = new Userinfo();
+			userinfo.setUsername(principal.getName());
+			userinfo.setEnabled(false);
+			System.out.println("F"+ userinfo);
+			userinfoService.updateUserEnabledStatus(userinfo);
 			
 			
 			return "block";
