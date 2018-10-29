@@ -73,6 +73,8 @@
 		<security:intercept-url pattern="/start" access="permitAll" />
 		<security:intercept-url pattern="/block" access="permitAll" />
 		
+		<security:intercept-url pattern="/leavereq" access="hasRole('ROLE_EMPLOYEE')" />
+		
 		
 		
 		

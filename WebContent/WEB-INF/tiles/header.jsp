@@ -22,6 +22,9 @@
 			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/disable_enable_user'/>">Disable_Enable_User</a> </li>
 			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/attendance'/>">Attendance</a> </li>
 		
+			<sec:authorize access="hasRole('ROLE_EMPLOYEE')">
+				<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/leavereq'/>">Leave</a> </li>
+			</sec:authorize>
 		</ul>
 		
 

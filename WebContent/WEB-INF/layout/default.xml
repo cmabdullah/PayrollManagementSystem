@@ -88,5 +88,10 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/block.jsp"></put-attribute>		
 	</definition>
 	
+	<definition name="leavereq" extends="manager.base">
+		<put-attribute name="title" value="leave request....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/leavereq.jsp"></put-attribute>		
+	</definition>
+	
 
 </tiles-definitions>
