@@ -17,6 +17,6 @@ public class LeavetestDao {
 	
 	public boolean create(Leavetest leavetest) {
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(leavetest);
-		return jdbc.update("insert into leavetest (reasone , status, leavetype) values (:reasone,:status,:leavetype)", params) == 1;
+		return jdbc.update("insert into leavetest (reasone , status, leavetype,userinfo_id) values (:reasone,:status,:leavetype,:userinfo_id)", params) == 1;
 	}
 }

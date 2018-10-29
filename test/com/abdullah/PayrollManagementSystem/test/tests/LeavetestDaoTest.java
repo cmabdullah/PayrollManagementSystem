@@ -36,7 +36,7 @@ public class LeavetestDaoTest {
 	@Test
 	public void loadNewUserInfo() {
 		
-		Leavetest leavetest = new Leavetest("reasone will talk later",true, "hi Cm How are you?");
+		Leavetest leavetest = new Leavetest("reasone will talk later",true, "hi Cm How are you?", 2026);
 		assertTrue("User create should be return true",leavetestDao.create(leavetest));
 		
 		
