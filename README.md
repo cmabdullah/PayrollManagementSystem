@@ -23,3 +23,4 @@ SELECT * FROM PayrollManagementSystem.attendence where logintime <  "2018-10-26%
 
 
 
+insert into PayrollManagementSystem.leave (reasone,userinfo_id) values ('ff',2026)
