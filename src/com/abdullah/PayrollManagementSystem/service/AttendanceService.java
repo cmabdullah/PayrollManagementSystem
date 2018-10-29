@@ -89,13 +89,28 @@ public class AttendanceService {
 
 			
 			int count = 0;
+			System.out.println("defultLogoutTime "+defultLogoutTime);
 			
-			if (loginTime.plusHours(1).isBefore(defultLogoutTime)) {
-				while(loginTime.isBefore(defultLogoutTime)) {
-					loginTime = loginTime.plusHours(1);
-					count++;
-					System.out.println(loginTime);	
-				}
+			if (loginTime.plusHours(8).isBefore(defultLogoutTime)) {
+				count = 8;
+			} else if(loginTime.plusHours(7).isBefore(defultLogoutTime)) {
+				count = 7;
+			} else if(loginTime.plusHours(6).isBefore(defultLogoutTime)) {
+				count = 6;
+			} else if(loginTime.plusHours(5).isBefore(defultLogoutTime)) {
+				count = 5;
+			} else if(loginTime.plusHours(4).isBefore(defultLogoutTime)) {
+				count = 4;
+			} else if(loginTime.plusHours(3).isBefore(defultLogoutTime)) {
+				count = 3;
+			} else if(loginTime.plusHours(2).isBefore(defultLogoutTime)) {
+				count = 2;
+			} else if(loginTime.plusHours(1).isBefore(defultLogoutTime)) {
+				count = 1;
+			} else if(loginTime.plusHours(0).isBefore(defultLogoutTime)) {
+				count = 0;
+			} else {
+				count = 0;
 			}
 			
 			attendence.setLogouttime(defultLogoutTime);
