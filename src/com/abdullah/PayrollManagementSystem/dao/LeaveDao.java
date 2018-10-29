@@ -20,7 +20,7 @@ public class LeaveDao {
 	public boolean create(Leave leave) {
 		System.out.println("Leave object : "+leave);
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(leave);
-		return jdbc.update("insert into leave (id,reasone,from,to,userinfo_id,status,leavetype) values (:id,:reasone,:from,:to,:userinfo_id,:status,:leavetype)", params) == 1;
+		return jdbc.update("insert into leaveusers (reasone,entryfrom,entryto,userinfo_id,status,leavetype) values (:reasone,:entryfrom,:entryto,:userinfo_id,:status,:leavetype)", params) == 1;
 	}
 
 

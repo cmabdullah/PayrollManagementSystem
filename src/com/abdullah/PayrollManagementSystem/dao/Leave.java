@@ -5,21 +5,22 @@ import java.time.LocalDateTime;
 public class Leave {
 	private int id;
 	private String reasone;
-	private LocalDateTime from;
-	private LocalDateTime to;
+	private LocalDateTime entryfrom;
+	private LocalDateTime entryto;
 	private int userinfo_id;
 	private boolean status;
 	private String leavetype;
+	
 	
 	Leave(){
 		
 	}
 
-	public Leave(String reasone, LocalDateTime from, LocalDateTime to, int userinfo_id, boolean status,
+	public Leave(String reasone, LocalDateTime entryfrom, LocalDateTime entryto, int userinfo_id, boolean status,
 			String leavetype) {
 		this.reasone = reasone;
-		this.from = from;
-		this.to = to;
+		this.entryfrom = entryfrom;
+		this.entryto = entryto;
 		this.userinfo_id = userinfo_id;
 		this.status = status;
 		this.leavetype = leavetype;
@@ -27,12 +28,12 @@ public class Leave {
 	
 	
 
-	public Leave(int id, String reasone, LocalDateTime from, LocalDateTime to, int userinfo_id, boolean status,
+	public Leave(int id, String reasone, LocalDateTime entryfrom, LocalDateTime entryto, int userinfo_id, boolean status,
 			String leavetype) {
 		this.id = id;
 		this.reasone = reasone;
-		this.from = from;
-		this.to = to;
+		this.entryfrom = entryfrom;
+		this.entryto = entryto;
 		this.userinfo_id = userinfo_id;
 		this.status = status;
 		this.leavetype = leavetype;
@@ -54,20 +55,21 @@ public class Leave {
 		this.reasone = reasone;
 	}
 
-	public LocalDateTime getFrom() {
-		return from;
+	
+	public LocalDateTime getEntryfrom() {
+		return entryfrom;
 	}
 
-	public void setFrom(LocalDateTime from) {
-		this.from = from;
+	public void setEntryfrom(LocalDateTime entryfrom) {
+		this.entryfrom = entryfrom;
 	}
 
-	public LocalDateTime getTo() {
-		return to;
+	public LocalDateTime getEntryto() {
+		return entryto;
 	}
 
-	public void setTo(LocalDateTime to) {
-		this.to = to;
+	public void setEntryto(LocalDateTime entryto) {
+		this.entryto = entryto;
 	}
 
 	public int getUserinfo_id() {
@@ -96,8 +98,10 @@ public class Leave {
 
 	@Override
 	public String toString() {
-		return "Leave [id=" + id + ", reasone=" + reasone + ", from=" + from + ", to=" + to + ", userinfo_id="
-				+ userinfo_id + ", status=" + status + ", leavetype=" + leavetype + "]";
+		return "Leave [id=" + id + ", reasone=" + reasone + ", entryfrom=" + entryfrom + ", entryto=" + entryto
+				+ ", userinfo_id=" + userinfo_id + ", status=" + status + ", leavetype=" + leavetype + "]";
 	}
+
+	
 
 }

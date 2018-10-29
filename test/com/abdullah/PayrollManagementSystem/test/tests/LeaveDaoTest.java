@@ -41,7 +41,6 @@ public class LeaveDaoTest {
 	@Test
 	public void loadNewUserInfo() {
 		//Userinfo( String username, String password, boolean enabled, String authority, String fullname, String address, String email, int phone)
-		int id = 111;
 		String reasone = "FFFF";
 		LocalDateTime from = LocalDateTime.now();
 		LocalDateTime to = LocalDateTime.now();
@@ -49,7 +48,7 @@ public class LeaveDaoTest {
 		boolean status = true;
 		String leavetype = "Study";
 		
-		Leave leave = new Leave(id,reasone,from,to,userinfo_id,status,leavetype);
+		Leave leave = new Leave(reasone,from,to,userinfo_id,status,leavetype);
 		assertTrue("User create should be return true",leaveDao.create(leave));
 		
 		
