@@ -17,7 +17,7 @@ public class LeaveDao {
 		this.jdbc = new NamedParameterJdbcTemplate(jdbc);
 	}
 	
-	public boolean create(Leave leave) {
+	public boolean postLeaveApplication(Leave leave) {
 		System.out.println("Leave object : "+leave);
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(leave);
 		return jdbc.update("insert into leaveusers (reasone,entryfrom,entryto,userinfo_id,status,leavetype) values (:reasone,:entryfrom,:entryto,:userinfo_id,:status,:leavetype)", params) == 1;
