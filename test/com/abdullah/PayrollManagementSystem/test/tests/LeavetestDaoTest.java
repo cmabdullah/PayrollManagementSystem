@@ -2,6 +2,8 @@ package com.abdullah.PayrollManagementSystem.test.tests;
 
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDateTime;
+
 import javax.sql.DataSource;
 
 import org.junit.Before;
@@ -36,10 +38,9 @@ public class LeavetestDaoTest {
 	@Test
 	public void loadNewUserInfo() {
 		
-		Leavetest leavetest = new Leavetest("reasone will talk later",true, "hi Cm How are you?", 2026);
+		Leavetest leavetest = new Leavetest(101,"will talk later",true,"Study",2026,LocalDateTime.now(),LocalDateTime.now());
+
 		assertTrue("User create should be return true",leavetestDao.create(leavetest));
 		
-		
 	}
-
 }
