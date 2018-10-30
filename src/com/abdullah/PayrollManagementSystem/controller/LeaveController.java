@@ -40,7 +40,7 @@ public class LeaveController {
 		leave.setUserinfo_id(userinfoService.getUserIdFromName(principal.getName()).getId());
 		
 		
-		//leaveService.postLeaveApplication(leave);
+		leaveService.postLeaveApplication(leave);
 		
 		return "leavereq";
 	}
