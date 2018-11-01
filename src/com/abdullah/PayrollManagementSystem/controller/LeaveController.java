@@ -45,4 +45,9 @@ public class LeaveController {
 		return "leavereq";
 	}
 	
+	@RequestMapping("/ad_leave")
+	public String adLeaveRequest() {
+		return "ad_leave";
+	}
+	
 }

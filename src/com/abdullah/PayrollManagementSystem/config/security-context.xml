@@ -75,6 +75,7 @@
 		
 		<security:intercept-url pattern="/leavereq" access="hasRole('ROLE_EMPLOYEE')" />
 		<security:intercept-url pattern="/leavereq_process" access="hasRole('ROLE_EMPLOYEE')" />
+		<security:intercept-url pattern="/ad_leave" access="hasRole('ROLE_ADMIN')" />
 		
 		
 		
