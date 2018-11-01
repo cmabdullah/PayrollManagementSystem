@@ -1,12 +1,17 @@
 package com.abdullah.PayrollManagementSystem.controller;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -45,9 +50,17 @@ public class LeaveController {
 		return "leavereq";
 	}
 	
+	
 	@RequestMapping("/ad_leave")
-	public String adLeaveRequest() {
+	public String adLeaveRequest(Model model) {
+		model.addAttribute(new Leave());
 		return "ad_leave";
+	}
+	@RequestMapping(value = "/ad_leave_req_process",  method=RequestMethod.POST)
+	public String adLeaveRequestProcess(Model model,@Valid Leave leave) {
+		//leave.setEntryfrom(LocalDateTime.parse(leave.getEntryfromString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		System.out.println("Show leave info : "+leave);
+		return "disable_enable_user_success";
 	}
 	
 }

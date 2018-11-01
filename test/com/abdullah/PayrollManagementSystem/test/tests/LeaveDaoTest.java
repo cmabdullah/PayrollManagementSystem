@@ -47,8 +47,9 @@ public class LeaveDaoTest {
 		int userinfo_id = 2026;
 		boolean status = true;
 		String leavetype = null;
+		String entryfromString = null;
 		
-		Leave leave = new Leave(reasone,from,to,userinfo_id,status,leavetype);
+		Leave leave = new Leave(reasone,from,to,userinfo_id,status,leavetype,entryfromString);
 		assertTrue("User create should be return true",leaveDao.postLeaveApplication(leave));
 		
 		
