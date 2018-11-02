@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-	<a class="navbar-brand" href="#">Notices</a>
+	
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarsExampleDefault"
 		aria-controls="navbarsExampleDefault" aria-expanded="false"
@@ -11,17 +11,20 @@
 	<!-- Header file in -->
 	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active"><a class="nav-link" href="<c:url value='/'/>">Home
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/'/>">Home
 			</a></li>
 			
-			<li class="nav-item"><a class="nav-link " href="<c:url value='/usersinfo'/>">Show All users information</a>
+			<li class="nav-item"><a class="nav-link " href="<c:url value='/usersinfo'/>">Users</a>
 
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/registration'/>">Registration</a> </li>
 			</sec:authorize>
-			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/disable_enable_user'/>">Disable_Enable_User</a> </li>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/disable_enable_user'/>">Enable</a> </li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_EMPLOYEE')">
 			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/attendance'/>">Attendance</a> </li>
-		
+			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_EMPLOYEE')">
 				<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/leavereq'/>">Leave</a> </li>
 			</sec:authorize>

@@ -39,7 +39,9 @@ public class LeaveController {
 
 	@RequestMapping("/leavereq")
 	public String leaveRequest(Model model, @Valid Leave leave, Principal principal) {
-
+		boolean isPandingRequest = false;
+		isPandingRequest = leaveService.isPandingRequest(leave.getUserinfo_id());
+		model.addAttribute("isPandingRequest",isPandingRequest);
 		return "leavereq";
 	}
 	

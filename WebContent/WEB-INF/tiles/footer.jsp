@@ -3,12 +3,7 @@
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
-<div class="footer">
-	<p>Posted by: C M Abdullah Khan</p>
-	<p>
-		Contact information: <a href="cmabdullah21@gmaile.com">cmabdullah21@gmaile.com</a>.
-	</p>
-	
-	<h6>©abdullah</h6>
-	
-</div>
+</div>    
+    <div class="fixed-footer" align="center">
+        <div class="container">Copyright &copy; 2018 by C M Abdullah Khan</div>        
+    </div>

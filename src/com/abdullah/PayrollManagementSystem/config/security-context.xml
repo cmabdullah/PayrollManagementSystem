@@ -65,11 +65,12 @@
 		<security:intercept-url pattern="/createaccount" access="permitAll" />
 		<security:intercept-url pattern="/accountcreated" access="permitAll" />
 		<security:intercept-url pattern="/loggedout " access="permitAll" />
-		<security:intercept-url pattern="/disable_enable_user " access="permitAll" />
-		<security:intercept-url pattern="/disable_enable_user_success " access="permitAll" />
+		
+		<security:intercept-url pattern="/disable_enable_user " access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/disable_enable_user_success " access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/DEU " access="permitAll" />
 		
-		<security:intercept-url pattern="/attendance" access="permitAll" />
+		<security:intercept-url pattern="/attendance" access="hasRole('ROLE_EMPLOYEE')" />
 		<security:intercept-url pattern="/start" access="permitAll" />
 		<security:intercept-url pattern="/block" access="permitAll" />
 		
