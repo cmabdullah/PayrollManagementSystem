@@ -39,3 +39,28 @@
 	<button id="submit" name="submit" type="submit">Submit</button>
 
 </sf:form>
+
+
+
+<c:if test="${leaveInit != null}">
+<table class="table table-striped">
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col">reason</th>
+			<th scope="col">userinfo_id</th>
+
+		</tr>
+		<c:forEach var="leaveInitSigle" items="${leaveInit}">
+			<tr>
+				<td><c:out value="${leaveInitSigle.id}"></c:out></td>
+				<td><c:out value="${leaveInitSigle.reasone}"></c:out></td>
+				<td><c:out value="${leaveInitSigle.userinfo_id}"></c:out></td>
+
+
+			</tr>
+		</c:forEach>
+	</table>
+
+</c:if>
+
+

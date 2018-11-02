@@ -71,6 +71,21 @@ public class LeaveDao {
 		return jdbc.update("update leaveusers set leavetype=:leavetype,entryfrom=:entryfrom,entryto=:entryto,total_leave_days=:total_leave_days  where id=:id", params) == 1;
 	}
 
+	public List<Leave> getAllLeaveRequests() {
+		return jdbc.query("SELECT * FROM leaveusers where  entryfrom IS NULL AND entryto IS NULL", new RowMapper<Leave>() {
+			public Leave mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Leave leave = new Leave();
+				leave.setId(rs.getInt("id"));
+				leave.setUserinfo_id(rs.getInt("userinfo_id"));
+				leave.setReasone(rs.getString("reasone"));
+				
+				return leave;
+			}
+		});
+	}
+	
+
+
 //	public void confirmPendingLeaveApplication(Leave leave) {
 //		// TODO Auto-generated method stub
 //		

@@ -68,4 +68,8 @@ public class LeaveService {
 		Leave leave = leaveDao.getLeaveApplicationIdBasedOnUserinfo_id(userinfo_id);
 		return leave.getId();
 	}
+
+	public List<Leave> getAllLeaveRequests() {
+		return leaveDao.getAllLeaveRequests();
+	}
 }

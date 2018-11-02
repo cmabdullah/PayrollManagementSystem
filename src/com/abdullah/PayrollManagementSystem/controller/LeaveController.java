@@ -3,6 +3,7 @@ package com.abdullah.PayrollManagementSystem.controller;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.abdullah.PayrollManagementSystem.dao.Leave;
+import com.abdullah.PayrollManagementSystem.dao.Userinfo;
 import com.abdullah.PayrollManagementSystem.service.LeaveService;
 import com.abdullah.PayrollManagementSystem.service.UserinfoService;
 @Controller
@@ -69,7 +71,12 @@ public class LeaveController {
 	//admin panel
 	@RequestMapping("/ad_leave")
 	public String adLeaveRequest(Model model) {
-		model.addAttribute(new Leave());
+		
+		List<Leave> leaveInit = leaveService.getAllLeaveRequests();
+		
+		//first usersinfo is key, last usersinfo is value
+		model.addAttribute("leaveInit",leaveInit);
+		
 		return "ad_leave";
 	}
 	
