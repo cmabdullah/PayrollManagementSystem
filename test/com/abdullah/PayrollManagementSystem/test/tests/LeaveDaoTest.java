@@ -1,8 +1,10 @@
 package com.abdullah.PayrollManagementSystem.test.tests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -15,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.abdullah.PayrollManagementSystem.dao.Attendance;
 import com.abdullah.PayrollManagementSystem.dao.Leave;
 import com.abdullah.PayrollManagementSystem.dao.LeaveDao;
 import com.abdullah.PayrollManagementSystem.dao.Userinfo;
@@ -48,11 +51,13 @@ public class LeaveDaoTest {
 		boolean status = true;
 		String leavetype = null;
 		String entryfromString = null;
+		String entrytoString = null;
 		
-		Leave leave = new Leave(reasone,from,to,userinfo_id,status,leavetype,entryfromString);
-		assertTrue("User create should be return true",leaveDao.postLeaveApplication(leave));
+//		Leave leave = new Leave(reasone,from,to,userinfo_id,status,leavetype,entryfromString,entrytoString);
+//		assertTrue("User create should be return true",leaveDao.postLeaveApplication(leave));
 		
 		
+		List<Leave> leave1 = leaveDao.checkPandingLeaveRequest( 2026);
+		assertEquals("Number of users shuld be 1", 1, leave1.size());
 	}
-
 }

@@ -137,4 +137,8 @@ public class UserinfoDao {
 			}
 		});
 	}
+
+	public boolean existsUserId(int id) {
+		return jdbc.queryForObject("select count(*) from userinfo where id=:id", new MapSqlParameterSource("id",id), Integer.class) > 0 ;
+	}
 }

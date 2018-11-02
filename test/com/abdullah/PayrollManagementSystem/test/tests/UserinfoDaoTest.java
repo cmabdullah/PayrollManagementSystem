@@ -39,6 +39,8 @@ public class UserinfoDaoTest {
 		Userinfo userinfo = new Userinfo("asdfg", "asdfg",true,"ROLE_ADMIN","C M ABU", "Bonosree","cm@gmail.com", 01717);
 		
 		assertTrue("User create should be return true",userinfoDao.create(userinfo));
+		assertTrue("User create should be return true",userinfoDao.existsUserId(2020));
+		
 		
 		
 	}

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,9 +58,42 @@ public class LeaveController {
 		return "ad_leave";
 	}
 	@RequestMapping(value = "/ad_leave_req_process",  method=RequestMethod.POST)
-	public String adLeaveRequestProcess(Model model,@Valid Leave leave) {
-		//leave.setEntryfrom(LocalDateTime.parse(leave.getEntryfromString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+	public String adLeaveRequestProcess(Model model,@Valid Leave leave, BindingResult result, Principal principal) {
 		System.out.println("Show leave info : "+leave);
+		boolean wrongpattern = false;
+		boolean wrongid = false;
+		
+		if (!userinfoService.existsUserId(leave.getUserinfo_id())) {
+			wrongid = true;
+			model.addAttribute("wrongid",wrongid);
+			//result.rejectValue("userinfo_id", "DuplicateKey.leave.userinfo_id", "this userinfo_id is not exist yet");
+			return "ad_leave";
+		}
+		
+		
+		
+		if(leave.getEntryfrom().isAfter(leave.getEntryto())) {
+			leave.setEntryfrom(null);
+			leave.setEntryto(null);
+			wrongpattern = true;
+			model.addAttribute("wrongpattern",wrongpattern);
+			return "ad_leave";
+		}
+		
+		boolean isPandingRequest = false;
+		
+		
+		
+		
+			//hasLogout = attendanceService.hasLogout(principal.getName() , userinfoService.getUserIdFromName(principal.getName()).getId(), LocalDate.now());
+			//isPandingRequest = leaveService.isPandingRequest(leave.getUserinfo_id());
+		
+//			if(isPandingRequest) {
+//				model.addAttribute("isPandingRequest",isPandingRequest);
+//				return "ad_leave";
+//			}
+		
+		leaveService.performADRequest(leave);
 		return "disable_enable_user_success";
 	}
 	

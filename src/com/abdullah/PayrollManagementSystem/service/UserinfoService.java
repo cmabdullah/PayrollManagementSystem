@@ -47,5 +47,9 @@ public class UserinfoService {
 		userinfoDao.updateUserEnabledStatus(userinfo);
 		
 	}
+
+	public boolean existsUserId(int userinfo_id) {
+		return userinfoDao.existsUserId(userinfo_id);
+	}
 	
 }
