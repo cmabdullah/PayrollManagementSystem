@@ -16,13 +16,15 @@ public class Leave {
 	private String entryfromString;
 	private String entrytoString;
 	
+	private int total_leave_days;
+	
 	
 	public Leave(){
 		
 	}
 
 	public Leave(String reasone, LocalDateTime entryfrom, LocalDateTime entryto, int userinfo_id, boolean status,
-			String leavetype, String entryfromString, String entrytoString) {
+			String leavetype, String entryfromString, String entrytoString, int total_leave_days) {
 		this.reasone = reasone;
 		this.entryfrom = entryfrom;
 		this.entryto = entryto;
@@ -31,12 +33,13 @@ public class Leave {
 		this.leavetype = leavetype;
 		this.entryfromString = entryfromString;
 		this.entrytoString = entrytoString;
+		this.total_leave_days = total_leave_days;
 	}
 	
 	
 
 	public Leave(int id, String reasone, LocalDateTime entryfrom, LocalDateTime entryto, int userinfo_id, boolean status,
-			String leavetype, String entryfromString, String entrytoString) {
+			String leavetype, String entryfromString, String entrytoString, int total_leave_days) {
 		this.id = id;
 		this.reasone = reasone;
 		this.entryfrom = entryfrom;
@@ -46,6 +49,7 @@ public class Leave {
 		this.leavetype = leavetype;
 		this.entryfromString = entryfromString;
 		this.entrytoString = entrytoString;
+		this.total_leave_days = total_leave_days;
 	}
 
 	public int getId() {
@@ -113,6 +117,9 @@ public class Leave {
 
 	public void setEntryfromString(String entryfromString) {
 		this.entryfromString = entryfromString;
+		//convert string to Localdatetime
+		this.entryfrom = LocalDateTime.parse(entryfromString.concat(" 00:00"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    	//LocalDateTime defultLogoutTime = LocalDateTime.parse(defultLogoutTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 	}
 	
 	
@@ -123,14 +130,30 @@ public class Leave {
 
 	public void setEntrytoString(String entrytoString) {
 		this.entrytoString = entrytoString;
+		this.entryto =  LocalDateTime.parse(entrytoString.concat(" 00:00"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+	}
+
+	
+	
+	
+	
+	public int getTotal_leave_days() {
+		return total_leave_days;
+	}
+
+	public void setTotal_leave_days(int total_leave_days) {
+		this.total_leave_days = total_leave_days;
 	}
 
 	@Override
 	public String toString() {
 		return "Leave [id=" + id + ", reasone=" + reasone + ", entryfrom=" + entryfrom + ", entryto=" + entryto
 				+ ", userinfo_id=" + userinfo_id + ", status=" + status + ", leavetype=" + leavetype
-				+ ", entryfromString=" + entryfromString + ", entrytoString=" + entrytoString + "]";
+				+ ", entryfromString=" + entryfromString + ", entrytoString=" + entrytoString + ", total_leave_days="
+				+ total_leave_days + "]";
 	}
+
+	
 
 	
 	

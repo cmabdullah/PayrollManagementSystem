@@ -76,7 +76,7 @@ public class LeaveController {
 	//admin panel
 	@RequestMapping(value = "/ad_leave_req_process",  method=RequestMethod.POST)
 	public String adLeaveRequestProcess(Model model,@Valid Leave leave, BindingResult result, Principal principal) {
-		System.out.println("Show leave info : "+leave);
+		
 		boolean wrongpattern = false;
 		boolean wrongid = false;
 		
@@ -95,10 +95,11 @@ public class LeaveController {
 			return "ad_leave";
 		}
 		
+		int leaveId = leaveService.getLeaveApplicationIdBasedOnUserinfo_id(leave.getUserinfo_id());
+		leave.setId(leaveId);
 		
-		
+		System.out.println("Show leave info : "+leave);
 		leaveService.performADRequest(leave);
 		return "disable_enable_user_success";
 	}
-	
 }
