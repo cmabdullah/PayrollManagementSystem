@@ -1,11 +1,16 @@
 package com.abdullah.PayrollManagementSystem.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -26,9 +31,23 @@ public class LeaveDao {
 	}
 
 	public List<Leave> checkPandingLeaveRequest(int userinfo_id) {
-		// TODO Auto-generated method stub
-		return null;
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("userinfo_id", userinfo_id);
+		//select * from notices where id = :id
+		//SELECT * FROM leaveusers where userinfo_id=:userinfo_id AND entryfrom IS NULL AND entryto IS NULL
+		return jdbc.query("SELECT * FROM leaveusers where userinfo_id=:userinfo_id", params, new RowMapper<Leave>() {
+			public Leave mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Leave leave = new Leave();
+				leave.setId(rs.getInt("id"));
+//				leave.setReasone(rs.getString("reasone"));
+//				leave.setStatus(rs.getBoolean("status"));
+//				leave.setLeavetype(rs.getString("leavetype"));
+//				leave.setUserinfo_id(rs.getInt("userinfo_id"));
+//				leave.setEntryfrom(rs.getTimestamp("entryfrom").toLocalDateTime());
+//				leave.setEntryto(rs.getTimestamp("entryto").toLocalDateTime());
+				
+				return leave;// return single object
+			}
+		});
 	}
-
-
 }

@@ -26,6 +26,7 @@ SELECT * FROM PayrollManagementSystem.attendence where logintime <  "2018-10-26%
 insert into PayrollManagementSystem.leave (reasone,userinfo_id) values ('ff',2026)
 
 
+SELECT * FROM PayrollManagementSystem.leaveusers where userinfo_id='2026' AND entryfrom IS NULL AND entryto IS NULL
 
 2783baf271251333bb18a8532305bf5761ee1c4ad636d352b73efc0dc6bf154ffb0fa0ed7face9c8-> 1234
 9611efdad194cffdcb05ecf4f671515ef2cf357be63ad7615086b17e99013ef956b46e56b5a29b00->zxcv

@@ -36,7 +36,8 @@ public class LeaveController {
 	}
 
 	@RequestMapping("/leavereq")
-	public String leaveRequest() {
+	public String leaveRequest(Model model, @Valid Leave leave, Principal principal) {
+
 		return "leavereq";
 	}
 	
@@ -46,17 +47,33 @@ public class LeaveController {
 		leave.setUserinfo_id(userinfoService.getUserIdFromName(principal.getName()).getId());
 		
 		
-		leaveService.postLeaveApplication(leave);
+		boolean isPandingRequest = false;
+		isPandingRequest = leaveService.isPandingRequest(leave.getUserinfo_id());
+		
+		if(isPandingRequest) {
+			model.addAttribute("isPandingRequest",isPandingRequest);
+			return "leavereq";
+		} else {
+			leaveService.postLeaveApplication(leave);
+		}
+		
+		
+		
+		//leaveService.postLeaveApplication(leave);
 		
 		return "leavereq";
 	}
 	
 	
+	
+	//admin panel
 	@RequestMapping("/ad_leave")
 	public String adLeaveRequest(Model model) {
 		model.addAttribute(new Leave());
 		return "ad_leave";
 	}
+	
+	//admin panel
 	@RequestMapping(value = "/ad_leave_req_process",  method=RequestMethod.POST)
 	public String adLeaveRequestProcess(Model model,@Valid Leave leave, BindingResult result, Principal principal) {
 		System.out.println("Show leave info : "+leave);
@@ -70,8 +87,6 @@ public class LeaveController {
 			return "ad_leave";
 		}
 		
-		
-		
 		if(leave.getEntryfrom().isAfter(leave.getEntryto())) {
 			leave.setEntryfrom(null);
 			leave.setEntryto(null);
@@ -80,18 +95,7 @@ public class LeaveController {
 			return "ad_leave";
 		}
 		
-		boolean isPandingRequest = false;
 		
-		
-		
-		
-			//hasLogout = attendanceService.hasLogout(principal.getName() , userinfoService.getUserIdFromName(principal.getName()).getId(), LocalDate.now());
-			//isPandingRequest = leaveService.isPandingRequest(leave.getUserinfo_id());
-		
-//			if(isPandingRequest) {
-//				model.addAttribute("isPandingRequest",isPandingRequest);
-//				return "ad_leave";
-//			}
 		
 		leaveService.performADRequest(leave);
 		return "disable_enable_user_success";

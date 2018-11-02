@@ -31,8 +31,6 @@ public class LeaveService {
 	}
 
 	public boolean isPandingRequest(int userinfo_id) {
-		// TODO Auto-generated method stub
-		
 		
 		
 		List<Leave> leave = leaveDao.checkPandingLeaveRequest(userinfo_id);

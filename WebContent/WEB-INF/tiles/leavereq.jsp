@@ -5,6 +5,12 @@
 <h1>leavereq</h1>
 
 
+
+<c:if test="${isPandingRequest == true}">
+	<h1>You have already a pending request</h1>
+</c:if>
+
+<c:if test="${isPandingRequest == false}">
 <div class="col-md-6 col-md-offset-3">
 	<form class="form-horizontal" method="post"
 		action="${pageContext.request.contextPath}/leavereq_process">
@@ -28,3 +34,5 @@
 
 	</form>
 </div>
+
+</c:if>
