@@ -98,5 +98,10 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/ad_leave.jsp"></put-attribute>		
 	</definition>
 	
+	<definition name="loanreq" extends="manager.base">
+		<put-attribute name="title" value="accept or deny leave request....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/loanreq.jsp"></put-attribute>		
+	</definition>
+	
 
 </tiles-definitions>
