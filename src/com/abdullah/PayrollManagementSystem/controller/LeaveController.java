@@ -104,6 +104,20 @@ public class LeaveController {
 			return "ad_leave";
 		}
 		
+		//check user id has any pending request or not
+		List<Leave> leaveInit = leaveService.getAllLeaveRequests();
+		int userInfoId = leave.getUserinfo_id();
+		boolean userIdPendingRequestExist = false;
+		for (Leave leave1 : leaveInit) {
+			
+			if (leave1.getUserinfo_id() == userInfoId) {
+				userIdPendingRequestExist = true;
+			}
+		}
+		if(!userIdPendingRequestExist)
+			return "ad_leave";
+		
+		//if user id has pending request
 		int leaveId = leaveService.getLeaveApplicationIdBasedOnUserinfo_id(leave.getUserinfo_id());
 		leave.setId(leaveId);
 		
