@@ -1,10 +1,12 @@
 package com.abdullah.PayrollManagementSystem.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,9 +15,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.abdullah.PayrollManagementSystem.dao.Loan;
+import com.abdullah.PayrollManagementSystem.service.LoanService;
+import com.abdullah.PayrollManagementSystem.service.UserinfoService;
 @Controller
 public class LoanController {
 	private static Logger logger = Logger.getLogger(LoanController.class);
+	
+	
+	UserinfoService userinfoService;
+	
+	@Autowired
+	public void setUserinfoService(UserinfoService userinfoService) {
+		this.userinfoService = userinfoService;
+	}
+	
+	LoanService loanService;
+	
+	@Autowired
+	public void setLoanService(LoanService loanService) {
+		this.loanService = loanService;
+	}
 	@RequestMapping("/loanreq")
 	public String requestForLoan(Model model) {
 		model.addAttribute(new Loan());//add attribute into model
@@ -24,8 +43,8 @@ public class LoanController {
 	}
 	//@RequestMapping("/loanreq_process")
 	@RequestMapping(value = "/loanreq_process", method=RequestMethod.POST)
-	public String requestForLoanProcess(Model model, @Valid Loan loan , BindingResult result) {
-		logger.info("Showing loan....."+loan);
+	public String requestForLoanProcess(Model model, @Valid Loan loan , BindingResult result, Principal principal) {
+		
 		
 		
 		if (result.hasErrors()) {
@@ -37,8 +56,23 @@ public class LoanController {
 			System.out.println("Form is validet");
 		}
 		
+		loan.setUserinfo_id(userinfoService.getUserIdFromName(principal.getName()).getId());
+		logger.info("Showing loan....."+loan);
 		
-		return "loanreq";
+		
+		boolean isPandingLoanRequest = false;
+		isPandingLoanRequest = loanService.isPandingLoanRequest(loan.getUserinfo_id());
+		logger.info("is Panding Loan Request Status : "+isPandingLoanRequest);
+		if(isPandingLoanRequest) {
+			model.addAttribute("isPandingLoanRequest",isPandingLoanRequest);
+			return "loanreq";
+		} else {
+			loanService.postLeaveApplication(loan);
+		}
+		
+		
+		
+		return "disable_enable_user_success";
 	}
 	
 }

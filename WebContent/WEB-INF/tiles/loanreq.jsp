@@ -7,6 +7,9 @@
 <!--Spring form taglib-->
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
+<c:if test="${isPandingLoanRequest == true}">
+	<h1>You have already a pending request</h1>
+</c:if>
 
 <div class="col-md-6 col-md-offset-3">
 	<sf:form class="form-horizontal" method="post"
