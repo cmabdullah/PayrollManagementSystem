@@ -5,9 +5,13 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.abdullah.PayrollManagementSystem.controller.LoanController;
+
 public class Loan {
+	private static Logger logger = Logger.getLogger(LoanController.class);
 
 	// loan table entity
 	private int id;
@@ -27,6 +31,7 @@ public class Loan {
 	private LocalDateTime datetime;
 	private int paidamount;
 	private int loan_id;
+	
 
 	public Loan() {
 
@@ -120,6 +125,12 @@ public class Loan {
 
 	public void setAmountValidation(String amountValidation) {
 		this.amountValidation = amountValidation;
+		
+		if(amountValidation.matches("[0-9]+")) {
+			this.amount = Integer.parseInt(amountValidation);
+			logger.info("data parse successfull from amountValidation validation string to amount integer");
+		}
+		
 	}
 
 	public boolean isStatus() {
@@ -185,6 +196,9 @@ public class Loan {
 				+ ", reason=" + reason + ", lpid=" + lpid + ", datetime=" + datetime + ", paidamount=" + paidamount
 				+ ", loan_id=" + loan_id + "]";
 	}
+	
+	
+	
 	
 	
 
