@@ -80,6 +80,7 @@
 		<security:intercept-url pattern="/ad_leave_req_process" access="hasRole('ROLE_ADMIN')" />
 		
 		<security:intercept-url pattern="/loanreq" access="hasRole('ROLE_EMPLOYEE')" />
+		<security:intercept-url pattern="/loanreq_process" access="hasRole('ROLE_EMPLOYEE')" />
 		
 		
 		<!-- <security:intercept-url pattern="/leavereq" access="hasRole('ROLE_EMPLOYEE')" />-->
