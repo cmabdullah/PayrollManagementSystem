@@ -66,6 +66,12 @@ private static Logger logger = Logger.getLogger(LoanController.class);
 		});
 	}
 	
+	public boolean deletePendingLoanApplication(int id) { // delete method
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("id", id);
+		return jdbc.update("delete from loan where id = :id", params ) == 1 ; // return true if success
+	}
+	
 	
 	
 }

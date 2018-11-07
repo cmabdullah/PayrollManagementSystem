@@ -42,6 +42,8 @@ public class LoanService {
 	public List<Loan> getAllPendingRequests() {
 		return loanDao.getAllLoanPendingRequests();
 	}
-	
 
+	public void deletePendingLoanApplication(int id) {
+		loanDao.deletePendingLoanApplication(id);
+	}
 }
