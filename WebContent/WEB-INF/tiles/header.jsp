@@ -37,6 +37,11 @@
 			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/loanreq'/>">Loan_Req</a> </li>
 			</sec:authorize>
 			
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/ad_loan'/>">Loan_Req_Process</a> </li>
+			</sec:authorize>
+			
+			
 			
 		</ul>
 		

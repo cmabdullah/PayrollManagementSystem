@@ -2,11 +2,12 @@ package com.abdullah.PayrollManagementSystem.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -14,11 +15,13 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.abdullah.PayrollManagementSystem.controller.LoanController;
+
 @Component("leaveDao")
 public class LeaveDao {
 	
 	private NamedParameterJdbcTemplate jdbc;
-	
+	private static Logger logger = Logger.getLogger(LoanController.class);
 	@Autowired
 	public void setDataSource(DataSource jdbc) {
 		this.jdbc = new NamedParameterJdbcTemplate(jdbc);
@@ -78,7 +81,6 @@ public class LeaveDao {
 				leave.setId(rs.getInt("id"));
 				leave.setUserinfo_id(rs.getInt("userinfo_id"));
 				leave.setReasone(rs.getString("reasone"));
-				
 				return leave;
 			}
 		});

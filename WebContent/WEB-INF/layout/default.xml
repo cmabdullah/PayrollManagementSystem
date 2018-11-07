@@ -103,5 +103,10 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/loanreq.jsp"></put-attribute>		
 	</definition>
 	
+	<definition name="ad_loan" extends="manager.base">
+		<put-attribute name="title" value="accept or deny loan request....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/ad_loan.jsp"></put-attribute>		
+	</definition>
+	
 
 </tiles-definitions>

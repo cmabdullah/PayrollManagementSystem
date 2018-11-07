@@ -14,6 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.abdullah.PayrollManagementSystem.dao.Leave;
 import com.abdullah.PayrollManagementSystem.dao.Loan;
 import com.abdullah.PayrollManagementSystem.service.LoanService;
 import com.abdullah.PayrollManagementSystem.service.UserinfoService;
@@ -73,6 +74,26 @@ public class LoanController {
 		
 		
 		return "disable_enable_user_success";
+	}
+	
+	
+	@RequestMapping("/ad_loan")
+	public String approveOrDenayLoan(Model model) {
+		
+		
+		
+		List<Loan> loanAllPendingRequests = loanService.getAllPendingRequests();
+		
+		for (Loan loan : loanAllPendingRequests) {
+			System.out.println(loan);
+		}
+		
+		logger.info(" loanAllPendingRequests " +loanAllPendingRequests.size());
+		model.addAttribute("loanAllPendingRequests",loanAllPendingRequests);
+		
+		
+		logger.info("Showing approve or deny loan request.....");
+		return "ad_loan";
 	}
 	
 }

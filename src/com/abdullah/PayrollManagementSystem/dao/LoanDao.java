@@ -51,4 +51,21 @@ private static Logger logger = Logger.getLogger(LoanController.class);
 		return jdbc.update("insert into loan (placedate,amount,userinfo_id,reason) values (:placedate,:amount,:userinfo_id,:reason)", params) == 1;
 	}
 
+	
+	public List<Loan> getAllLoanPendingRequests() {
+		return jdbc.query("SELECT * FROM loan where  approvedate IS NULL AND status IS NULL", new RowMapper<Loan>() {
+			public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Loan loan = new Loan();
+				loan.setId(rs.getInt("id"));
+				loan.setUserinfo_id(rs.getInt("userinfo_id"));
+				loan.setReason(rs.getString("reason"));
+				loan.setAmount(rs.getInt("amount"));
+				
+				return loan;
+			}
+		});
+	}
+	
+	
+	
 }

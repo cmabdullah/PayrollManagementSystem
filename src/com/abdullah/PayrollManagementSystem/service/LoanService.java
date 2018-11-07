@@ -38,6 +38,10 @@ public class LoanService {
 		
 		return true;
 	}
+
+	public List<Loan> getAllPendingRequests() {
+		return loanDao.getAllLoanPendingRequests();
+	}
 	
 
 }
