@@ -30,15 +30,17 @@ public class LeaveDao {
 	public boolean postLeaveApplication(Leave leave) {
 		System.out.println("Leave object : "+leave);
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(leave);
-		return jdbc.update("insert into leaveusers (reasone,entryfrom,entryto,userinfo_id,status,leavetype) values (:reasone,:entryfrom,:entryto,:userinfo_id,:status,:leavetype)", params) == 1;
+		return jdbc.update("insert into leaveusers (reasone,entryfrom,entryto,userinfo_id,status,leavetype,total_leave_days) values (:reasone,:entryfrom,:entryto,:userinfo_id,:status,:leavetype, :total_leave_days)", params) == 1;
 	}
 
 	public List<Leave> checkPandingLeaveRequest(int userinfo_id) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("userinfo_id", userinfo_id);
+		params.addValue("status", 0);
+		
 		//select * from notices where id = :id
 		//SELECT * FROM leaveusers where userinfo_id=:userinfo_id AND entryfrom IS NULL AND entryto IS NULL
-		return jdbc.query("SELECT * FROM leaveusers where userinfo_id=:userinfo_id AND entryfrom IS NULL AND entryto IS NULL", params, new RowMapper<Leave>() {
+		return jdbc.query("SELECT * FROM leaveusers where userinfo_id=:userinfo_id AND status=:status", params, new RowMapper<Leave>() {
 			public Leave mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Leave leave = new Leave();
 				leave.setId(rs.getInt("id"));

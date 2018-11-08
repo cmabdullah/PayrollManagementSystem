@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ import com.abdullah.PayrollManagementSystem.service.UserinfoService;
 public class LeaveController {
 	
 	UserinfoService userinfoService;
-	
+	private static Logger logger = Logger.getLogger(LoanController.class);
 	@Autowired
 	public void setUserinfoService(UserinfoService userinfoService) {
 		this.userinfoService = userinfoService;
@@ -47,6 +48,16 @@ public class LeaveController {
 	
 	@RequestMapping(value = "/leavereq_process", method=RequestMethod.POST)
 	public String leaveRequestProcess(Model model,@Valid Leave leave, Principal principal) {
+		
+		
+		boolean wrongpattern = false;
+		if(leave.getEntryfrom().isAfter(leave.getEntryto())) {
+			leave.setEntryfrom(null);
+			leave.setEntryto(null);
+			wrongpattern = true;
+			model.addAttribute("wrongpattern",wrongpattern);
+			return "leavereq";
+		}
 		System.out.println(leave);
 		leave.setUserinfo_id(userinfoService.getUserIdFromName(principal.getName()).getId());
 		
@@ -59,13 +70,10 @@ public class LeaveController {
 			return "leavereq";
 		} else {
 			leaveService.postLeaveApplication(leave);
+			logger.info("Showing leave info....."+leave);
 		}
 		
-		
-		
-		//leaveService.postLeaveApplication(leave);
-		
-		return "leavereq";
+		return "disable_enable_user_success";
 	}
 	
 	

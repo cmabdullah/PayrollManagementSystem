@@ -22,7 +22,7 @@ public class Loan {
 	@Size(min = 3, max = 6)
 	@Pattern(regexp = "[0-9]+")
 	private String amountValidation;
-	private boolean status;
+	private int status;
 	private int userinfo_id;
 	private String reason;
 
@@ -38,7 +38,7 @@ public class Loan {
 	}
 
 	// no id exist
-	public Loan(LocalDateTime placedate, LocalDateTime approvedate, int amount, String amountValidation, boolean status,
+	public Loan(LocalDateTime placedate, LocalDateTime approvedate, int amount, String amountValidation, int status,
 			int userinfo_id, String reason, LocalDateTime datetime, int paidamount, int loan_id) {
 		this.placedate = placedate;
 		this.approvedate = approvedate;
@@ -54,7 +54,7 @@ public class Loan {
 
 	// lpid exist
 
-	public Loan(LocalDateTime placedate, LocalDateTime approvedate, int amount, String amountValidation, boolean status,
+	public Loan(LocalDateTime placedate, LocalDateTime approvedate, int amount, String amountValidation, int status,
 			int userinfo_id, String reason, int lpid, LocalDateTime datetime, int paidamount, int loan_id) {
 		this.placedate = placedate;
 		this.approvedate = approvedate;
@@ -71,7 +71,7 @@ public class Loan {
 
 	// id lpid exist
 	public Loan(int id, LocalDateTime placedate, LocalDateTime approvedate, int amount, String amountValidation,
-			boolean status, int userinfo_id, String reason, int lpid, LocalDateTime datetime, int paidamount,
+			int status, int userinfo_id, String reason, int lpid, LocalDateTime datetime, int paidamount,
 			int loan_id) {
 		this.id = id;
 		this.placedate = placedate;
@@ -133,11 +133,13 @@ public class Loan {
 		
 	}
 
-	public boolean isStatus() {
+	
+
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
@@ -196,6 +198,7 @@ public class Loan {
 				+ ", reason=" + reason + ", lpid=" + lpid + ", datetime=" + datetime + ", paidamount=" + paidamount
 				+ ", loan_id=" + loan_id + "]";
 	}
+
 	
 	
 	
