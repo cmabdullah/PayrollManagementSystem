@@ -14,7 +14,8 @@
 			<th scope="col">reason</th>
 			<th scope="col">userinfo_id</th>
 			<th scope="col">amount</th>
-			<th scope="col">DELETE</th>
+			<th scope="col">Delete</th>
+			<th scope="col">Accept</th>
 
 		</tr>
 		<c:forEach var="loanAllPendingRequest" items="${loanAllPendingRequests}">
@@ -25,6 +26,7 @@
 				<td><c:out value="${loanAllPendingRequest.amount}"></c:out></td>
 				
 				<td><a  href="<c:url value='/deleteemp/${loanAllPendingRequest.id}'/>">Delete</a></td>
+				<td><a  href="<c:url value='/accept_loan_request/${loanAllPendingRequest.id}'/>">Accept</a></td>
 				
 				<!--  <td>${emp.designation}</td>   -->
 				<td></td>  

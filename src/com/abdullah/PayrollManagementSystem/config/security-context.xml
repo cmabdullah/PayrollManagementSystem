@@ -83,6 +83,7 @@
 		<security:intercept-url pattern="/loanreq_process" access="hasRole('ROLE_EMPLOYEE')" />
 		<security:intercept-url pattern="/ad_loan" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/deleteemp/*" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/accept_loan_request/*" access="hasRole('ROLE_ADMIN')" />
 		<!-- http://localhost:8081/PayrollManagementSystem/deleteemp/4 -->
 		
 		<!-- <security:intercept-url pattern="/leavereq" access="hasRole('ROLE_EMPLOYEE')" />-->

@@ -106,4 +106,10 @@ public class LoanController {
 		return "ad_loan";
 	}
 	
+	@RequestMapping(value="/accept_loan_request/{id}",method = RequestMethod.GET)  
+	public String acceptLoanRequest(@PathVariable int id) {
+		
+		return "accept_loan_request";
+	}
+	
 }
