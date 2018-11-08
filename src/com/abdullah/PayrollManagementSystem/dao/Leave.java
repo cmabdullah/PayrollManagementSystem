@@ -10,7 +10,7 @@ public class Leave {
 	private LocalDateTime entryfrom;
 	private LocalDateTime entryto;
 	private int userinfo_id;
-	private boolean status;
+	private int status;
 	private String leavetype;
 	
 	private String entryfromString;
@@ -19,12 +19,20 @@ public class Leave {
 	private int total_leave_days;
 	
 	
+	//get user full name
+	//get user email
+	
+	private String fullname;
+	
+	private String email;
+	
+	
 	public Leave(){
 		
 	}
 
-	public Leave(String reasone, LocalDateTime entryfrom, LocalDateTime entryto, int userinfo_id, boolean status,
-			String leavetype, String entryfromString, String entrytoString, int total_leave_days) {
+	public Leave(String reasone, LocalDateTime entryfrom, LocalDateTime entryto, int userinfo_id, int status,
+			String leavetype, String entryfromString, String entrytoString, int total_leave_days, String fullname,String email ) {
 		this.reasone = reasone;
 		this.entryfrom = entryfrom;
 		this.entryto = entryto;
@@ -34,12 +42,14 @@ public class Leave {
 		this.entryfromString = entryfromString;
 		this.entrytoString = entrytoString;
 		this.total_leave_days = total_leave_days;
+		this.fullname = fullname;
+		this.email = email;
 	}
 	
 	
 
-	public Leave(int id, String reasone, LocalDateTime entryfrom, LocalDateTime entryto, int userinfo_id, boolean status,
-			String leavetype, String entryfromString, String entrytoString, int total_leave_days) {
+	public Leave(int id, String reasone, LocalDateTime entryfrom, LocalDateTime entryto, int userinfo_id, int status,
+			String leavetype, String entryfromString, String entrytoString, int total_leave_days, String fullname,String email) {
 		this.id = id;
 		this.reasone = reasone;
 		this.entryfrom = entryfrom;
@@ -50,6 +60,8 @@ public class Leave {
 		this.entryfromString = entryfromString;
 		this.entrytoString = entrytoString;
 		this.total_leave_days = total_leave_days;
+		this.fullname = fullname;
+		this.email = email;
 	}
 
 	public int getId() {
@@ -93,11 +105,13 @@ public class Leave {
 		this.userinfo_id = userinfo_id;
 	}
 
-	public boolean isStatus() {
+	
+
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
@@ -144,20 +158,34 @@ public class Leave {
 	public void setTotal_leave_days(int total_leave_days) {
 		this.total_leave_days = total_leave_days;
 	}
+	
+	
+	
+	
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@Override
 	public String toString() {
 		return "Leave [id=" + id + ", reasone=" + reasone + ", entryfrom=" + entryfrom + ", entryto=" + entryto
 				+ ", userinfo_id=" + userinfo_id + ", status=" + status + ", leavetype=" + leavetype
 				+ ", entryfromString=" + entryfromString + ", entrytoString=" + entrytoString + ", total_leave_days="
-				+ total_leave_days + "]";
+				+ total_leave_days + ", fullname=" + fullname + ", email=" + email + "]";
 	}
 
 	
-
-	
-	
-
-	
-
 }

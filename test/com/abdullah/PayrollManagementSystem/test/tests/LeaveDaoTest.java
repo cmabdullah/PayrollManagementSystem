@@ -57,9 +57,12 @@ public class LeaveDaoTest {
 //		assertTrue("User create should be return true",leaveDao.postLeaveApplication(leave));
 //		
 		
-		List<Leave> leave1 = leaveDao.checkPandingLeaveRequest( 2026);
+//		List<Leave> leave1 = leaveDao.checkPandingLeaveRequest( 2026);
+//		
+//		assertEquals("Number of users shuld be 1",1, leave1.size());
+//		
 		
-		assertEquals("Number of users shuld be 1",1, leave1.size());
-		
+		List<Leave> leavePendingRequest = leaveDao.getAllLeaveRequests();
+		assertEquals("Number of users shuld be 1",1, leavePendingRequest.size());
 	}
 }

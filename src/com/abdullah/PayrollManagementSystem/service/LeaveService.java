@@ -83,6 +83,23 @@ public class LeaveService {
 	}
 
 	public List<Leave> getAllLeaveRequests() {
-		return leaveDao.getAllLeaveRequests();
+		
+		List<Leave> leavePendingRequest = leaveDao.getAllLeaveRequests();
+		
+//			for (Leave leave : leavePendingRequest) {
+//				System.out.println(leave.getUserinfo_id());
+//			}
+		
+		return leavePendingRequest;
+	}
+
+	public void ignorePendingApplicationId(int id) {
+		leaveDao.ignorePendingApplicationId(id);
+		
+	}
+
+	public void acceptPendingApplicationId(int id) {
+		leaveDao.acceptPendingApplicationId(id);
+		
 	}
 }

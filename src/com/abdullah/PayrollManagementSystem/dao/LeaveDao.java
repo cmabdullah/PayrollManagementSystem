@@ -45,7 +45,7 @@ public class LeaveDao {
 				Leave leave = new Leave();
 				leave.setId(rs.getInt("id"));
 				leave.setReasone(rs.getString("reasone"));
-				leave.setStatus(rs.getBoolean("status"));
+				leave.setStatus(rs.getInt("status"));
 				leave.setLeavetype(rs.getString("leavetype"));
 				leave.setUserinfo_id(rs.getInt("userinfo_id"));
 				//null pointer exception fro both due to retrive null value
@@ -77,17 +77,48 @@ public class LeaveDao {
 	}
 
 	public List<Leave> getAllLeaveRequests() {
-		return jdbc.query("SELECT * FROM leaveusers where  entryfrom IS NULL AND entryto IS NULL", new RowMapper<Leave>() {
+		return jdbc.query("SELECT * FROM leaveusers  LEFT JOIN userinfo ON leaveusers.userinfo_id = userinfo.id  where  status='0';", new RowMapper<Leave>() {
 			public Leave mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Leave leave = new Leave();
 				leave.setId(rs.getInt("id"));
 				leave.setUserinfo_id(rs.getInt("userinfo_id"));
 				leave.setReasone(rs.getString("reasone"));
+				leave.setLeavetype(rs.getString("leavetype"));
+				leave.setEntryfrom(rs.getTimestamp("entryfrom").toLocalDateTime());
+				leave.setEntryto(rs.getTimestamp("entryto").toLocalDateTime());
+				leave.setTotal_leave_days(rs.getInt("total_leave_days"));
+				leave.setFullname(rs.getString("fullname"));
+				leave.setEmail(rs.getString("email"));
+				
+				//this query throw exception
+				//SELECT reasone, leavetype, entryfrom,entryto,total_leave_days,fullname,email FROM PayrollManagementSystem.leaveusers  LEFT JOIN userinfo ON leaveusers.userinfo_id = userinfo.id  where  status='0';
+				
 				return leave;
 			}
 		});
 	}
+
+
 	
+
+	
+	public boolean ignorePendingApplicationId(int id)  {
+		Leave leaveIdUpdate = new Leave();
+		leaveIdUpdate.setId(id);
+		leaveIdUpdate.setStatus(2);
+		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(leaveIdUpdate);
+		return jdbc.update("update leaveusers set status=:status where id=:id", params) == 1;
+	}
+
+	
+	
+	public boolean acceptPendingApplicationId(int id)  {
+		Leave leaveIdUpdate = new Leave();
+		leaveIdUpdate.setId(id);
+		leaveIdUpdate.setStatus(1);
+		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(leaveIdUpdate);
+		return jdbc.update("update leaveusers set status=:status where id=:id", params) == 1;
+	}
 
 
 //	public void confirmPendingLeaveApplication(Leave leave) {

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -73,6 +74,25 @@ public class LeaveController {
 			logger.info("Showing leave info....."+leave);
 		}
 		
+		return "disable_enable_user_success";
+	}
+	
+	//deleteleave
+	
+	@RequestMapping(value="/deleteleave/{id}",method = RequestMethod.GET)  
+	public String deleteLeave(@PathVariable int id) {
+		
+		logger.info("deleted id is : "+id);
+			leaveService.ignorePendingApplicationId(id);
+			//loanService.deletePendingLoanApplication(id);
+		return "disable_enable_user_success";
+	}
+	
+	@RequestMapping(value="/acceptleave/{id}",method = RequestMethod.GET)  
+	public String acceptLeave(@PathVariable int id) {
+		
+		logger.info("accept id is : "+id);
+		leaveService.acceptPendingApplicationId(id);
 		return "disable_enable_user_success";
 	}
 	
