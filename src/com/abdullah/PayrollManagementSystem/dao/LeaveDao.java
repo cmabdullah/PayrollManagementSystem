@@ -127,6 +127,27 @@ public class LeaveDao {
 		return jdbc.update("update leaveusers set status=:status where id=:id", params) == 1;
 	}
 
+	public List<Leave> isLeaveRequestOutOfLimit(int userinfo_id) {
+		
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("userinfo_id", userinfo_id);
+		params.addValue("status", 1);
+		
+		LocalDate currentDate = LocalDate.now(); //2018-11-10
+		LocalDate oneMonthsBeforeDate = LocalDate.now().minusMonths(1);//2018-10-10
+
+		return jdbc.query("SELECT * FROM leaveusers where userinfo_id=:userinfo_id AND status=:status and leavetype='regular'  and entryfrom between '" + oneMonthsBeforeDate + "' and '" + currentDate + "' ", params, new RowMapper<Leave>() {
+			public Leave mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Leave leave = new Leave();
+				leave.setId(rs.getInt("id"));
+				leave.setUserinfo_id(rs.getInt("userinfo_id"));
+				leave.setTotal_leave_days(rs.getInt("total_leave_days"));
+				System.out.println("Retriving leave info from database : " + leave);
+				return leave;// return single object
+			}
+		});	
+	}
+
 
 //	public void confirmPendingLeaveApplication(Leave leave) {
 //		// TODO Auto-generated method stub

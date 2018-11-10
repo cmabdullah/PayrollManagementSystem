@@ -13,6 +13,12 @@
 	<h1>You have already a pending request</h1>
 </c:if>
 
+<c:if test="${isLeaveRequestOutOfLimit == true}">
+	<h1>You ARE not eligible for request</h1>
+</c:if>
+
+
+
 <div class="col-md-6 col-md-offset-3">
 	<form class="form-horizontal" method="post"
 		action="${pageContext.request.contextPath}/leavereq_process">

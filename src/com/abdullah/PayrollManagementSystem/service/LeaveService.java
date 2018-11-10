@@ -124,4 +124,23 @@ public class LeaveService {
 		leaveDao.acceptPendingApplicationId(id);
 		
 	}
+
+	public boolean isLeaveRequestOutOfLimit(int userinfo_id) {
+		
+		List<Leave> leavePendingRequestOutOfLimit = leaveDao.isLeaveRequestOutOfLimit(2020);
+		
+		int count = 0;
+		if(leavePendingRequestOutOfLimit.size() != 0) {
+			for(int i = 0 ;i<leavePendingRequestOutOfLimit.size() ; i++ ) {
+				count = count + leavePendingRequestOutOfLimit.get(i).getTotal_leave_days();
+			}
+			System.out.println("Count : "+count);
+    	}
+		System.out.println("leave size : "+leavePendingRequestOutOfLimit.size());
+		
+		if(count > 2)
+			return true;
+		else
+			return false;
+	}
 }

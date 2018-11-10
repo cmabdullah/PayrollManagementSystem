@@ -42,7 +42,15 @@ public class LeaveController {
 	@RequestMapping("/leavereq")
 	public String leaveRequest(Model model, @Valid Leave leave, Principal principal) {
 		boolean isPandingRequest = false;
+	//	boolean isLeaveRequestOutOfLimit  = false;
 		isPandingRequest = leaveService.isPandingRequest(leave.getUserinfo_id());
+		
+//		//if (leave.getLeavetype() == "regular") {
+//			isLeaveRequestOutOfLimit = leaveService.isLeaveRequestOutOfLimit(leave.getUserinfo_id());
+//			model.addAttribute("isLeaveRequestOutOfLimit",isPandingRequest);
+//		//}
+		
+		
 		model.addAttribute("isPandingRequest",isPandingRequest);
 		return "leavereq";
 	}
@@ -59,15 +67,24 @@ public class LeaveController {
 			model.addAttribute("wrongpattern",wrongpattern);
 			return "leavereq";
 		}
-		System.out.println(leave);
+		System.out.println("tostring Leave object : "+leave);
 		leave.setUserinfo_id(userinfoService.getUserIdFromName(principal.getName()).getId());
 		
 		
 		boolean isPandingRequest = false;
 		isPandingRequest = leaveService.isPandingRequest(leave.getUserinfo_id());
 		
-		if(isPandingRequest) {
+		boolean isLeaveRequestOutOfLimit  = false;
+		isPandingRequest = leaveService.isPandingRequest(leave.getUserinfo_id());
+		
+		if (leave.getLeavetype().equals("regular")) {
+			isLeaveRequestOutOfLimit = leaveService.isLeaveRequestOutOfLimit(leave.getUserinfo_id());
+		}
+		System.out.println("isLeaveRequestOutOfLimit : "+isLeaveRequestOutOfLimit);
+		model.addAttribute("isLeaveRequestOutOfLimit",isLeaveRequestOutOfLimit);
+		if(isPandingRequest || isLeaveRequestOutOfLimit) {
 			model.addAttribute("isPandingRequest",isPandingRequest);
+			
 			return "leavereq";
 		} else {
 			leaveService.postLeaveApplication(leave);

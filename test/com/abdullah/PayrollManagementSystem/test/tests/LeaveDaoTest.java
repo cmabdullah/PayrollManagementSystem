@@ -64,5 +64,8 @@ public class LeaveDaoTest {
 		
 		List<Leave> leavePendingRequest = leaveDao.getAllLeaveRequests();
 		assertEquals("Number of users shuld be 1",1, leavePendingRequest.size());
+		
+		
+		
 	}
 }
