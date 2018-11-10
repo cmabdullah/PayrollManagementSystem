@@ -1,6 +1,7 @@
 package com.abdullah.PayrollManagementSystem.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -83,14 +84,35 @@ public class LeaveService {
 	}
 
 	public List<Leave> getAllLeaveRequests() {
-		
+
 		List<Leave> leavePendingRequest = leaveDao.getAllLeaveRequests();
-		
-//			for (Leave leave : leavePendingRequest) {
-//				System.out.println(leave.getUserinfo_id());
-//			}
-		
-		return leavePendingRequest;
+		List<Leave> leavePendingRequestSortList = new ArrayList<>();//filter leave request
+//		for (Leave leave : leavePendingRequest) {
+//			System.out.println(leave);
+//		}
+		int j = 0;
+		for (int i = 0 ; i<leavePendingRequest.size() ; i++) {
+			//System.out.println(leavePendingRequest.get(i));
+			int x = 0;
+			if (leavePendingRequest.get(i).getStatus() == 0) {
+				x = count(leavePendingRequest.get(i).getUserinfo_id(), leavePendingRequest);
+				leavePendingRequest.get(i).setDeniedLeaveRequest(x);
+				leavePendingRequestSortList.add(leavePendingRequest.get(i));
+			}
+				//System.out.println(x);
+			//leavePendingRequest.get(i).setDeniedLeaveRequest(x);
+		}
+		return leavePendingRequestSortList;
+	}
+	
+	public static int count(int id, List<Leave> leavePendingRequest ) {
+		int counter = 0;
+		for (int i = 0 ; i<leavePendingRequest.size() ; i++) {
+			//System.out.println(leavePendingRequest.get(i));
+			if ((id == leavePendingRequest.get(i).getUserinfo_id()) && leavePendingRequest.get(i).getStatus() == 2)
+				counter++;
+		}
+		return counter;
 	}
 
 	public void ignorePendingApplicationId(int id) {

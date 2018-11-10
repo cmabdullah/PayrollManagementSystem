@@ -54,6 +54,7 @@
 			<th scope="col">entryfrom</th>
 			<th scope="col">entryto</th>
 			<th scope="col">total_leave_days</th>
+			<th scope="col">Ignore Leave</th>
 			<th scope="col">Delete</th>
 			<th scope="col">Accept</th>
 		</tr>
@@ -66,6 +67,7 @@
 				<td><c:out value="${leaveInitSigle.entryfrom}"></c:out></td>
 				<td><c:out value="${leaveInitSigle.entryto}"></c:out></td>
 				<td><c:out value="${leaveInitSigle.total_leave_days}"></c:out></td>
+				<td><c:out value="${leaveInitSigle.deniedLeaveRequest}"></c:out></td>
 				<td><a  href="<c:url value='/deleteleave/${leaveInitSigle.id}'/>">Delete</a></td>
 				<td><a  href="<c:url value='/acceptleave/${leaveInitSigle.id}'/>">Accept</a></td>
 

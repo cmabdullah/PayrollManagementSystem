@@ -2,7 +2,7 @@ package com.abdullah.PayrollManagementSystem.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.abdullah.PayrollManagementSystem.controller.LoanController;
+
 
 @Component("leaveDao")
 public class LeaveDao {
@@ -77,7 +78,10 @@ public class LeaveDao {
 	}
 
 	public List<Leave> getAllLeaveRequests() {
-		return jdbc.query("SELECT * FROM leaveusers  LEFT JOIN userinfo ON leaveusers.userinfo_id = userinfo.id  where  status='0';", new RowMapper<Leave>() {
+		LocalDate currentDate = LocalDate.now(); //2018-11-10
+		LocalDate oneMonthsBeforeDate = LocalDate.now().minusMonths(1);//2018-10-10
+		
+		return jdbc.query("SELECT * FROM leaveusers  LEFT JOIN userinfo ON leaveusers.userinfo_id = userinfo.id  where  status='0' OR (status='2' and entryfrom between '" + oneMonthsBeforeDate + "' and '" + currentDate + "' );", new RowMapper<Leave>() {
 			public Leave mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Leave leave = new Leave();
 				leave.setId(rs.getInt("id"));
@@ -89,10 +93,13 @@ public class LeaveDao {
 				leave.setTotal_leave_days(rs.getInt("total_leave_days"));
 				leave.setFullname(rs.getString("fullname"));
 				leave.setEmail(rs.getString("email"));
+				leave.setStatus(rs.getInt("status"));
 				
 				//this query throw exception
 				//SELECT reasone, leavetype, entryfrom,entryto,total_leave_days,fullname,email FROM PayrollManagementSystem.leaveusers  LEFT JOIN userinfo ON leaveusers.userinfo_id = userinfo.id  where  status='0';
 				
+				
+				//SELECT * FROM PayrollManagementSystem.leaveusers  LEFT JOIN userinfo ON leaveusers.userinfo_id = userinfo.id  where  status='0' OR (status='2' and entryfrom between '2018-10-10' and '2018-11-10' );
 				return leave;
 			}
 		});

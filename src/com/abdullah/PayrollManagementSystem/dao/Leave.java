@@ -26,13 +26,15 @@ public class Leave {
 	
 	private String email;
 	
+	private int deniedLeaveRequest;
+	
 	
 	public Leave(){
 		
 	}
 
 	public Leave(String reasone, LocalDateTime entryfrom, LocalDateTime entryto, int userinfo_id, int status,
-			String leavetype, String entryfromString, String entrytoString, int total_leave_days, String fullname,String email ) {
+			String leavetype, String entryfromString, String entrytoString, int total_leave_days, String fullname,String email , int deniedLeaveRequest) {
 		this.reasone = reasone;
 		this.entryfrom = entryfrom;
 		this.entryto = entryto;
@@ -44,12 +46,13 @@ public class Leave {
 		this.total_leave_days = total_leave_days;
 		this.fullname = fullname;
 		this.email = email;
+		this.deniedLeaveRequest = deniedLeaveRequest;
 	}
 	
 	
 
 	public Leave(int id, String reasone, LocalDateTime entryfrom, LocalDateTime entryto, int userinfo_id, int status,
-			String leavetype, String entryfromString, String entrytoString, int total_leave_days, String fullname,String email) {
+			String leavetype, String entryfromString, String entrytoString, int total_leave_days, String fullname,String email, int deniedLeaveRequest) {
 		this.id = id;
 		this.reasone = reasone;
 		this.entryfrom = entryfrom;
@@ -62,6 +65,7 @@ public class Leave {
 		this.total_leave_days = total_leave_days;
 		this.fullname = fullname;
 		this.email = email;
+		this.deniedLeaveRequest = deniedLeaveRequest;
 	}
 
 	public int getId() {
@@ -178,14 +182,28 @@ public class Leave {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	
+	
+
+	public int getDeniedLeaveRequest() {
+		return deniedLeaveRequest;
+	}
+
+	public void setDeniedLeaveRequest(int deniedLeaveRequest) {
+		this.deniedLeaveRequest = deniedLeaveRequest;
+	}
 
 	@Override
 	public String toString() {
 		return "Leave [id=" + id + ", reasone=" + reasone + ", entryfrom=" + entryfrom + ", entryto=" + entryto
 				+ ", userinfo_id=" + userinfo_id + ", status=" + status + ", leavetype=" + leavetype
 				+ ", entryfromString=" + entryfromString + ", entrytoString=" + entrytoString + ", total_leave_days="
-				+ total_leave_days + ", fullname=" + fullname + ", email=" + email + "]";
+				+ total_leave_days + ", fullname=" + fullname + ", email=" + email + ", deniedLeaveRequest="
+				+ deniedLeaveRequest + "]";
 	}
+
+	
 
 	
 }
