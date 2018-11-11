@@ -147,6 +147,32 @@ public class LeaveDao {
 			}
 		});	
 	}
+	
+	
+	
+	
+	public Leave getLeaveApplicationInfoBasedOnLeaveId(int id){
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("id", id);
+
+		return jdbc.queryForObject("SELECT * FROM leaveusers  LEFT JOIN userinfo ON leaveusers.userinfo_id = userinfo.id  where  leaveusers.id=:id", params, new RowMapper<Leave>() {
+			public Leave mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Leave leave = new Leave();
+				leave.setId(rs.getInt("id"));
+				leave.setUserinfo_id(rs.getInt("userinfo_id"));
+				leave.setReasone(rs.getString("reasone"));
+				leave.setLeavetype(rs.getString("leavetype"));
+				leave.setEntryfrom(rs.getTimestamp("entryfrom").toLocalDateTime());
+				leave.setEntryto(rs.getTimestamp("entryto").toLocalDateTime());
+				leave.setTotal_leave_days(rs.getInt("total_leave_days"));
+				leave.setFullname(rs.getString("fullname"));
+				leave.setEmail(rs.getString("email"));
+				leave.setStatus(rs.getInt("status"));
+				return leave;// return single object
+			}
+		});
+	}
 
 
 //	public void confirmPendingLeaveApplication(Leave leave) {

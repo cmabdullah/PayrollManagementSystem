@@ -1,5 +1,6 @@
 package com.abdullah.PayrollManagementSystem.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.abdullah.PayrollManagementSystem.dao.Leave;
 import com.abdullah.PayrollManagementSystem.dao.Userinfo;
+import com.abdullah.PayrollManagementSystem.messageBrokerService.SendMessageService;
 import com.abdullah.PayrollManagementSystem.service.LeaveService;
 import com.abdullah.PayrollManagementSystem.service.UserinfoService;
 @Controller
@@ -37,6 +39,13 @@ public class LeaveController {
 
 	public void setLeaveService(LeaveService leaveService) {
 		this.leaveService = leaveService;
+	}
+	
+	@Autowired
+	SendMessageService sendMessageService;
+	
+	public void setSendMessageService(SendMessageService sendMessageService) {
+		this.sendMessageService = sendMessageService;
 	}
 
 	@RequestMapping("/leavereq")
@@ -97,10 +106,11 @@ public class LeaveController {
 	//deleteleave
 	
 	@RequestMapping(value="/deleteleave/{id}",method = RequestMethod.GET)  
-	public String deleteLeave(@PathVariable int id) {
+	public String deleteLeave(@PathVariable int id) throws Exception {
 		
 		logger.info("deleted id is : "+id);
 			leaveService.ignorePendingApplicationId(id);
+			sendMessageService.postLeaveConfirmationMessage(id);
 			//loanService.deletePendingLoanApplication(id);
 		return "disable_enable_user_success";
 	}
