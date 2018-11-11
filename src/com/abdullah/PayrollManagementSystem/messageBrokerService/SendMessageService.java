@@ -30,7 +30,7 @@ public class SendMessageService {
 		
 		String message = "Hi "+leave.getFullname()+ " You got Leave";
 		String queueName = String.valueOf(leave.getUserinfo_id());
-		//pushMessageToQueue(queueName, message);
+		pushMessageToQueue(queueName, message);
 		//INFO - Showing retrive leave info for perform messaging operationLeave [id=32, reasone=,m/,.ml, entryfrom=2018-11-01T00:00, entryto=2018-11-16T00:00, userinfo_id=2020, status=2, leavetype=regular, entryfromString=null, entrytoString=null, total_leave_days=16, fullname=MR Bin, email=bin@gmail.com, deniedLeaveRequest=0]
 	}
 	
