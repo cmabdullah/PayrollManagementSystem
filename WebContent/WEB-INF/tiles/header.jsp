@@ -40,7 +40,7 @@
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/ad_loan'/>">Loan_Req_Process</a> </li>
 			</sec:authorize>
-			
+			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/notification'/>">notification</a> </li>
 			
 			
 		</ul>

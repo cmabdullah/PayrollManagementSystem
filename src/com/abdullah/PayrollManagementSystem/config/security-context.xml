@@ -88,6 +88,10 @@
 		<security:intercept-url pattern="/accept_loan_request/*" access="hasRole('ROLE_ADMIN')" />
 		<!-- http://localhost:8081/PayrollManagementSystem/deleteemp/4 -->
 		
+		
+		<security:intercept-url pattern="/notification"  access="permitAll" />
+		
+		
 		<!-- <security:intercept-url pattern="/leavereq" access="hasRole('ROLE_EMPLOYEE')" />-->
 		
 		<security:intercept-url pattern="/**" access="denyAll" />

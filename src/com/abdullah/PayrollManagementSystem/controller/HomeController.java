@@ -12,4 +12,10 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("/notification")
+	public String showNotification() {
+		logger.info("Showing Notification.....");
+		return "notification";
+	}
+	
 }
