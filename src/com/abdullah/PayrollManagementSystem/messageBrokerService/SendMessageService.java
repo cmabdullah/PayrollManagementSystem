@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 import org.apache.log4j.Logger;
@@ -20,6 +21,10 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.exceptions.JedisException;
 
 @Service("sendMessageService")
 public class SendMessageService {
@@ -61,9 +66,58 @@ public class SendMessageService {
 	public String getPendingLeaveMessage(String queueName) throws IOException, TimeoutException {
 		LeaveMessage leaveMessage = new LeaveMessage();
 		
-		String message = getMessagefromQueue(queueName, leaveMessage);
-		return message;
+		//String message = getMessagefromQueue(queueName, leaveMessage);
+		String redisMessage = getRedisMessagefromQueue(queueName, leaveMessage);
+		
+		return redisMessage;
 	}
+
+	private String getRedisMessagefromQueue(String queueName, LeaveMessage leaveMessage) {
+		
+		// address of your redis server
+				String redisHost = "localhost";
+				Integer redisPort = 6379;
+
+				// the jedis connection pool..
+				JedisPool pool = new JedisPool(redisHost, redisPort);
+
+				// add some values in Redis HASH
+				String key = queueName;
+				Jedis jedis = pool.getResource();
+				try {
+
+					// after saving the data, lets retrieve them to be sure that it has really added
+					// in redis
+					Map<String, String> retrieveMap = jedis.hgetAll(key);
+					String fieldname = "";
+					for (String keyMap : retrieveMap.keySet()) {
+						
+						if (keyMap.equals("pendingleave")) {
+							leaveMessage.setMessage(retrieveMap.get(keyMap));
+							fieldname = retrieveMap.get(keyMap);
+							jedis.hdel(key, keyMap);
+							return leaveMessage.getMessage();
+						}
+
+						// System.out.println(keyMap);
+
+						// System.out.println(keyMap + " " + retrieveMap.get(keyMap));
+					}
+
+				} catch (JedisException e) {
+					// if something wrong happen, return it back to the pool
+					if (null != jedis) {
+						pool.returnBrokenResource(jedis);
+						jedis = null;
+					}
+				} finally {
+					/// it's important to return the Jedis instance to the pool once you've finished
+					/// using it
+					if (null != jedis)
+						pool.returnResource(jedis);
+				}
+				return null;
+			}
 
 	private String getMessagefromQueue(String queueName, LeaveMessage leaveMessage) throws IOException, TimeoutException {
 		
@@ -79,23 +133,19 @@ public class SendMessageService {
 
 	    DefaultConsumer consumer = new DefaultConsumer(channel) {
 	      @Override
-	      public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
-	           {
-	        String message;
-			try {
-				message = new String(body, "UTF-8");
+	      public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws UnsupportedEncodingException {
+	        System.out.println("handleDelivery : ");
+	    	  String message = new String(body, "UTF-8");
 				//leaveMessage.setMessage(message);
 		        System.out.println(" [x] Received '" + message + "'");
-			} catch (UnsupportedEncodingException e) {
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-			}
+			
 	        
-	      }
+	      
+}
 	    };
 	    System.out.println("After inner class");
 	    channel.basicConsume(queueName, true, consumer);
-	    channel.close();
+//	    channel.close();
 	    connection.close();
 		
 		
