@@ -3,6 +3,7 @@ package com.abdullah.PayrollManagementSystem.messageBrokerService;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
@@ -40,12 +41,48 @@ public class SendMessageService {
 		Leave leave = leaveDao.getLeaveApplicationInfoBasedOnLeaveId(id);
 		logger.info("Showing retrive leave info for perform messaging operation"+leave);
 		
-		String message = "Hi "+leave.getFullname()+ " You got Leave from "+leave.getEntryfrom() + " to "+ leave.getEntryto();
+		String message = "Hi "+leave.getFullname()+ " You got Leave request "+leave.getEntryfrom() + " to "+ leave.getEntryto() +"has been rejeced";
 		String queueName = String.valueOf(leave.getUserinfo_id());
-		pushMessageToQueue(queueName, message);
+		//pushMessageToQueue(queueName, message);
+		pushMessageToRedisQueue(queueName, message);
 		//INFO - Showing retrive leave info for perform messaging operationLeave [id=32, reasone=,m/,.ml, entryfrom=2018-11-01T00:00, entryto=2018-11-16T00:00, userinfo_id=2020, status=2, leavetype=regular, entryfromString=null, entrytoString=null, total_leave_days=16, fullname=MR Bin, email=bin@gmail.com, deniedLeaveRequest=0]
 	}
 	
+	private void pushMessageToRedisQueue(String queueName, String message) {
+		// address of your redis server
+				String redisHost = "localhost";
+				final Integer redisPort = 6379;
+
+				// the jedis connection pool..
+				JedisPool pool = new JedisPool(redisHost, redisPort);
+				
+				
+				String key = queueName;
+				Map<String, String> map = new HashMap<>();
+
+				map.put("pendingleave", message);
+//				map.put("description", "Learn how to program in Java");
+
+				Jedis jedis = pool.getResource();
+				try {
+					// save to redis
+					jedis.hmset(key, map);
+
+				} catch (JedisException e) {
+					// if something wrong happen, return it back to the pool
+					if (null != jedis) {
+						pool.returnBrokenResource(jedis);
+						jedis = null;
+					}
+				} finally {
+					/// it's important to return the Jedis instance to the pool once you've finished
+					/// using it
+					if (null != jedis)
+						pool.returnResource(jedis);
+				}
+		
+	}
+
 	private void pushMessageToQueue(String queueName, String message) throws Exception, IOException {
 		ConnectionFactory factory = new ConnectionFactory();
 	    factory.setHost("localhost");
