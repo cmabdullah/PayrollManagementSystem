@@ -3,6 +3,7 @@ package com.abdullah.PayrollManagementSystem.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -16,6 +17,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.abdullah.PayrollManagementSystem.controller.LoanController;
+
 
 
 @Component("leaveDao")
@@ -174,6 +176,19 @@ public class LeaveDao {
 		});
 	}
 
+	public List<Leave> checkRegularLeaveFromLastMonthToPresentMonth(LocalDateTime currentMonththLocalDateTime,
+			LocalDateTime previousMonththLocalDateTime, int userinfoId) {
+		//"SELECT * FROM leaveusers where userinfo_id=:userinfo_id AND status=:status and leavetype='regular'  and entryfrom between '" + oneMonthsBeforeDate + "' and '" + currentDate + "' "
+				return jdbc.query("select * from leaveusers where entryfrom between '" + previousMonththLocalDateTime + "' and '" + currentMonththLocalDateTime + "' and  userinfo_id='"+ userinfoId+"' and leavetype='regular'", new RowMapper<Leave>() {
+					public Leave mapRow(ResultSet rs, int rowNum) throws SQLException {
+						Leave leave = new Leave();
+						leave.setId(rs.getInt("id"));
+						leave.setLeavetype(rs.getString("leavetype"));
+						leave.setTotal_leave_days(rs.getInt("total_leave_days"));
+						return leave;
+					}
+				});
+	}
 
 //	public void confirmPendingLeaveApplication(Leave leave) {
 //		// TODO Auto-generated method stub

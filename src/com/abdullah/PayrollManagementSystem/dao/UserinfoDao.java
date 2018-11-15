@@ -14,9 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
+
 import javax.sql.DataSource;
+
 
 @Component("userinfoDao")
 public class UserinfoDao {
@@ -79,9 +82,11 @@ public class UserinfoDao {
 		params.addValue("address", userinfo.getAddress());
 		params.addValue("email", userinfo.getEmail());
 		params.addValue("phone", userinfo.getPhone());
+		params.addValue("joiningDate", LocalDateTime.now());
+		
 
 		
-		return  jdbc.update("insert into userinfo (username,fullname , address, email,phone ,password , enabled, authority) values (:username,:fullname,:address, :email, :phone,:password,:enabled,:authority)", params) == 1;
+		return  jdbc.update("insert into userinfo (username,fullname , address, email,phone ,password , enabled, authority, joiningDate) values (:username,:fullname,:address, :email, :phone,:password,:enabled,:authority, :joiningDate)", params) == 1;
 //		jdbc.update("insert into users (username) values (:username)", params);
 //		jdbc.update("insert into authorities (username , authority) values (:username,:authority)", params)== 1;
 	
@@ -140,5 +145,24 @@ public class UserinfoDao {
 
 	public boolean existsUserId(int id) {
 		return jdbc.queryForObject("select count(*) from userinfo where id=:id", new MapSqlParameterSource("id",id), Integer.class) > 0 ;
+	}
+	
+	
+	public List<Userinfo> showAllEnabledUsers() {//
+		return jdbc.query("select * from userinfo where enabled = 1", new RowMapper<Userinfo>() {
+			public Userinfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Userinfo userinfo = new Userinfo();
+				userinfo.setId(rs.getInt("id"));
+				userinfo.setUsername(rs.getString("username"));
+				userinfo.setFullname(rs.getString("fullname"));
+				userinfo.setAddress(rs.getString("address"));
+				userinfo.setEmail(rs.getString("email"));
+				userinfo.setPhone(rs.getInt("phone"));
+				userinfo.setEnabled(rs.getBoolean("enabled"));
+
+				
+				return userinfo;
+			}
+		});
 	}
 }

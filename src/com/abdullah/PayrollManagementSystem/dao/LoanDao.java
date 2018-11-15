@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.abdullah.PayrollManagementSystem.controller.LoanController;
 
+
 @Component("loanDao")
 public class LoanDao {
 private NamedParameterJdbcTemplate jdbc;
@@ -70,6 +71,24 @@ private static Logger logger = Logger.getLogger(LoanController.class);
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("id", id);
 		return jdbc.update("delete from loan where id = :id", params ) == 1 ; // return true if success
+	}
+	
+	public List<Loan> checkRunningLoan(int userinfo_id) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("userinfo_id", userinfo_id);
+		//select * from notices where id = :id
+		//SELECT * FROM leaveusers where userinfo_id=:userinfo_id AND entryfrom IS NULL AND entryto IS NULL
+		return jdbc.query("SELECT * FROM loan where userinfo_id=:userinfo_id AND approvedate IS NOT NULL AND status='1'", params, new RowMapper<Loan>() {
+			public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Loan loan = new Loan();
+				loan.setId(rs.getInt("id"));
+				loan.setReason(rs.getString("reason"));
+				loan.setAmount(rs.getInt("amount"));
+				loan.setUserinfo_id(rs.getInt("userinfo_id"));
+				System.out.println("Retriving loan info from database : " + loan);
+				return loan;// return single object
+			}
+		});
 	}
 	
 	

@@ -91,6 +91,9 @@
 		
 		<security:intercept-url pattern="/notification"  access="permitAll" />
 		<security:intercept-url pattern="/sendMessage"  access="permitAll" />
+
+		<security:intercept-url pattern="/give_salary"  access="hasRole('ROLE_ACCOUNTANT')" />
+		<security:intercept-url pattern="/prcess_salary"  access="hasRole('ROLE_ACCOUNTANT')" />
 		
 		
 		<!-- <security:intercept-url pattern="/leavereq" access="hasRole('ROLE_EMPLOYEE')" />-->

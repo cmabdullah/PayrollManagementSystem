@@ -118,5 +118,10 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/notification.jsp"></put-attribute>		
 	</definition>
 	
+	<definition name="give_salary" extends="manager.base">
+		<put-attribute name="title" value="give Salary....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/give_salary.jsp"></put-attribute>		
+	</definition>
+	
 
 </tiles-definitions>

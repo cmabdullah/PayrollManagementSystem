@@ -3,6 +3,7 @@ package com.abdullah.PayrollManagementSystem.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -13,6 +14,8 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+
+
 
 
 
@@ -71,6 +74,8 @@ public class AttendanceDao {
 				
 				System.out.println("Retriving logout from database : " + attendance);
 				
+
+
 				return attendance;// return single object
 			}
 		});
@@ -79,6 +84,20 @@ public class AttendanceDao {
 	public boolean updateAttendence(Attendance attendance) {
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(attendance);
 		return jdbc.update("update attendence set logouttime=:logouttime,workinghours=:workinghours  where id=:id", params) == 1;
+	}
+
+	public List<Attendance> getAttendenceFromLastMonthToPresentMonth(LocalDateTime currentMonththLocalDateTime,
+			LocalDateTime previousMonththLocalDateTime, int userinfoId) {
+		//"SELECT * FROM leaveusers where userinfo_id=:userinfo_id AND status=:status and leavetype='regular'  and entryfrom between '" + oneMonthsBeforeDate + "' and '" + currentDate + "' "
+		return jdbc.query("select * from attendence where logintime between '" + previousMonththLocalDateTime + "' and '" + currentMonththLocalDateTime + "' and userinfo_id=' " + userinfoId+ "' " , new RowMapper<Attendance>() {
+			public Attendance mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Attendance attendance = new Attendance();
+				attendance.setId(rs.getInt("id"));
+				attendance.setWorkinghours(rs.getInt("workinghours"));
+				return attendance;
+			
+}
+		});
 	}
 	
 	

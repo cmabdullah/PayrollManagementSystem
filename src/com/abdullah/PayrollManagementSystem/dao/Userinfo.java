@@ -1,5 +1,7 @@
 package com.abdullah.PayrollManagementSystem.dao;
 
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -34,13 +36,15 @@ public class Userinfo {
 	private String email;
 	
 	private int phone;
+	
+	LocalDateTime joiningDate;
 
 	public Userinfo( ) {
 		
 	}
 
 	public Userinfo( String username, String password, boolean enabled, String authority, String fullname,
-			String address, String email, int phone) {
+			String address, String email, int phone,LocalDateTime joiningDate) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
@@ -49,10 +53,11 @@ public class Userinfo {
 		this.address = address;
 		this.email = email;
 		this.phone = phone;
+		this.joiningDate = joiningDate;
 	}
 
 	public Userinfo(int id, String username, String password, boolean enabled, String authority, String fullname,
-			String address, String email, int phone) {
+			String address, String email, int phone, LocalDateTime joiningDate) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -62,6 +67,7 @@ public class Userinfo {
 		this.address = address;
 		this.email = email;
 		this.phone = phone;
+		this.joiningDate = joiningDate;
 	}
 
 	public int getId() {
@@ -136,10 +142,20 @@ public class Userinfo {
 		this.phone = phone;
 	}
 
+	public LocalDateTime getJoiningDate() {
+		return joiningDate;
+	}
+
+	public void setJoiningDate(LocalDateTime joiningDate) {
+		this.joiningDate = joiningDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Userinfo [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
 				+ ", authority=" + authority + ", fullname=" + fullname + ", address=" + address + ", email=" + email
-				+ ", phone=" + phone + "]";
+				+ ", phone=" + phone + ", joiningDate=" + joiningDate + "]";
 	}
+
+
 }
