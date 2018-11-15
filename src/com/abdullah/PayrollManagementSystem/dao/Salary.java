@@ -1,5 +1,7 @@
 package com.abdullah.PayrollManagementSystem.dao;
 
+import java.time.LocalDateTime;
+
 public class Salary {
 	private int id;
 	private int userinfo_id;
@@ -28,16 +30,28 @@ public class Salary {
 	private int  paidamount;
 	
 	private String regular, bonus;
+	
+	private float totalsalary;
+	
+	LocalDateTime datemonthyear;
+	
+	
+	//grade entity
+	private int basic;
+	private int medicalallowence;
+	private int houserent;
+	private int transport;
+	private int lunch;
+	private int study;
 	public Salary( ) {
 		
 	}
-	public Salary(int userinfo_id, String username, String usertype, String status, String fullname,
-			String address, String email, int phone, int loan_id, int grade_id, int leaveusers_id,
-			int monthlyWorkingHour, int totalLeaveDays, int loanAmount, boolean loanStatus, int paidamount,
-			String regular, String bonus) {
+	public Salary(int userinfo_id, String username, String usertype, String status, String fullname, String address,
+			String email, int phone, int loan_id, int grade_id, int leaveusers_id, int monthlyWorkingHour,
+			int totalLeaveDays, int loanAmount, boolean loanStatus, int paidamount, String regular, String bonus,
+			int basic, int medicalallowence, int houserent, int transport, int lunch, int study, float totalsalary, LocalDateTime datemonthyear) {
 		this.userinfo_id = userinfo_id;
 		this.username = username;
-
 		this.usertype = usertype;
 		this.status = status;
 		this.fullname = fullname;
@@ -54,15 +68,23 @@ public class Salary {
 		this.paidamount = paidamount;
 		this.regular = regular;
 		this.bonus = bonus;
+		this.basic = basic;
+		this.medicalallowence = medicalallowence;
+		this.houserent = houserent;
+		this.transport = transport;
+		this.lunch = lunch;
+		this.study = study;
+		this.totalsalary = totalsalary;
+		this.datemonthyear = datemonthyear;
 	}
-	public Salary(int id, int userinfo_id, String username,String usertype, String status,
-			String fullname, String address, String email, int phone, int loan_id, int grade_id, int leaveusers_id,
+	public Salary(int id, int userinfo_id, String username, String usertype, String status, String fullname,
+			String address, String email, int phone, int loan_id, int grade_id, int leaveusers_id,
 			int monthlyWorkingHour, int totalLeaveDays, int loanAmount, boolean loanStatus, int paidamount,
-			String regular, String bonus) {
+			String regular, String bonus, int basic, int medicalallowence, int houserent, int transport, int lunch,
+			int study, float totalsalary, LocalDateTime datemonthyear) {
 		this.id = id;
 		this.userinfo_id = userinfo_id;
 		this.username = username;
-
 		this.usertype = usertype;
 		this.status = status;
 		this.fullname = fullname;
@@ -79,6 +101,14 @@ public class Salary {
 		this.paidamount = paidamount;
 		this.regular = regular;
 		this.bonus = bonus;
+		this.basic = basic;
+		this.medicalallowence = medicalallowence;
+		this.houserent = houserent;
+		this.transport = transport;
+		this.lunch = lunch;
+		this.study = study;
+		this.totalsalary = totalsalary;
+		this.datemonthyear = datemonthyear;
 	}
 	public int getId() {
 		return id;
@@ -98,7 +128,6 @@ public class Salary {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 	public String getUsertype() {
 		return usertype;
 	}
@@ -195,6 +224,57 @@ public class Salary {
 	public void setBonus(String bonus) {
 		this.bonus = bonus;
 	}
+	public int getBasic() {
+		return basic;
+	}
+	public void setBasic(int basic) {
+		this.basic = basic;
+	}
+	public int getMedicalallowence() {
+		return medicalallowence;
+	}
+	public void setMedicalallowence(int medicalallowence) {
+		this.medicalallowence = medicalallowence;
+	}
+	public int getHouserent() {
+		return houserent;
+	}
+	public void setHouserent(int houserent) {
+		this.houserent = houserent;
+	}
+	public int getTransport() {
+		return transport;
+	}
+	public void setTransport(int transport) {
+		this.transport = transport;
+	}
+	public int getLunch() {
+		return lunch;
+	}
+	public void setLunch(int lunch) {
+		this.lunch = lunch;
+	}
+	public int getStudy() {
+		return study;
+	}
+	public void setStudy(int study) {
+		this.study = study;
+	}
+	
+	
+	public float getTotalsalary() {
+		return totalsalary;
+	}
+	public void setTotalsalary(float totalsalary) {
+		this.totalsalary = totalsalary;
+	}
+
+	public LocalDateTime getDatemonthyear() {
+		return datemonthyear;
+	}
+	public void setDatemonthyear(LocalDateTime datemonthyear) {
+		this.datemonthyear = datemonthyear;
+	}
 	@Override
 	public String toString() {
 		return "Salary [id=" + id + ", userinfo_id=" + userinfo_id + ", username=" + username + ", usertype=" + usertype
@@ -202,8 +282,9 @@ public class Salary {
 				+ ", phone=" + phone + ", loan_id=" + loan_id + ", grade_id=" + grade_id + ", leaveusers_id="
 				+ leaveusers_id + ", monthlyWorkingHour=" + monthlyWorkingHour + ", totalLeaveDays=" + totalLeaveDays
 				+ ", loanAmount=" + loanAmount + ", loanStatus=" + loanStatus + ", paidamount=" + paidamount
-				+ ", regular=" + regular + ", bonus=" + bonus + "]";
+				+ ", regular=" + regular + ", bonus=" + bonus + ", totalsalary=" + totalsalary + ", datemonthyear="
+				+ datemonthyear + ", basic=" + basic + ", medicalallowence=" + medicalallowence + ", houserent="
+				+ houserent + ", transport=" + transport + ", lunch=" + lunch + ", study=" + study + "]";
 	}
-
 	
 }

@@ -38,13 +38,15 @@ public class Userinfo {
 	private int phone;
 	
 	LocalDateTime joiningDate;
+	
+	private int grade_id;
 
 	public Userinfo( ) {
 		
 	}
 
 	public Userinfo( String username, String password, boolean enabled, String authority, String fullname,
-			String address, String email, int phone,LocalDateTime joiningDate) {
+			String address, String email, int phone,LocalDateTime joiningDate, int grade_id) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
@@ -54,10 +56,12 @@ public class Userinfo {
 		this.email = email;
 		this.phone = phone;
 		this.joiningDate = joiningDate;
+		this.grade_id = grade_id;
+		
 	}
 
 	public Userinfo(int id, String username, String password, boolean enabled, String authority, String fullname,
-			String address, String email, int phone, LocalDateTime joiningDate) {
+			String address, String email, int phone, LocalDateTime joiningDate, int grade_id) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -68,6 +72,7 @@ public class Userinfo {
 		this.email = email;
 		this.phone = phone;
 		this.joiningDate = joiningDate;
+		this.grade_id = grade_id;
 	}
 
 	public int getId() {
@@ -149,13 +154,25 @@ public class Userinfo {
 	public void setJoiningDate(LocalDateTime joiningDate) {
 		this.joiningDate = joiningDate;
 	}
+	
+	
+
+	public int getGrade_id() {
+		return grade_id;
+	}
+
+	public void setGrade_id(int grade_id) {
+		this.grade_id = grade_id;
+	}
 
 	@Override
 	public String toString() {
 		return "Userinfo [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
 				+ ", authority=" + authority + ", fullname=" + fullname + ", address=" + address + ", email=" + email
-				+ ", phone=" + phone + ", joiningDate=" + joiningDate + "]";
+				+ ", phone=" + phone + ", joiningDate=" + joiningDate + ", grade_id=" + grade_id + "]";
 	}
+
+	
 
 
 }

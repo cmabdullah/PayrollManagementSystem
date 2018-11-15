@@ -83,10 +83,11 @@ public class UserinfoDao {
 		params.addValue("email", userinfo.getEmail());
 		params.addValue("phone", userinfo.getPhone());
 		params.addValue("joiningDate", LocalDateTime.now());
+		params.addValue("grade_id", userinfo.getGrade_id());
 		
 
 		
-		return  jdbc.update("insert into userinfo (username,fullname , address, email,phone ,password , enabled, authority, joiningDate) values (:username,:fullname,:address, :email, :phone,:password,:enabled,:authority, :joiningDate)", params) == 1;
+		return  jdbc.update("insert into userinfo (username,fullname , address, email,phone ,password , enabled, authority, joiningDate, grade_id) values (:username,:fullname,:address, :email, :phone,:password,:enabled,:authority, :joiningDate, :grade_id)", params) == 1;
 //		jdbc.update("insert into users (username) values (:username)", params);
 //		jdbc.update("insert into authorities (username , authority) values (:username,:authority)", params)== 1;
 	
@@ -159,6 +160,10 @@ public class UserinfoDao {
 				userinfo.setEmail(rs.getString("email"));
 				userinfo.setPhone(rs.getInt("phone"));
 				userinfo.setEnabled(rs.getBoolean("enabled"));
+				userinfo.setGrade_id(rs.getInt("grade_id"));
+				userinfo.setAuthority(rs.getString("authority"));
+
+
 
 				
 				return userinfo;

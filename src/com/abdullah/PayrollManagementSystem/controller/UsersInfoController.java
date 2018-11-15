@@ -71,13 +71,23 @@ UserinfoService userinfoService;
 			
 			userinfo.setEnabled(true);
 			
+			if(userinfo.getAuthority().equals("ROLE_ADMIN")) {
+				userinfo.setGrade_id(1233);
+			} else if (userinfo.getAuthority().equals("ROLE_EMPLOYEE")) {
+				userinfo.setGrade_id(1234);
+			} else if (userinfo.getAuthority().equals("ROLE_ACCOUNTANT")) {
+				userinfo.setGrade_id(1235);
+			}
+			
+			
+			
 			//test print username
 			System.out.println(userinfo.getUsername());
 			if (userinfoService.exists(userinfo.getUsername())) {
 				result.rejectValue("username", "DuplicateKey.userinfo.username", "this username already exist, please choose different username");
 				return "registration";
 			}
-			
+			System.out.println(userinfo);
 			try {
 				userinfoService.create(userinfo);//save data into database
 			}catch(DuplicateKeyException e) {
