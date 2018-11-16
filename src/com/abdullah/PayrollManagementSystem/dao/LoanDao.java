@@ -138,4 +138,11 @@ public class LoanDao {
 		return jdbc.batchUpdate("insert into loanpaiddetails (datetime , paidamount, loan_id) values (:datetime,:paidamount,:loan_id)", params);
 	}
 
+
+	public boolean updateLoanStatusBasedOnLoanId(Loan loan) {
+		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(loan);
+		return jdbc.update("update loan set status=:status where id=:loan_id", params) == 1;
+		
+	}
+
 }

@@ -137,6 +137,7 @@ public class SalaryService {
 		
 		List<Salary> AllUsersSalary = (List<Salary>) salary;
 		List<Loan> payLoan = new ArrayList<>();
+		List<Loan> paidLoanUpdateLoanId = new ArrayList<>();
 		
 		for (Salary salary2 : AllUsersSalary) {
 			
@@ -146,6 +147,8 @@ public class SalaryService {
 			float transport = (basic * 10)/100;
 			float lunch = (basic * 10)/100;
 			float study = (basic * 25)/100;
+			
+			//increment salary year wise
 			float totalsalary = basic + medicalallowence + houserent + transport + lunch + study ;
 			//totalsalary=30030
 //			logger.info("totalsalary "+totalsalary);
@@ -184,11 +187,7 @@ public class SalaryService {
 			String loanStatusAndInstallment = payLoanEmi(salary2);
 			salary2.setInstallment(Float.parseFloat(loanStatusAndInstallment.substring(1)));//return installment value substring fron index 1
 			
-			int isLoanStatusPaid = Integer.parseInt(loanStatusAndInstallment.substring(0, 1));
-			
-			if (isLoanStatusPaid == 2) {
-				
-			}
+			salary2.setIsLoanStatusPaid(Integer.parseInt(loanStatusAndInstallment.substring(0, 1)));
 			
 //			logger.info("Salary Datails "+salary2 );
 		
@@ -204,18 +203,33 @@ INFO - salary Object : Salary [id=0, userinfo_id=2028, username=null, usertype=R
 		
 		for (Salary salary3 : AllUsersSalary) {
 			logger.info("salary Object : "+salary3);
-			if(salary3.isLoanStatus() == true) {
+			if(salary3.isLoanStatus() == true && salary3.getIsLoanStatusPaid() == 1) {
 				Loan loan = new Loan();
 				loan.setPaidamount(salary3.getInstallment());
 				loan.setLoan_id(salary3.getLoan_id());
 				loan.setDatetime(LocalDateTime.now());
 				payLoan.add(loan);
 				
+			} 
+			if(salary3.isLoanStatus() == true && salary3.getIsLoanStatusPaid() == 2) {
+				
+				Loan loan = new Loan();
+				loan.setPaidamount(salary3.getInstallment());
+				loan.setLoan_id(salary3.getLoan_id());
+				loan.setDatetime(LocalDateTime.now());
+				loan.setStatus(salary3.getIsLoanStatusPaid());
+				payLoan.add(loan);
+				paidLoanUpdateLoanId.add(loan);
 			}
 		}
 		
-		for (Loan loan : payLoan) {
-			logger.info("Loan Details : "+loan);
+//		for (Loan loan : payLoan) {
+//			logger.info("Loan Details : "+loan);
+//		}
+		
+		for (Loan loan : paidLoanUpdateLoanId) {
+			loanDao.updateLoanStatusBasedOnLoanId(loan);
+			logger.info("paid Loan Details : "+loan);
 		}
 		
 		//perform loan dao operation
@@ -232,7 +246,7 @@ INFO - salary Object : Salary [id=0, userinfo_id=2028, username=null, usertype=R
 		float installment = 0;//kisti
 		float checkLoanAmountIsLessThenOrGraterThen = 0;
 		float extraMoney = 0;
-		int loanStatus = 0;
+		int loanStatus = 1;
 //		
 //		logger.info("salary2 object inside payLoanEmi Method : "+ salary2);
 //		logger.info("Get Salary : "+ salary2.getTotalsalary());
