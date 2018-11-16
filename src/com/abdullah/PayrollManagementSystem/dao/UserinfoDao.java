@@ -162,6 +162,8 @@ public class UserinfoDao {
 				userinfo.setEnabled(rs.getBoolean("enabled"));
 				userinfo.setGrade_id(rs.getInt("grade_id"));
 				userinfo.setAuthority(rs.getString("authority"));
+				userinfo.setJoiningDate(rs.getTimestamp("joiningDate").toLocalDateTime());
+
 
 
 

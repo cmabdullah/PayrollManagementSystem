@@ -99,6 +99,7 @@ public class SalaryService {
 			salary.setUsertype(userinfo.getAuthority());
 			salary.setGrade_id(userinfo.getGrade_id());
 			salary.setDatemonthyear(LocalDateTime.now());
+			salary.setJoiningDate(userinfo.getJoiningDate());
 			
 			if(userinfo.getAuthority().equals("ROLE_ADMIN")) {
 				salary.setBasic(grade.get(1).getBasic());
