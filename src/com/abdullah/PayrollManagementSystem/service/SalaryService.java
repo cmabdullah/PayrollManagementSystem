@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.abdullah.PayrollManagementSystem.controller.LoanController;
 import com.abdullah.PayrollManagementSystem.dao.Attendance;
 import com.abdullah.PayrollManagementSystem.dao.AttendanceDao;
 import com.abdullah.PayrollManagementSystem.dao.Grade;
@@ -31,6 +33,7 @@ import com.abdullah.PayrollManagementSystem.dao.UserinfoDao;
 
 @Service("salaryService")
 public class SalaryService {
+	private static Logger logger = Logger.getLogger(LoanController.class);
 
 	private SalaryDao salaryDao;
 	private UserinfoDao userinfoDao;
@@ -77,24 +80,22 @@ public class SalaryService {
 		List<Userinfo> userEnableInfo = userinfoDao.showAllEnabledUsers();
 		List<Grade> grade = gradeDao.getAllGradeList();
 		List<Salary> salary1 = new ArrayList<>();
-		
-		
-//		for (Grade grade1 : grade) {
-//			System.out.println("Grade Object : "+grade1);
-//		}
-		
+
 		System.out.println(userEnableInfo.size());
 		for (Userinfo userinfo : userEnableInfo) {
-			System.out.println(userinfo);
+			//logger.info(userinfo);
 			Salary salary = new Salary();
-			System.out.println("your ID : "+userinfo.getId()+"total Working hour : "+calculateTotalWorkingHour(userinfo.getId()));
-			System.out.println("your usedLeaveThisMonth : "+userinfo.getId()+" total  leave days : "+calculateTotalLeaveDays(userinfo.getId()));
-			System.out.println("your Id  : "+userinfo.getId()+" your running loan id : "+checkRunningLoan(userinfo.getId()));
+			int loanId = 0;
+//			logger.info("your ID : "+userinfo.getId()+"total Working hour : "+calculateTotalWorkingHour(userinfo.getId()));
+//			logger.info("your usedLeaveThisMonth : "+userinfo.getId()+" total  leave days : "+calculateTotalLeaveDays(userinfo.getId()));
+//			logger.info("your Id  : "+userinfo.getId()+" your running loan id : "+checkRunningLoan(userinfo.getId()));
 			
 			salary.setUserinfo_id(userinfo.getId());
 			salary.setMonthlyWorkingHour(calculateTotalWorkingHour(userinfo.getId()));
 			salary.setTotalLeaveDays(calculateTotalLeaveDays(userinfo.getId()));
-			salary.setLoan_id(checkRunningLoan(userinfo.getId()));
+			loanId = checkRunningLoan(userinfo.getId());
+			salary.setLoan_id(loanId);
+			salary.setLoanStatus(loanId==0 ? false : true);
 			salary.setUsertype(userinfo.getAuthority());
 			salary.setGrade_id(userinfo.getGrade_id());
 			salary.setDatemonthyear(LocalDateTime.now());
@@ -121,39 +122,21 @@ public class SalaryService {
 				salary.setLunch(grade.get(3).getLunch());
 				salary.setStudy(grade.get(3).getStudy());
 			} else {
-				System.out.println("Error");
+//				logger.info("Error");
 			}
-			
-			System.out.println("Salary Object : "+salary);
 			salary1.add(salary);
-			
 		}
 		
-//		System.out.println("Salary size: "+salary1.size());
-//		
-//		
-//		for (Salary salary2 : salary1) {
-//			System.out.println("salary1 Object : "+salary2);
-//		}
 		
 		 processLowLevelCalculation(salary1);
-		
-//		for(int i = 0 ; i< userEnableInfo.size(); i++) {
-//			System.out.println("your ID : "+userEnableInfo.get(i).getId()+"total Working hour : "+calculateTotalWorkingHour(userEnableInfo.get(i).getId()));
-//			System.out.println("your usedLeaveThisMonth : "+userEnableInfo.get(i).getId()+" total  leave days : "+calculateTotalLeaveDays(userEnableInfo.get(i).getId()));
-//			System.out.println("your Id  : "+userEnableInfo.get(i).getId()+" your running loan id : "+checkRunningLoan(userEnableInfo.get(i).getId()));
-//		}
-		
-		
-//		int totalworkingHour = calculateTotalWorkingHour();
-//		System.out.println("total working hour : " +totalworkingHour);
-		
+
 
 	}
 	
 	private void processLowLevelCalculation(List<Salary> salary) {
 		
 		List<Salary> AllUsersSalary = (List<Salary>) salary;
+		List<Loan> payLoan = new ArrayList<>();
 		
 		for (Salary salary2 : AllUsersSalary) {
 			
@@ -165,10 +148,10 @@ public class SalaryService {
 			float study = (basic * 25)/100;
 			float totalsalary = basic + medicalallowence + houserent + transport + lunch + study ;
 			//totalsalary=30030
-			System.out.println("totalsalary "+totalsalary);
+//			logger.info("totalsalary "+totalsalary);
 			
 			float oneDaySalary = totalsalary/22;//15001.36364
-			System.out.println("oneDaySalary : "+oneDaySalary);
+//			logger.info("oneDaySalary : "+oneDaySalary);
 			
 			if(salary2.getTotalLeaveDays() ==1) {
 				salary2.setMonthlyWorkingHour(salary2.getMonthlyWorkingHour() + 8);
@@ -197,21 +180,98 @@ public class SalaryService {
 			} else {
 				salary2.setTotalsalary(totalsalary*0);
 			}
-			System.out.println("Salary Datails "+salary2 );
+			
+			String loanStatusAndInstallment = payLoanEmi(salary2);
+			salary2.setInstallment(Float.parseFloat(loanStatusAndInstallment.substring(1)));//return installment value substring fron index 1
+			
+			int isLoanStatusPaid = Integer.parseInt(loanStatusAndInstallment.substring(0, 1));
+			
+			if (isLoanStatusPaid == 2) {
+				
+			}
+			
+//			logger.info("Salary Datails "+salary2 );
+		
+			//String afterPayLonCurrentSalary = payLoanEmi(salary2);
+			
+		}//for loop end
+/****		
+INFO - salary Object : Salary [id=0, userinfo_id=2018, username=null, usertype=ROLE_ADMIN, status=null, fullname=null, address=null, email=null, phone=0, loan_id=1000, grade_id=1233, leaveusers_id=0, monthlyWorkingHour=100, totalLeaveDays=0, loanAmount=0, loanStatus=true, paidamount=0, regular=null, bonus=null, totalsalary=37800.0, datemonthyear=2018-11-16T16:19:02.498, basic=22000, medicalallowence=15, houserent=50, transport=10, lunch=10, study=25, installment=1000.0]
+INFO - salary Object : Salary [id=0, userinfo_id=2026, username=null, usertype=ROLE_ADMIN, status=null, fullname=null, address=null, email=null, phone=0, loan_id=0, grade_id=1233, leaveusers_id=0, monthlyWorkingHour=0, totalLeaveDays=0, loanAmount=0, loanStatus=false, paidamount=0, regular=null, bonus=null, totalsalary=0.0, datemonthyear=2018-11-16T16:19:02.502, basic=22000, medicalallowence=15, houserent=50, transport=10, lunch=10, study=25, installment=0.0]
+INFO - salary Object : Salary [id=0, userinfo_id=2027, username=null, usertype=ROLE_ACCOUNTANT, status=null, fullname=null, address=null, email=null, phone=0, loan_id=0, grade_id=1235, leaveusers_id=0, monthlyWorkingHour=111, totalLeaveDays=0, loanAmount=0, loanStatus=false, paidamount=0, regular=null, bonus=null, totalsalary=29925.0, datemonthyear=2018-11-16T16:19:02.507, basic=16500, medicalallowence=15, houserent=50, transport=10, lunch=10, study=25, installment=0.0]
+INFO - salary Object : Salary [id=0, userinfo_id=2028, username=null, usertype=ROLE_EMPLOYEE, status=null, fullname=null, address=null, email=null, phone=0, loan_id=1001, grade_id=1234, leaveusers_id=0, monthlyWorkingHour=96, totalLeaveDays=2, loanAmount=0, loanStatus=true, paidamount=0, regular=null, bonus=null, totalsalary=24570.0, datemonthyear=2018-11-16T16:19:02.515, basic=14300, medicalallowence=15, houserent=50, transport=10, lunch=10, study=25, installment=1228.5]
+*/		
+		
+		for (Salary salary3 : AllUsersSalary) {
+			logger.info("salary Object : "+salary3);
+			if(salary3.isLoanStatus() == true) {
+				Loan loan = new Loan();
+				loan.setPaidamount(salary3.getInstallment());
+				loan.setLoan_id(salary3.getLoan_id());
+				loan.setDatetime(LocalDateTime.now());
+				payLoan.add(loan);
+				
+			}
 		}
 		
+		for (Loan loan : payLoan) {
+			logger.info("Loan Details : "+loan);
+		}
 		
+		//perform loan dao operation
+		loanDao.payLoanInstallment(payLoan);
 		
 		//perform transection
-		salaryDao.giveSalary(AllUsersSalary);
+		salaryDao.giveSalary(AllUsersSalary);	
+	}
+
+	private String payLoanEmi(Salary salary2) {
 		
-		//Salary Datails Salary [id=0, userinfo_id=2028, username=null, usertype=ROLE_EMPLOYEE, status=null, fullname=null, address=null, email=null, phone=0, loan_id=0, grade_id=1234, leaveusers_id=0, monthlyWorkingHour=96, totalLeaveDays=2, loanAmount=0, loanStatus=false, paidamount=0, regular=null, bonus=null, totalsalary=24570.0, basic=14300, medicalallowence=15, houserent=50, transport=10, lunch=10, study=25]
-		//178 hour total job
-		//basic 2200
-		//Salary Datails Salary [id=0, userinfo_id=2028, username=null, usertype=ROLE_EMPLOYEE, status=null, fullname=null, address=null, email=null, phone=0, loan_id=0, grade_id=1234, leaveusers_id=0, monthlyWorkingHour=50, totalLeaveDays=8, loanAmount=0, loanStatus=false, paidamount=0, regular=null, bonus=null, totalsalary=0, basic=14300, medicalallowence=15, houserent=50, transport=10, lunch=10, study=25]
+		int loan_id = salary2.getLoan_id();//1000
+		float salary = salary2.getTotalsalary();
+		float installment = 0;//kisti
+		float checkLoanAmountIsLessThenOrGraterThen = 0;
+		float extraMoney = 0;
+		int loanStatus = 0;
+//		
+//		logger.info("salary2 object inside payLoanEmi Method : "+ salary2);
+//		logger.info("Get Salary : "+ salary2.getTotalsalary());
+		
+		Loan loan =  loanDao.getLoanAmountBasedOnLoanID(loan_id);
+		float loanAmountBasedOnLoanId = loan.getAmount();
+		
+//		logger.info("loanAmountBasedOnLoanId : "+loanAmountBasedOnLoanId);
+		
+		List<Loan> loanpaiddetails = loanDao.getLoanPaidDetailsBasedOnLoanId(loan_id);
+		
+		float paidAmount = 0;
+		for (Loan loan2 : loanpaiddetails) {
+			paidAmount = paidAmount + loan2.getPaidamount();
+//			logger.info("your paid amount ::::::: "+ loan2);
+		}
+		
+//		logger.info(" your loanAmountBasedOnLoanId "+loanAmountBasedOnLoanId + " Your paidAmount : " +paidAmount + "Your Salary " + salary);
+		
+		if(loanAmountBasedOnLoanId > paidAmount) {
+			//81000 80000
+			installment = (salary*5)/100 ; //5% 10_000
+			
+			checkLoanAmountIsLessThenOrGraterThen = paidAmount + installment; //90_000
+			if (loanAmountBasedOnLoanId <= checkLoanAmountIsLessThenOrGraterThen) {
+				extraMoney = checkLoanAmountIsLessThenOrGraterThen - loanAmountBasedOnLoanId;//9000
+				installment = (checkLoanAmountIsLessThenOrGraterThen - extraMoney) - paidAmount ; //81_000 bdt
+				loanStatus = 2;
+			}
+		} 
+//		else {
+//			installment = (salary*5)/100 ; //5% 10_000
+//		}
+		
+//		logger.info(" installment :::: "+installment);
 		
 		
 		
+		return String.valueOf(loanStatus)+String.valueOf(installment);
 	}
 
 	private int checkRunningLoan(int userinfoId) {

@@ -17,7 +17,7 @@ public class Loan {
 	private int id;
 	private LocalDateTime placedate;
 	private LocalDateTime approvedate;
-	private int amount;
+	private float amount;
 	@NotBlank
 	@Size(min = 3, max = 6)
 	@Pattern(regexp = "[0-9]+")
@@ -29,7 +29,7 @@ public class Loan {
 	// loanpaiddetails table entity
 	private int lpid;
 	private LocalDateTime datetime;
-	private int paidamount;
+	private float paidamount;
 	private int loan_id;
 	
 
@@ -38,8 +38,8 @@ public class Loan {
 	}
 
 	// no id exist
-	public Loan(LocalDateTime placedate, LocalDateTime approvedate, int amount, String amountValidation, int status,
-			int userinfo_id, String reason, LocalDateTime datetime, int paidamount, int loan_id) {
+	public Loan(LocalDateTime placedate, LocalDateTime approvedate, float amount, String amountValidation, int status,
+			int userinfo_id, String reason, LocalDateTime datetime, float paidamount, int loan_id) {
 		this.placedate = placedate;
 		this.approvedate = approvedate;
 		this.amount = amount;
@@ -54,8 +54,8 @@ public class Loan {
 
 	// lpid exist
 
-	public Loan(LocalDateTime placedate, LocalDateTime approvedate, int amount, String amountValidation, int status,
-			int userinfo_id, String reason, int lpid, LocalDateTime datetime, int paidamount, int loan_id) {
+	public Loan(LocalDateTime placedate, LocalDateTime approvedate, float amount, String amountValidation, int status,
+			int userinfo_id, String reason, int lpid, LocalDateTime datetime, float paidamount, int loan_id) {
 		this.placedate = placedate;
 		this.approvedate = approvedate;
 		this.amount = amount;
@@ -71,7 +71,7 @@ public class Loan {
 
 	// id lpid exist
 	public Loan(int id, LocalDateTime placedate, LocalDateTime approvedate, int amount, String amountValidation,
-			int status, int userinfo_id, String reason, int lpid, LocalDateTime datetime, int paidamount,
+			int status, int userinfo_id, String reason, int lpid, LocalDateTime datetime, float paidamount,
 			int loan_id) {
 		this.id = id;
 		this.placedate = placedate;
@@ -111,11 +111,13 @@ public class Loan {
 		this.approvedate = approvedate;
 	}
 
-	public int getAmount() {
+	
+
+	public float getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 
@@ -175,11 +177,11 @@ public class Loan {
 		this.datetime = datetime;
 	}
 
-	public int getPaidamount() {
+	public float getPaidamount() {
 		return paidamount;
 	}
 
-	public void setPaidamount(int paidamount) {
+	public void setPaidamount(float paidamount) {
 		this.paidamount = paidamount;
 	}
 

@@ -43,13 +43,15 @@ public class Salary {
 	private int transport;
 	private int lunch;
 	private int study;
+	
+	private float installment;
 	public Salary( ) {
 		
 	}
 	public Salary(int userinfo_id, String username, String usertype, String status, String fullname, String address,
 			String email, int phone, int loan_id, int grade_id, int leaveusers_id, int monthlyWorkingHour,
 			int totalLeaveDays, int loanAmount, boolean loanStatus, int paidamount, String regular, String bonus,
-			int basic, int medicalallowence, int houserent, int transport, int lunch, int study, float totalsalary, LocalDateTime datemonthyear) {
+			int basic, int medicalallowence, int houserent, int transport, int lunch, int study, float totalsalary, LocalDateTime datemonthyear, float installment) {
 		this.userinfo_id = userinfo_id;
 		this.username = username;
 		this.usertype = usertype;
@@ -76,12 +78,13 @@ public class Salary {
 		this.study = study;
 		this.totalsalary = totalsalary;
 		this.datemonthyear = datemonthyear;
+		this.installment = installment;
 	}
 	public Salary(int id, int userinfo_id, String username, String usertype, String status, String fullname,
 			String address, String email, int phone, int loan_id, int grade_id, int leaveusers_id,
 			int monthlyWorkingHour, int totalLeaveDays, int loanAmount, boolean loanStatus, int paidamount,
 			String regular, String bonus, int basic, int medicalallowence, int houserent, int transport, int lunch,
-			int study, float totalsalary, LocalDateTime datemonthyear) {
+			int study, float totalsalary, LocalDateTime datemonthyear, float installment) {
 		this.id = id;
 		this.userinfo_id = userinfo_id;
 		this.username = username;
@@ -109,6 +112,7 @@ public class Salary {
 		this.study = study;
 		this.totalsalary = totalsalary;
 		this.datemonthyear = datemonthyear;
+		this.installment = installment;
 	}
 	public int getId() {
 		return id;
@@ -275,6 +279,15 @@ public class Salary {
 	public void setDatemonthyear(LocalDateTime datemonthyear) {
 		this.datemonthyear = datemonthyear;
 	}
+	
+	
+	
+	public float getInstallment() {
+		return installment;
+	}
+	public void setInstallment(float installment) {
+		this.installment = installment;
+	}
 	@Override
 	public String toString() {
 		return "Salary [id=" + id + ", userinfo_id=" + userinfo_id + ", username=" + username + ", usertype=" + usertype
@@ -284,7 +297,10 @@ public class Salary {
 				+ ", loanAmount=" + loanAmount + ", loanStatus=" + loanStatus + ", paidamount=" + paidamount
 				+ ", regular=" + regular + ", bonus=" + bonus + ", totalsalary=" + totalsalary + ", datemonthyear="
 				+ datemonthyear + ", basic=" + basic + ", medicalallowence=" + medicalallowence + ", houserent="
-				+ houserent + ", transport=" + transport + ", lunch=" + lunch + ", study=" + study + "]";
+				+ houserent + ", transport=" + transport + ", lunch=" + lunch + ", study=" + study + ", installment="
+				+ installment + "]";
 	}
+
+
 	
 }

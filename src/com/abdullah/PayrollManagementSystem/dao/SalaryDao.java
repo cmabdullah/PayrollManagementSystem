@@ -28,11 +28,6 @@ public class SalaryDao {
 		@Transactional
 		public int[] giveSalary(List<Salary> salary) {
 			SqlParameterSource[] params = SqlParameterSourceUtils.createBatch(salary.toArray());
-			
-			for (SqlParameterSource sqlParameterSource : params) {
-				System.out.println(sqlParameterSource);
-			}
-			
 			return jdbc.batchUpdate("insert into salary (id,datemonthyear , Loan_id, grade_id,userinfo_id ,leaveusers_id,totalsalary) values (:id,:datemonthyear,:Loan_id,:grade_id , :userinfo_id, :leaveusers_id , :totalsalary)", params);
 		}
 }
