@@ -100,6 +100,7 @@ public class SalaryService {
 			salary.setGrade_id(userinfo.getGrade_id());
 			salary.setDatemonthyear(LocalDateTime.now());
 			salary.setJoiningDate(userinfo.getJoiningDate());
+			salary.setBonus(bonus);
 			
 			if(userinfo.getAuthority().equals("ROLE_ADMIN")) {
 				salary.setBasic(grade.get(1).getBasic());
@@ -153,6 +154,17 @@ public class SalaryService {
 			float totalsalary = basic + medicalallowence + houserent + transport + lunch + study ;
 			//totalsalary=30030
 //			logger.info("totalsalary "+totalsalary);
+			
+			
+			try {
+				if (salary2.getBonus().equals("give_bonus")) {
+					totalsalary = totalsalary*2;
+				}
+			} catch (Exception e) {
+				System.out.println("No bonus given");
+			}
+			
+			
 			
 			float oneDaySalary = totalsalary/22;//15001.36364
 //			logger.info("oneDaySalary : "+oneDaySalary);
