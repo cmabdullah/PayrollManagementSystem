@@ -12,8 +12,8 @@
 </c:if>
 
 <div class="col-md-6 col-md-offset-3">
-	<sf:form class="form-horizontal" method="post"
-		action="${pageContext.request.contextPath}/loanreq_process" commandName="loan"  >
+	<form class="form-horizontal" method="post"
+		action="${pageContext.request.contextPath}/loanreq_process" >
 
 			<!-- Textarea -->
 			<div class="form-group">
@@ -28,16 +28,14 @@
 			
 			<!-- Text input-->
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="name">amount
-						:</label>
+					
 					<div class="col-md-4">
-						<sf:input id="amountValidation"   path="amountValidation" name="amountValidation"
-							type="text" placeholder="Enter loan amount"
-							class="form-control input-md" />
+						
+							<input type="radio" name="loanType" value="give_medical">Medical<br>
+							<input type="radio" name="loanType" value="give_study">Study<br>
+							<input type="radio" name="loanType" value="give_business">Business<br>
 							
-							<!-- Show error message into view -->
-						<sf:errors path="amountValidation" cssClass="alert-danger"></sf:errors>
-
+							
 					</div>
 				</div>
 			
@@ -50,5 +48,5 @@
 				</div>
 			</div>
 
-	</sf:form>
+	</form>
 </div>

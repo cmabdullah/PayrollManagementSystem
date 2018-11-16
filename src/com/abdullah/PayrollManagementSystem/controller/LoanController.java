@@ -49,18 +49,20 @@ public class LoanController {
 		
 		
 		
-		if (result.hasErrors()) {
-			List<ObjectError> errors = result.getAllErrors();
-			for (ObjectError error: errors) {
-				System.out.println(error.getDefaultMessage());
-			}
-		}else {
-			System.out.println("Form is validet");
-		}
+//		if (result.hasErrors()) {
+//			List<ObjectError> errors = result.getAllErrors();
+//			for (ObjectError error: errors) {
+//				System.out.println(error.getDefaultMessage());
+//			}
+//		}else {
+//			System.out.println("Form is validet");
+//		}
 		
 		loan.setUserinfo_id(userinfoService.getUserIdFromName(principal.getName()).getId());
 		logger.info("Showing loan....."+loan);
 		
+		
+		System.out.println(loan);
 		
 		boolean isPandingLoanRequest = false;
 		isPandingLoanRequest = loanService.isPandingLoanRequest(loan.getUserinfo_id());

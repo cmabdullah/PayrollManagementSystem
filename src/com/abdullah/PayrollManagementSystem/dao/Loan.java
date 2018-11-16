@@ -32,6 +32,8 @@ public class Loan {
 	private float paidamount;
 	private int loan_id;
 	
+	private String loanType;
+	
 
 	public Loan() {
 
@@ -39,7 +41,7 @@ public class Loan {
 
 	// no id exist
 	public Loan(LocalDateTime placedate, LocalDateTime approvedate, float amount, String amountValidation, int status,
-			int userinfo_id, String reason, LocalDateTime datetime, float paidamount, int loan_id) {
+			int userinfo_id, String reason, LocalDateTime datetime, float paidamount, int loan_id, String loanType) {
 		this.placedate = placedate;
 		this.approvedate = approvedate;
 		this.amount = amount;
@@ -50,12 +52,13 @@ public class Loan {
 		this.datetime = datetime;
 		this.paidamount = paidamount;
 		this.loan_id = loan_id;
+		this.loanType = loanType;
 	}
 
 	// lpid exist
 
 	public Loan(LocalDateTime placedate, LocalDateTime approvedate, float amount, String amountValidation, int status,
-			int userinfo_id, String reason, int lpid, LocalDateTime datetime, float paidamount, int loan_id) {
+			int userinfo_id, String reason, int lpid, LocalDateTime datetime, float paidamount, int loan_id, String loanType) {
 		this.placedate = placedate;
 		this.approvedate = approvedate;
 		this.amount = amount;
@@ -67,12 +70,13 @@ public class Loan {
 		this.datetime = datetime;
 		this.paidamount = paidamount;
 		this.loan_id = loan_id;
+		this.loanType = loanType;
 	}
 
 	// id lpid exist
 	public Loan(int id, LocalDateTime placedate, LocalDateTime approvedate, int amount, String amountValidation,
 			int status, int userinfo_id, String reason, int lpid, LocalDateTime datetime, float paidamount,
-			int loan_id) {
+			int loan_id, String loanType) {
 		this.id = id;
 		this.placedate = placedate;
 		this.approvedate = approvedate;
@@ -85,6 +89,7 @@ public class Loan {
 		this.datetime = datetime;
 		this.paidamount = paidamount;
 		this.loan_id = loan_id;
+		this.loanType = loanType;
 	}
 
 	public int getId() {
@@ -192,15 +197,25 @@ public class Loan {
 	public void setLoan_id(int loan_id) {
 		this.loan_id = loan_id;
 	}
+	
+
+	public String getLoanType() {
+		return loanType;
+	}
+
+	public void setLoanType(String loanType) {
+		this.loanType = loanType;
+	}
 
 	@Override
 	public String toString() {
 		return "Loan [id=" + id + ", placedate=" + placedate + ", approvedate=" + approvedate + ", amount=" + amount
 				+ ", amountValidation=" + amountValidation + ", status=" + status + ", userinfo_id=" + userinfo_id
 				+ ", reason=" + reason + ", lpid=" + lpid + ", datetime=" + datetime + ", paidamount=" + paidamount
-				+ ", loan_id=" + loan_id + "]";
+				+ ", loan_id=" + loan_id + ", loanType=" + loanType + "]";
 	}
 
+	
 	
 	
 	
