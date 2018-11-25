@@ -1,5 +1,6 @@
 package com.abdullah.PayrollManagementSystem.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.abdullah.PayrollManagementSystem.dao.Leave;
 import com.abdullah.PayrollManagementSystem.dao.Loan;
+import com.abdullah.PayrollManagementSystem.messageBrokerService.SendMessageService;
 import com.abdullah.PayrollManagementSystem.service.LoanService;
 import com.abdullah.PayrollManagementSystem.service.UserinfoService;
 @Controller
@@ -37,6 +39,14 @@ public class LoanController {
 	public void setLoanService(LoanService loanService) {
 		this.loanService = loanService;
 	}
+	
+	@Autowired
+	SendMessageService sendMessageService;
+	
+	public void setSendMessageService(SendMessageService sendMessageService) {
+		this.sendMessageService = sendMessageService;
+	}
+	
 	@RequestMapping("/loanreq")
 	public String requestForLoan(Model model) {
 		model.addAttribute(new Loan());//add attribute into model
@@ -101,10 +111,11 @@ public class LoanController {
 	
 	
 	@RequestMapping(value="/deleteemp/{id}",method = RequestMethod.GET)  
-	public String deleteLoan(@PathVariable int id) {
+	public String deleteLoan(@PathVariable int id) throws IOException, Exception {
 		
 		logger.info("deleted id is : "+id);
 			loanService.deletePendingLoanApplication(id);
+			sendMessageService.postLoanRejectionMessage(id);
 		return "redirect:/ad_loan";
 	}
 	
@@ -112,6 +123,7 @@ public class LoanController {
 	public String acceptLoanRequest(@PathVariable int id) {
 		logger.info("Accept id is : "+id);
 		loanService.acceptPendingLoanApplication(id);
+		sendMessageService.postLoanAcceptionMessage(id);
 		return "redirect:/ad_loan";
 		//redirect:/attendance
 	}

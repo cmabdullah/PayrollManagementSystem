@@ -44,9 +44,11 @@ public class NotificationController {
 		String queueName = String.valueOf(userId);
 		
 		String leaveMessage = sendMessageService.getPendingLeaveMessage(queueName);
+		String loanMessage = sendMessageService.getPendingLoanMessage(queueName);
 		
 		//first usersinfo is key, last usersinfo is value
 		model.addAttribute("leaveMessage",leaveMessage);
+		model.addAttribute("loanMessage",loanMessage);
 		
 		return "notification";
 	}

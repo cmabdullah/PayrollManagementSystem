@@ -151,4 +151,19 @@ public class LoanDao {
 		
 	}
 
+	 public Loan getLoanApplicationInfoBasedOnLoanId(int id) {
+		 MapSqlParameterSource params = new MapSqlParameterSource();
+			params.addValue("id", id);
+
+			return jdbc.queryForObject("SELECT * FROM loan where id=:id", params, new RowMapper<Loan>() {
+				public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
+					Loan loan = new Loan();
+					loan.setId(rs.getInt("id"));
+					loan.setAmount(rs.getFloat("amount"));
+					loan.setUserinfo_id(rs.getInt("userinfo_id"));
+					return loan;// return single object
+				}
+			});
+	}
+
 }

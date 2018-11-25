@@ -11,6 +11,8 @@ import com.abdullah.PayrollManagementSystem.controller.LoanController;
 import com.abdullah.PayrollManagementSystem.dao.Leave;
 import com.abdullah.PayrollManagementSystem.dao.LeaveDao;
 import com.abdullah.PayrollManagementSystem.dao.LeaveMessage;
+import com.abdullah.PayrollManagementSystem.dao.Loan;
+import com.abdullah.PayrollManagementSystem.dao.LoanDao;
 import com.abdullah.PayrollManagementSystem.dao.MessageDao;
 
 @Service("sendMessageService")
@@ -30,12 +32,18 @@ public class SendMessageService {
 	public void setMessageDao(MessageDao messageDao) {
 		this.messageDao = messageDao;
 	}
+	private LoanDao loanDao;
 
-	public void postLeaveConfirmationMessage(int id) throws IOException, Exception {
+	@Autowired
+	public void setLoanDao(LoanDao loanDao) {
+		this.loanDao = loanDao;
+	}
+
+	public void postLeaveRejectionMessage(int id) throws IOException, Exception {
 		Leave leave = leaveDao.getLeaveApplicationInfoBasedOnLeaveId(id);
 		logger.info("Showing retrive leave info for perform messaging operation"+leave);
 		
-		String message = "Hi "+leave.getFullname()+ " You got Leave request "+leave.getEntryfrom() + " to "+ leave.getEntryto() +"has been rejeced";
+		String message = "Hi "+leave.getFullname()+ " your leave request "+leave.getEntryfrom() + " to "+ leave.getEntryto() +" has been rejeced";
 		String queueName = String.valueOf(leave.getUserinfo_id());
 		String mapkey = "pendingleave";
 		//pushMessageToQueue(queueName, message);
@@ -46,6 +54,49 @@ public class SendMessageService {
 	public String getPendingLeaveMessage(String queueName) throws IOException, TimeoutException {
 		LeaveMessage leaveMessage = new LeaveMessage();
 		String mapkey = "pendingleave";
+		
+		//String message = getMessagefromQueue(queueName, leaveMessage);
+		String redisMessage = messageDao.getRedisMessagefromQueue(queueName,mapkey, leaveMessage);
+		
+		return redisMessage;
+	}
+
+	public void postLeaveAcceptionMessage(int id) {
+		Leave leave = leaveDao.getLeaveApplicationInfoBasedOnLeaveId(id);
+		logger.info("Showing retrive leave info for perform messaging operation"+leave);
+		
+		String message = "Hi "+leave.getFullname()+ " your leave request "+leave.getEntryfrom() + " to "+ leave.getEntryto() +" has been accept";
+		String queueName = String.valueOf(leave.getUserinfo_id());
+		String mapkey = "pendingleave";
+		//pushMessageToQueue(queueName, message);
+		//pushMessageToRedisQueue(queueName, message);
+		messageDao.pushMessageToRedisQueue(queueName,mapkey, message);
+		
+	}
+
+	public void postLoanRejectionMessage(int id) {
+		Loan loan = loanDao.getLoanApplicationInfoBasedOnLoanId(id);
+		
+		String message = "Hi you request "+loan.getAmount()+ " BDT for loan, but we cannot accept at this moment";
+		String queueName = String.valueOf(loan.getUserinfo_id());
+		String mapkey = "pendingloan";
+		messageDao.pushMessageToRedisQueue(queueName,mapkey, message);
+		
+	}
+	public void postLoanAcceptionMessage(int id) {
+		Loan loan = loanDao.getLoanApplicationInfoBasedOnLoanId(id);
+		
+		String message = "Hi you request "+loan.getAmount()+ " BDT for loan, but we accept your request";
+		String queueName = String.valueOf(loan.getUserinfo_id());
+		String mapkey = "pendingloan";
+		messageDao.pushMessageToRedisQueue(queueName,mapkey, message);
+		
+	}
+	
+	public String getPendingLoanMessage(String queueName) throws IOException, TimeoutException {
+		//just message class
+		LeaveMessage leaveMessage = new LeaveMessage();
+		String mapkey = "pendingloan";
 		
 		//String message = getMessagefromQueue(queueName, leaveMessage);
 		String redisMessage = messageDao.getRedisMessagefromQueue(queueName,mapkey, leaveMessage);

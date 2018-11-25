@@ -100,7 +100,8 @@ public class LoanService {
 		int status = 1; //accept flag is 1
 		loan.setId(id);
 		loan.setStatus(status);
-		loan.setApprovedate(LocalDateTime.now());		
+		loan.setApprovedate(LocalDateTime.now());
+		System.out.println("Loan Accept Service layer loan object : "+loan);
 		loanDao.acceptPendingLoanApplication(loan);
 		
 	}

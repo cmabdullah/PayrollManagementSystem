@@ -110,16 +110,17 @@ public class LeaveController {
 		
 		logger.info("deleted id is : "+id);
 			leaveService.ignorePendingApplicationId(id);
-			sendMessageService.postLeaveConfirmationMessage(id);
+			sendMessageService.postLeaveRejectionMessage(id);
 			//loanService.deletePendingLoanApplication(id);
 		return "disable_enable_user_success";
 	}
 	
 	@RequestMapping(value="/acceptleave/{id}",method = RequestMethod.GET)  
-	public String acceptLeave(@PathVariable int id) {
+	public String acceptLeave(@PathVariable int id) throws IOException, Exception {
 		
 		logger.info("accept id is : "+id);
 		leaveService.acceptPendingApplicationId(id);
+		sendMessageService.postLeaveAcceptionMessage(id);
 		return "disable_enable_user_success";
 	}
 	

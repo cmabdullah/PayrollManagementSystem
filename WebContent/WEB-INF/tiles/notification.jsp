@@ -13,4 +13,10 @@
 				
 
 			</tr>
+			
+			<tr>
+				<td><c:out value="${loanMessage}"></c:out></td>
+				
+
+			</tr>
 	</table>
