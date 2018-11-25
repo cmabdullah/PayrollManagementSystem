@@ -41,7 +41,7 @@ public class SalaryDao {
 			//;
 			MapSqlParameterSource params = new MapSqlParameterSource();
 			params.addValue("id", userinfo_id);//select * from userinfo where id = :id
-			return jdbc.queryForObject("SELECT * FROM userinfo inner join grade on userinfo.grade_id = grade.id where userinfo.grade_id=:id", params, new RowMapper<Salary>() {
+			return jdbc.queryForObject("SELECT * FROM userinfo inner join grade on userinfo.grade_id = grade.id where userinfo.id=:id", params, new RowMapper<Salary>() {
 				public Salary mapRow(ResultSet rs, int rowNum) throws SQLException {
 					Salary salary = new Salary();
 					salary.setBasic(rs.getInt("basic"));

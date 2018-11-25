@@ -72,11 +72,11 @@ public class LoanDao {
 		});
 	}
 
-	public boolean deletePendingLoanApplication(int id) { // delete method
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("id", id);
-		return jdbc.update("delete from loan where id = :id", params) == 1; // return true if success
+	public boolean deletePendingLoanApplication(Loan loan) { // delete method
+		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(loan);
+		return jdbc.update("update loan set approvedate=:approvedate,status=:status where id=:id", params) == 1;
 	}
+
 
 	public List<Loan> checkRunningLoan(int userinfo_id) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
@@ -142,6 +142,12 @@ public class LoanDao {
 	public boolean updateLoanStatusBasedOnLoanId(Loan loan) {
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(loan);
 		return jdbc.update("update loan set status=:status where id=:loan_id", params) == 1;
+		
+	}
+
+	public boolean acceptPendingLoanApplication(Loan loan) {
+		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(loan);
+		return jdbc.update("update loan set approvedate=:approvedate,status=:status where id=:id", params) == 1;
 		
 	}
 

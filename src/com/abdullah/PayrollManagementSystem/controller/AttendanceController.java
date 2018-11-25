@@ -143,6 +143,7 @@ public class AttendanceController {
 //		System.out.println("Logout status : " + hasLogout);
 		
 		
-		return "disable_enable_user_success";
+		//return "disable_enable_user_success";
+		return "redirect:/attendance";
 	}
 }

@@ -34,9 +34,9 @@ public class LoanService {
 		loan.setPlacedate(LocalDateTime.now());
 		System.out.println("Loan service layer : "+loan);
 		
-		Userinfo  userinfo = salaryDao.getUserGradeId(loan.getUserinfo_id());
-		
-		Salary salary = salaryDao.getUserInfoWithGradeInfo(userinfo.getGrade_id());
+//		Userinfo  userinfo = salaryDao.getUserGradeId(loan.getUserinfo_id());
+//		System.out.println("Service layer userinfo object "+ userinfo);
+		Salary salary = salaryDao.getUserInfoWithGradeInfo(loan.getUserinfo_id());
 		
 		float basic = salary.getBasic();
 		float medicalallowence = (basic * 15)/100;
@@ -86,6 +86,22 @@ public class LoanService {
 	}
 
 	public void deletePendingLoanApplication(int id) {
-		loanDao.deletePendingLoanApplication(id);
+		Loan loan = new Loan();
+		int status = 3;//rejection flag is 3
+		loan.setId(id);
+		loan.setStatus(status);
+		loan.setApprovedate(LocalDateTime.now());//keep data though this application is reject
+		loanDao.deletePendingLoanApplication(loan);
+	}
+
+
+	public void acceptPendingLoanApplication(int id) {
+		Loan loan = new Loan();
+		int status = 1; //accept flag is 1
+		loan.setId(id);
+		loan.setStatus(status);
+		loan.setApprovedate(LocalDateTime.now());		
+		loanDao.acceptPendingLoanApplication(loan);
+		
 	}
 }

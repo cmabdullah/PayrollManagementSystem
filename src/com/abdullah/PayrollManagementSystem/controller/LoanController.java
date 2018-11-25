@@ -105,13 +105,15 @@ public class LoanController {
 		
 		logger.info("deleted id is : "+id);
 			loanService.deletePendingLoanApplication(id);
-		return "ad_loan";
+		return "redirect:/ad_loan";
 	}
 	
 	@RequestMapping(value="/accept_loan_request/{id}",method = RequestMethod.GET)  
 	public String acceptLoanRequest(@PathVariable int id) {
-		
-		return "accept_loan_request";
+		logger.info("Accept id is : "+id);
+		loanService.acceptPendingLoanApplication(id);
+		return "redirect:/ad_loan";
+		//redirect:/attendance
 	}
 	
 }
