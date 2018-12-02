@@ -47,6 +47,10 @@
 			
 			
 			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/notification'/>">notification</a> </li>
+
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/permission_for_pay_salary'/>">permission_for_pay_salary</a> </li>
+			</sec:authorize>
 			
 			
 		</ul>

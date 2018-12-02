@@ -90,5 +90,56 @@ public class MessageDao {
 		}
 		return null;
 	}
+	
+	
+	
+	
+	public String getRedisMessagefromQueueAndNotDequeue(String queueName,String mapkey, LeaveMessage leaveMessage) {
+
+		// address of your redis server
+		String redisHost = "localhost";
+		Integer redisPort = 6379;
+
+		// the jedis connection pool..
+		JedisPool pool = new JedisPool(redisHost, redisPort);
+
+		// add some values in Redis HASH
+		String key = queueName;
+		Jedis jedis = pool.getResource();
+		try {
+
+			// after saving the data, lets retrieve them to be sure that it has really added
+			// in redis
+			Map<String, String> retrieveMap = jedis.hgetAll(key);
+			String fieldname = "";
+			for (String keyMap : retrieveMap.keySet()) {
+
+				if (keyMap.equals(mapkey)) {
+					leaveMessage.setMessage(retrieveMap.get(keyMap));
+					fieldname = retrieveMap.get(keyMap);
+					//jedis.hdel(key, keyMap);
+					return leaveMessage.getMessage();
+				}
+
+				// System.out.println(keyMap);
+
+				// System.out.println(keyMap + " " + retrieveMap.get(keyMap));
+			}
+
+		} catch (JedisException e) {
+			// if something wrong happen, return it back to the pool
+			if (null != jedis) {
+				pool.returnBrokenResource(jedis);
+				jedis = null;
+			}
+		} finally {
+			/// it's important to return the Jedis instance to the pool once you've finished
+			/// using it
+			if (null != jedis)
+				pool.returnResource(jedis);
+		}
+		return null;
+	}
+	
 
 }

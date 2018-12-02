@@ -123,5 +123,10 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/give_salary.jsp"></put-attribute>		
 	</definition>
 	
+	<definition name="permission_for_pay_salary" extends="manager.base">
+		<put-attribute name="title" value="permission_for_pay_salary....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/permission_for_pay_salary.jsp"></put-attribute>		
+	</definition>
+	
 
 </tiles-definitions>
