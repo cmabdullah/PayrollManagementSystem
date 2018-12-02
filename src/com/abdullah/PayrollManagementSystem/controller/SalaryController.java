@@ -80,6 +80,15 @@ public class SalaryController {
 	public String processSalary(Model model,@Valid Salary salary, Principal principal) {
 		logger.info("Showing salary....."+ salary);
 		
+		String isMenagerBonusPermissionGiven1 = sendMessageService.isMenagerBonusPermissionGiven("y");
+		
+		if (isMenagerBonusPermissionGiven1 != null) {
+			if(salary.getBonus() == null) {
+				return "redirect:give_salary";
+			}
+		}
+		
+		
 		
 		//deque from redis
 		String isMenagerSalaryPermissionGiven = sendMessageService.isMenagerPermissionGiven("n");

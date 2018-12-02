@@ -170,4 +170,19 @@ public class SendMessageService {
 
 	}
 
+	public void postSalaryGivenMessage(float totalsalary, int userinfo_id) {
+		String message = "Your salary has been given you got : "+ totalsalary + " BDT";
+		String queueName = String.valueOf(userinfo_id);
+		String mapkey = "userssalary";
+		messageDao.pushMessageToRedisQueue(queueName, mapkey, message);
+		
+	}
+
+	public String getPendingSalaryMessage(String queueName) {
+		LeaveMessage leaveMessage = new LeaveMessage();
+		String mapkey = "userssalary";
+		String redisMessage = messageDao.getRedisMessagefromQueue(queueName, mapkey, leaveMessage);
+		return redisMessage;
+	}
+
 }

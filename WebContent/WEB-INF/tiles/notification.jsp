@@ -9,6 +9,11 @@
 
 		</tr>
 			<tr>
+				<td><c:out value="${salaryNotice}"></c:out></td>
+				
+
+			</tr>
+			<tr>
 				<td><c:out value="${leaveMessage}"></c:out></td>
 				
 
@@ -16,6 +21,16 @@
 			
 			<tr>
 				<td><c:out value="${loanMessage}"></c:out></td>
+				
+
+			</tr>
+			<tr>
+				<td><c:out value="${isMenagerSalaryPermissionGiven}"></c:out></td>
+				
+
+			</tr>
+			<tr>
+				<td><c:out value="${isMenagerBonusPermissionGiven}"></c:out></td>
 				
 
 			</tr>

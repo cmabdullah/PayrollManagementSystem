@@ -45,10 +45,18 @@ public class NotificationController {
 		
 		String leaveMessage = sendMessageService.getPendingLeaveMessage(queueName);
 		String loanMessage = sendMessageService.getPendingLoanMessage(queueName);
+		String salaryNotice = sendMessageService.getPendingSalaryMessage(queueName);
+		
+		//not dequeue
+		String isMenagerSalaryPermissionGiven = sendMessageService.isMenagerPermissionGiven("y");
+		String isMenagerBonusPermissionGiven = sendMessageService.isMenagerBonusPermissionGiven("y");
 		
 		//first usersinfo is key, last usersinfo is value
+		model.addAttribute("salaryNotice",salaryNotice);
 		model.addAttribute("leaveMessage",leaveMessage);
 		model.addAttribute("loanMessage",loanMessage);
+		model.addAttribute("isMenagerSalaryPermissionGiven",isMenagerSalaryPermissionGiven);
+		model.addAttribute("isMenagerBonusPermissionGiven",isMenagerBonusPermissionGiven);
 		
 		return "notification";
 	}

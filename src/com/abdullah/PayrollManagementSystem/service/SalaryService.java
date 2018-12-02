@@ -27,6 +27,7 @@ import com.abdullah.PayrollManagementSystem.dao.UserDao;
 import com.abdullah.PayrollManagementSystem.dao.Userinfo;
 
 import com.abdullah.PayrollManagementSystem.dao.UserinfoDao;
+import com.abdullah.PayrollManagementSystem.messageBrokerService.SendMessageService;
 
 
 
@@ -74,6 +75,13 @@ public class SalaryService {
 	@Autowired
 	public void setGradeDao(GradeDao gradeDao) {
 		this.gradeDao = gradeDao;
+	}
+	
+	@Autowired
+	SendMessageService sendMessageService;
+	
+	public void setSendMessageService(SendMessageService sendMessageService) {
+		this.sendMessageService = sendMessageService;
 	}
 
 	public void calculateSalary(String bonus) {
@@ -249,7 +257,26 @@ INFO - salary Object : Salary [id=0, userinfo_id=2028, username=null, usertype=R
 		loanDao.payLoanInstallment(payLoan);
 		
 		//perform transection
-		salaryDao.giveSalary(AllUsersSalary);	
+		salaryDao.giveSalary(AllUsersSalary);
+		
+//		for (Salary salary4 : AllUsersSalary) {
+//			System.out.println("AllUsersSalary :: "+salary4);
+//			// queue name userinfo_id=2029
+//			//totalsalary not equals zero
+//			if (salary4.getTotalsalary() > 0) {
+//				//System.out.println(salary4.getUserinfo_id());
+//				sendMessageService.postSalaryGivenMessage(salary4.getTotalsalary(), salary4.getUserinfo_id());
+//			}
+//			
+//		}
+		//send notification
+		//labda expression
+		AllUsersSalary.stream().parallel().forEach(salary5 -> {
+            if (salary5.getTotalsalary() > 0) {
+            	sendMessageService.postSalaryGivenMessage(salary5.getTotalsalary(), salary5.getUserinfo_id());
+            }
+        });
+		
 	}
 
 	private String payLoanEmi(Salary salary2) {
