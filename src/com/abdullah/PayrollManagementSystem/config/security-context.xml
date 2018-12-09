@@ -98,6 +98,8 @@
 		<security:intercept-url pattern="/give_salary"  access="hasRole('ROLE_ACCOUNTANT')" />
 		<security:intercept-url pattern="/prcess_salary"  access="hasRole('ROLE_ACCOUNTANT')" />
 		
+		<security:intercept-url pattern="/report"  access="permitAll" />
+		
 		
 		<!-- <security:intercept-url pattern="/leavereq" access="hasRole('ROLE_EMPLOYEE')" />-->
 		

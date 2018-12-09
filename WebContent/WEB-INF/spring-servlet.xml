@@ -59,5 +59,12 @@
 	 <rabbit:annotation-driven/>
 	 https://medium.com/@muiruri/spring-rabbit-mvc-rabbitmq-message-producer-consumer-818b062a51ba
 	  -->
+	  
+	  <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+	   <property name="location">
+	       <value>/WEB-INF/spring-pdf-views.xml</value>
+	   </property>
+	   <property name="order" value="0" />
+	</bean>
 
 </beans>
