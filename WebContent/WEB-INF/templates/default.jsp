@@ -14,6 +14,8 @@
     <link href="<c:url value='/static/css/notice-main.css'/>" rel="stylesheet">
     
     <link href="<c:url value='/static/css/customize.css'/>" rel="stylesheet">
+    
+    
 
 </head>
 <body>

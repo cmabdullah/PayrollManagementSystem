@@ -1,7 +1,8 @@
 
     /* Add some padding on document's body to prevent the content
     to go underneath the header and footer */
-    body{        
+    body{
+    background-image: url(static/images/Payroll-Management.jpg);        
         padding-top: 60px;
         padding-bottom: 40px;
     }
@@ -28,3 +29,8 @@
         padding: 7px 25px;
         display: inline-block;
     }
+
+    
+    
+    
+    

@@ -14,7 +14,7 @@
 			<li class="nav-item"><a class="nav-link" href="<c:url value='/'/>">Home
 			</a></li>
 			
-			<li class="nav-item"><a class="nav-link " href="<c:url value='/usersinfo'/>">Users</a>
+			<li class="nav-item"><a class="nav-link " href="<c:url value='/usersinfo'/>">Profile</a>
 
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/registration'/>">Registration</a> </li>
@@ -30,26 +30,26 @@
 			</sec:authorize>
 			
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/ad_leave'/>">ADLeave</a> </li>
+			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/ad_leave'/>">Leave</a> </li>
 			</sec:authorize>
 			
 			<sec:authorize access="hasRole('ROLE_EMPLOYEE')">
-			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/loanreq'/>">Loan_Req</a> </li>
+			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/loanreq'/>">Loan</a> </li>
 			</sec:authorize>
 			
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/ad_loan'/>">Loan_Req_Process</a> </li>
+			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/ad_loan'/>">Loan</a> </li>
 			</sec:authorize>
 			
 			<sec:authorize access="hasRole('ROLE_ACCOUNTANT')">
-			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/give_salary'/>">Give Salary</a> </li>
+			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/give_salary'/>">Salary</a> </li>
 			</sec:authorize>
 			
 			
-			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/notification'/>">notification</a> </li>
+			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/notification'/>">Notification</a> </li>
 
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/permission_for_pay_salary'/>">permission_for_pay_salary</a> </li>
+			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/permission_for_pay_salary'/>">Salary</a> </li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<li class="nav-item">  <a   class="nav-link"  href="<c:url value='/report'/>">Report</a> </li>
