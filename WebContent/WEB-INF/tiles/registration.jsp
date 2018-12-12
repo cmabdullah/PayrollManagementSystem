@@ -10,7 +10,7 @@
 <!--fmt taglib added-->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
-	<div class="col-md-6 col-md-offset-3">
+	<div class="col-xs-12  col-md-offset-3">
 		<sf:form class="form-horizontal" method="post"
 			action="${pageContext.request.contextPath}/docreate"
 			commandName="userinfo">
@@ -21,9 +21,9 @@
 
 				<!-- Text input-->
 				<div class="form-group">
-					<label class="col-lg-8 control-label" for="name">Full Name
+					<label class="col-xs-12 control-label" for="name">Full Name
 						:</label>
-					<div class="col-lg-8">
+					<div class="col-xs-12">
 						<sf:input id="fullname" path="fullname" name="fullname"
 							type="text" placeholder="Enter your Full name"
 							class="form-control input-md" />
@@ -34,8 +34,8 @@
 
 				<!-- Text input-->
 				<div class="form-group">
-					<label class="col-lg-8 control-label" for="name">Address :</label>
-					<div class="col-lg-8">
+					<label class="col-xs-12 control-label" for="name">Address :</label>
+					<div class="col-xs-12">
 						<sf:input id="address" path="address" name="address" type="text"
 							placeholder="Enter your address" class="form-control input-md" />
 						<!-- Show error message into view -->
@@ -45,8 +45,8 @@
 
 				<!-- Text input-->
 				<div class="form-group">
-					<label class="col-lg-8 control-label" for="name">Eemail :</label>
-					<div class="col-lg-8">
+					<label class="col-xs-12 control-label" for="name">Eemail :</label>
+					<div class="col-xs-12">
 						<sf:input id="email" path="email" name="email" type="text"
 							placeholder="Enter your email" class="form-control input-md" />
 						<!-- Show error message into view -->
@@ -56,8 +56,8 @@
 
 				<!-- Text input-->
 				<div class="form-group">
-					<label class="col-lg-8 control-label" for="name">Phone :</label>
-					<div class="col-lg-8">
+					<label class="col-xs-12 control-label" for="name">Phone :</label>
+					<div class="col-xs-12">
 						<sf:input id="phone" path="phone" name="phone" type="text"
 							placeholder="Enter your phone" class="form-control input-md" />
 						<!-- Show error message into view -->
@@ -67,9 +67,9 @@
 
 				<!-- Text input-->
 				<div class="form-group">
-					<label class="col-lg-8 control-label" for="name">User Name
+					<label class="col-xs-12 control-label" for="name">User Name
 						:</label>
-					<div class="col-lg-8">
+					<div class="col-xs-12">
 						<!-- Path must be equal to input name , this is the attribute of sf tag-->
 						<sf:input id="username" path="username" name="username"
 							type="text" placeholder="Enter your username"
@@ -81,9 +81,9 @@
 
 				<!-- Password input-->
 				<div class="form-group">
-					<label class="col-lg-8 control-label" for="email">Password
+					<label class="col-xs-12 control-label" for="email">Password
 						:</label>
-					<div class="col-lg-8">
+					<div class="col-xs-12">
 						<sf:input id="password" name="password" path="password"
 							type="password" class="form-control input-md" />
 						<!-- Show error message into view -->
@@ -93,9 +93,9 @@
 				</div>
 				<!--Conform Password input-->
 				<div class="form-group">
-					<label class="col-lg-8 control-label" for="email">Confirm
+					<label class="col-xs-12 control-label" for="email">Confirm
 						Password :</label>
-					<div class="col-lg-8">
+					<div class="col-xs-12">
 						<input id="confirmpassword" name="confirmpassword" type="password"
 							class="form-control input-md" />
 					</div>
@@ -108,8 +108,8 @@
 
 				<!-- Button -->
 				<div class="form-group">
-					<label class="col-lg-8 control-label" for="submit"></label>
-					<div class="col-lg-8">
+					<label class="col-xs-12 control-label" for="submit"></label>
+					<div class="col-xs-12">
 						<button id="submit" name="submit" class="btn btn-primary">Create
 							Notice</button>
 					</div>

@@ -47,13 +47,13 @@
 <c:if test="${leaveInit != null}">
 <table class="table table-striped">
 		<tr>
-			<th scope="col">fullname</th>
-			<th scope="col">email</th>
-			<th scope="col">reason</th>
-			<th scope="col">leavetype</th>
-			<th scope="col">entryfrom</th>
-			<th scope="col">entryto</th>
-			<th scope="col">total_leave_days</th>
+			<th scope="col">Fullname</th>
+			<th scope="col">Email</th>
+			<th scope="col">Reason</th>
+			<th scope="col">Leave Type</th>
+			<th scope="col">Entry From</th>
+			<th scope="col">Entry To</th>
+			<th scope="col">Total Leave Days</th>
 			<th scope="col">Ignore Leave</th>
 			<th scope="col">Delete</th>
 			<th scope="col">Accept</th>

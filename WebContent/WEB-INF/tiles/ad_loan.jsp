@@ -4,16 +4,13 @@
 <!--Spring form taglib-->
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
-<h1>Add deny Loan request.....</h1>
-
-
 <c:if test="${loanAllPendingRequests != null}">
 <table class="table table-striped">
 		<tr>
 			<th scope="col">ID</th>
-			<th scope="col">reason</th>
-			<th scope="col">userinfo_id</th>
-			<th scope="col">amount</th>
+			<th scope="col">Reason</th>
+			<th scope="col">User ID</th>
+			<th scope="col">Amount</th>
 			<th scope="col">Delete</th>
 			<th scope="col">Accept</th>
 

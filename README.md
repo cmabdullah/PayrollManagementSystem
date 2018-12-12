@@ -1,32 +1,8 @@
-http://cmabdullah.me/PayrollManagementSystem/WebContent/resources/customize/customize%20design.html
+[![Build Status](https://img.shields.io/appveyor/ci/gruntjs/grunt.svg)](https://img.shields.io/appveyor/ci/gruntjs/grunt.svg) [![Build Status](https://img.shields.io/codeclimate/coverage/jekyll/jekyll.svg)](https://img.shields.io/codeclimate/coverage/jekyll/jekyll.svg) [![Build Status](https://img.shields.io/docker/build/jrottenberg/ffmpeg.svg)](https://img.shields.io/docker/build/jrottenberg/ffmpeg.svg) [![Build Status](https://img.shields.io/jenkins/t/https/jenkins.qa.ubuntu.com/view/Precise/view/All%20Precise/job/precise-desktop-amd64_default.svg)](https://img.shields.io/jenkins/t/https/jenkins.qa.ubuntu.com/view/Precise/view/All%20Precise/job/precise-desktop-amd64_default.svg) [![Build Status](https://img.shields.io/badge/redis--4.0.11-2%25-green.svg)](https://img.shields.io/badge/redis--4.0.11-2%25-green.svg) [![Build Status](https://img.shields.io/badge/spring--3.2-passing-green.svg)](https://img.shields.io/badge/spring--3.2-passing-green.svg) [![Build Status](https://img.shields.io/badge/spring%20security--3.2-passing-green.svg)](https://img.shields.io/badge/spring%20security--3.2-passing-green.svg)
 
 
-https://docs.spring.io/spring-security/site/docs/3.0.x/reference/taglibs.html
-
-https://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html
-
-https://tiles.apache.org/framework/tiles-core/dtddoc/index.html
-
-https://tiles.apache.org/framework/tutorial/basic/pages.
-
-
-SELECT * FROM PayrollManagementSystem.attendence where logintime like  '2018-10-25%';
-
-SELECT * FROM PayrollManagementSystem.attendence where logintime like  '2018-10-25%'  AND userinfo_id=2020;
-
-SELECT * FROM PayrollManagementSystem.attendence where logintime like  '2018-10-25%'  AND userinfo_id=2020 AND logouttime IS NULL;
-
-SELECT * FROM PayrollManagementSystem.attendence where logintime like  '2018-10-25%'  AND userinfo_id=2020 AND logouttime IS NULL;
-
-
-SELECT * FROM PayrollManagementSystem.attendence where logintime <  "2018-10-26%" AND userinfo_id=2020 AND logouttime IS NULL;
+>> mvn install
 
 
 
-insert into PayrollManagementSystem.leave (reasone,userinfo_id) values ('ff',2026)
 
-
-SELECT * FROM PayrollManagementSystem.leaveusers where userinfo_id='2026' AND entryfrom IS NULL AND entryto IS NULL
-
-2783baf271251333bb18a8532305bf5761ee1c4ad636d352b73efc0dc6bf154ffb0fa0ed7face9c8-> 1234
-9611efdad194cffdcb05ecf4f671515ef2cf357be63ad7615086b17e99013ef956b46e56b5a29b00->zxcv
