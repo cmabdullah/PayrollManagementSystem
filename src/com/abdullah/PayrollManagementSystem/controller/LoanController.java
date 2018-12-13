@@ -76,9 +76,16 @@ public class LoanController {
 		
 		boolean isPandingLoanRequest = false;
 		isPandingLoanRequest = loanService.isPandingLoanRequest(loan.getUserinfo_id());
+		boolean isRunningLoan = false;
+		
+		isRunningLoan = loanService.isRunningLoan(loan.getUserinfo_id());
+		
+		
+		
 		logger.info("is Panding Loan Request Status : "+isPandingLoanRequest);
-		if(isPandingLoanRequest) {
+		if(isPandingLoanRequest || isRunningLoan) {
 			model.addAttribute("isPandingLoanRequest",isPandingLoanRequest);
+			model.addAttribute("isRunningLoan",isRunningLoan);
 			return "loanreq";
 		} else {
 			loanService.postLeaveApplication(loan);

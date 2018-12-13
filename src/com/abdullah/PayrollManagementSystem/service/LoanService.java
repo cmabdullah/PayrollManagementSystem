@@ -105,4 +105,32 @@ public class LoanService {
 		loanDao.acceptPendingLoanApplication(loan);
 		
 	}
+
+
+	public boolean isRunningLoan(int userinfo_id) {
+		List<Loan> loan = loanDao.checkRunningLoan(userinfo_id);
+		if(loan.size() == 0)
+			return false;
+		
+		
+		if(loan.size() != 0) {
+			System.out.println("LAst loan element "+loan.get(loan.size()-1));
+    	}
+		
+		return true;
+	}
+
+
+	public Loan getRunningLoanInformations(int userinfo_id) {
+		List<Loan> loanList = loanDao.checkRunningLoanDetails(userinfo_id);
+		float paidAmount = 0;
+		Loan loan = new Loan();
+		for (Loan loan2 : loanList) {
+			paidAmount = paidAmount + loan2.getPaidamount();
+			loan.setAmount(loan2.getAmount());
+		}
+		
+		loan.setPaidamount(paidAmount);
+		return loan;
+	}
 }

@@ -170,5 +170,29 @@ public class LoanDao {
 				}
 			});
 	}
+	 
+	 
+	 public List<Loan> checkRunningLoanDetails(int userinfo_id) {
+			MapSqlParameterSource params = new MapSqlParameterSource();
+			params.addValue("userinfo_id", userinfo_id);
+			// select * from notices where id = :id
+			// SELECT * FROM leaveusers where userinfo_id=:userinfo_id AND entryfrom IS NULL
+			// AND entryto IS NULL
+			return jdbc.query(
+					"select * from loan right join loanpaiddetails on loan.id=loanpaiddetails.loan_id  where userinfo_id=:userinfo_id and status=1", params,
+					new RowMapper<Loan>() {
+						public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
+							Loan loan = new Loan();
+							loan.setId(rs.getInt("id"));
+							loan.setReason(rs.getString("reason"));
+							loan.setAmount(rs.getInt("amount"));
+							loan.setPaidamount(rs.getFloat("paidamount"));
+							// System.out.println("Retriving loan info from database : " + loan);
+							return loan;// return single object
+						}
+					});
+		}
+	 
+	 
 
 }

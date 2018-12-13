@@ -15,8 +15,9 @@
     
     <link href="<c:url value='/static/css/customize.css'/>" rel="stylesheet">
     
+    <script type="text/javascript" src="<c:url value='/static/js/loader.js'/>"></script>
     
-
+   
 </head>
 <body>
 

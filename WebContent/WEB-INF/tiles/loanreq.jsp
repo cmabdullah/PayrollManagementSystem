@@ -10,6 +10,9 @@
 <c:if test="${isPandingLoanRequest == true}">
 	<h1>You have already a pending request</h1>
 </c:if>
+<c:if test="${isRunningLoan == true}">
+	<h1>You have already a running loan</h1>
+</c:if>
 
 <div class="col-xs-12 col-md-offset-3">
 	<form class="form-horizontal" method="post"
