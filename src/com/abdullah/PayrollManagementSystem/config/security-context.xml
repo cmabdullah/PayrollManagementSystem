@@ -51,6 +51,9 @@
 		
 		<security:intercept-url pattern="/" access="isAuthenticated()" />
 		<security:intercept-url pattern="/usersinfo" access="permitAll" />
+		<security:intercept-url pattern="/usersinfo_profile_update/*" access="permitAll" />
+		<security:intercept-url pattern="/usersinfo_profile_update_process" access="permitAll" />
+		<security:intercept-url pattern="/update_users_info" access="permitAll" />
 		<!--Permit all static resources like bootstrup library and so one...-->
 		<security:intercept-url pattern="/static/**" access="permitAll" />
 		<security:intercept-url pattern="/login" access="permitAll" />

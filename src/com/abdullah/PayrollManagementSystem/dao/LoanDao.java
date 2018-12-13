@@ -59,13 +59,18 @@ public class LoanDao {
 	}
 
 	public List<Loan> getAllLoanPendingRequests() {
-		return jdbc.query("SELECT * FROM loan where  approvedate IS NULL AND status IS NULL", new RowMapper<Loan>() {
+		
+		//SELECT * FROM leaveusers  LEFT JOIN userinfo ON leaveusers.userinfo_id = userinfo.id  where  status='0' OR (status='2' and entryfrom between '" + oneMonthsBeforeDate + "' and '" + currentDate + "' );"
+		//SELECT * FROM loan where  approvedate IS NULL AND status IS NULL
+		return jdbc.query("select * from loan left join userinfo on loan.userinfo_id = userinfo.id where approvedate IS NULL AND status IS NULL;", new RowMapper<Loan>() {
 			public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Loan loan = new Loan();
 				loan.setId(rs.getInt("id"));
 				loan.setUserinfo_id(rs.getInt("userinfo_id"));
 				loan.setReason(rs.getString("reason"));
 				loan.setAmount(rs.getInt("amount"));
+				loan.setFullname(rs.getString("fullname"));
+				loan.setEmail(rs.getString("email"));
 
 				return loan;
 			}

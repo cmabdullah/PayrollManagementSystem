@@ -54,6 +54,31 @@ public class UserinfoDao {
 			}
 		});
 	}
+	
+	public Userinfo getUserinfosBasedOnId(String username){
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("username", username);
+
+		return jdbc.queryForObject("select * from userinfo where username = :username", params, new RowMapper<Userinfo>() {
+			public Userinfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Userinfo userinfo = new Userinfo();
+				userinfo.setId(rs.getInt("id"));
+				userinfo.setUsername(rs.getString("username"));
+				userinfo.setFullname(rs.getString("fullname"));
+				userinfo.setAddress(rs.getString("address"));
+				userinfo.setEmail(rs.getString("email"));
+				userinfo.setPhone(rs.getInt("phone"));
+				return userinfo;// return single object
+			}
+		});
+	}
+	
+	
+	
+	
+	
+	
 	//old code
 	public boolean delete(int id) { // delete method
 		MapSqlParameterSource params = new MapSqlParameterSource();
@@ -172,4 +197,44 @@ public class UserinfoDao {
 			}
 		});
 	}
+/**
+	public boolean updateUserInfo(Userinfo userinfo) {
+		System.out.println("Dao object : "+userinfo);
+		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(userinfo);
+		
+		return jdbc.update("update userinfo set fullname=:fullname, address=:address where id=:id", params) == 1;
+	}
+	*/
+	
+
+	@Transactional
+	public boolean updateUserInfo(UserinfoUpdateableData userinfoUpdateableData) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("id", userinfoUpdateableData.getId());
+		params.addValue("password", passwordEncoder.encode(userinfoUpdateableData.getPassword()));
+		params.addValue("fullname", userinfoUpdateableData.getFullname());
+		params.addValue("address", userinfoUpdateableData.getAddress());
+		return  jdbc.update("update userinfo set fullname=:fullname, address=:address , password=:password where id=:id", params) == 1;
+
+	}
+
+	public UserinfoUpdateableData getUserinfosBasedOnUsernameUpdatebleData(String username){
+
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("username", username);
+
+		return jdbc.queryForObject("select * from userinfo where username = :username", params, new RowMapper<UserinfoUpdateableData>() {
+			public UserinfoUpdateableData mapRow(ResultSet rs, int rowNum) throws SQLException {
+				UserinfoUpdateableData userinfoUpdateableData = new UserinfoUpdateableData();
+				userinfoUpdateableData.setId(rs.getInt("id"));
+				userinfoUpdateableData.setFullname(rs.getString("fullname"));
+				userinfoUpdateableData.setAddress(rs.getString("address"));
+				userinfoUpdateableData.setEmail(rs.getString("email"));
+				userinfoUpdateableData.setPhone(rs.getInt("phone"));
+				return userinfoUpdateableData;// return single object
+			}
+		});
+	}
+	
+	
 }

@@ -28,6 +28,10 @@
 		<put-attribute name="title" value="Users List"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/usersinfo.jsp"></put-attribute>		
 	</definition>
+	<definition name="update_users_info" extends="manager.base">
+		<put-attribute name="title" value="Update Your Profile"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/update_users_info.jsp"></put-attribute>		
+	</definition>
 
 	<definition name="registration" extends="manager.base">
 		<put-attribute name="title" value="Create New Account"></put-attribute>

@@ -1,5 +1,7 @@
 package com.abdullah.PayrollManagementSystem.controller;
 
+import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -11,14 +13,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.abdullah.PayrollManagementSystem.dao.Userinfo;
+import com.abdullah.PayrollManagementSystem.dao.UserinfoUpdateableData;
 import com.abdullah.PayrollManagementSystem.service.UserinfoService;
+
 @Controller
 public class UsersInfoController {
 UserinfoService userinfoService;
@@ -29,25 +35,41 @@ UserinfoService userinfoService;
 	}
 
 	@RequestMapping("/usersinfo")
-	public String asd(Model model) {
+	public String asd(Model model, Principal principal) {
 		
-		List<Userinfo> usersinfo = userinfoService.getCurrent();
+		int userId = userinfoService.getUserIdFromName(principal.getName()).getId();
 		
+		//List<Userinfo> usersinfo = userinfoService.getCurrent();
+		Userinfo usersinfo = userinfoService.getCurrent(principal.getName());
+		System.out.println(usersinfo);
 		//first usersinfo is key, last usersinfo is value
 		model.addAttribute("usersinfo",usersinfo);
-		
-		
-		//get username from login model
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    String name = auth.getName(); //get logged in username
-		System.out.println("USERNAME :"+name);
-		
 		
 		//return usersinfo is webpage url
 		return "usersinfo";
 	}
 	
+	@RequestMapping(value = "/usersinfo_profile_update/{id}", method = RequestMethod.GET)
+	public String showCurrentUserProfileObject(@PathVariable int id, Model model, Principal principal) {
+		
+		UserinfoUpdateableData userinfoUpdateableData = userinfoService.getCurrentUserinfoUpdateableData(principal.getName());
+		model.addAttribute(userinfoUpdateableData);//add attribute into model
+		return "update_users_info";
+	}
 	
+	//@Valid not applicable in this situation
+	@RequestMapping(value = "/usersinfo_profile_update_process", method = RequestMethod.POST)
+	public String supdateCurrentUserProfileObject(@Valid UserinfoUpdateableData userinfoUpdateableData, Model model, Principal principal, BindingResult result) {
+			
+		System.out.println(userinfoUpdateableData);
+		System.out.println(result.hasErrors());
+		if (result.hasErrors()) {
+			return "registration";
+		}
+		
+		userinfoService.updateUserInfo(userinfoUpdateableData);
+		return "redirect:/usersinfo";
+	}
 	
 	
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.abdullah.PayrollManagementSystem.dao.Userinfo;
 import com.abdullah.PayrollManagementSystem.dao.UserinfoDao;
+import com.abdullah.PayrollManagementSystem.dao.UserinfoUpdateableData;
 
 @Service("userinfoService")
 public class UserinfoService {
@@ -19,8 +20,8 @@ public class UserinfoService {
 		this.userinfoDao = userinfoDao;
 	}
 	
-	public List<Userinfo> getCurrent(){
-		return userinfoDao.getUserinfos();
+	public Userinfo getCurrent(String username){
+		return userinfoDao.getUserinfosBasedOnId(username);
 	}
 
 	//method level security enabled
@@ -50,6 +51,15 @@ public class UserinfoService {
 
 	public boolean existsUserId(int userinfo_id) {
 		return userinfoDao.existsUserId(userinfo_id);
+	}
+
+	public void updateUserInfo(UserinfoUpdateableData userinfoUpdateableData) {
+		userinfoDao.updateUserInfo(userinfoUpdateableData);
+		
+	}
+
+	public UserinfoUpdateableData getCurrentUserinfoUpdateableData(String username) {
+		return userinfoDao.getUserinfosBasedOnUsernameUpdatebleData(username);
 	}
 	
 }

@@ -7,9 +7,9 @@
 <c:if test="${loanAllPendingRequests != null}">
 <table class="table table-striped">
 		<tr>
-			<th scope="col">ID</th>
+			<th scope="col">Full Name</th>
+			<th scope="col">Email</th>
 			<th scope="col">Reason</th>
-			<th scope="col">User ID</th>
 			<th scope="col">Amount</th>
 			<th scope="col">Delete</th>
 			<th scope="col">Accept</th>
@@ -17,9 +17,10 @@
 		</tr>
 		<c:forEach var="loanAllPendingRequest" items="${loanAllPendingRequests}">
 			<tr>
-				<td><c:out value="${loanAllPendingRequest.id}"></c:out></td>
+				<td><c:out value="${loanAllPendingRequest.fullname}"></c:out></td>
+				<td><c:out value="${loanAllPendingRequest.email}"></c:out></td>
 				<td><c:out value="${loanAllPendingRequest.reason}"></c:out></td>
-				<td><c:out value="${loanAllPendingRequest.userinfo_id}"></c:out></td>
+				
 				<td><c:out value="${loanAllPendingRequest.amount}"></c:out></td>
 				
 				<td><a  href="<c:url value='/deleteemp/${loanAllPendingRequest.id}'/>">Delete</a></td>

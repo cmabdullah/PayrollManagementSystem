@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+
 import com.abdullah.PayrollManagementSystem.validation.ValidEmail;
 
 public class Userinfo {
@@ -20,6 +21,9 @@ public class Userinfo {
 	@Size(min=3  ,max=15)
 	@Pattern(regexp="^\\S+$")
 	private String password;
+
+	//javascript validation perpose
+	private String confirmpassword;
 	
 	private boolean enabled;
 	
@@ -46,7 +50,7 @@ public class Userinfo {
 	}
 
 	public Userinfo( String username, String password, boolean enabled, String authority, String fullname,
-			String address, String email, int phone,LocalDateTime joiningDate, int grade_id) {
+			String address, String email, int phone,LocalDateTime joiningDate, int grade_id, String confirmpassword) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
@@ -57,11 +61,12 @@ public class Userinfo {
 		this.phone = phone;
 		this.joiningDate = joiningDate;
 		this.grade_id = grade_id;
+		this.confirmpassword=  confirmpassword;
 		
 	}
 
 	public Userinfo(int id, String username, String password, boolean enabled, String authority, String fullname,
-			String address, String email, int phone, LocalDateTime joiningDate, int grade_id) {
+			String address, String email, int phone, LocalDateTime joiningDate, int grade_id, String confirmpassword) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -73,6 +78,7 @@ public class Userinfo {
 		this.phone = phone;
 		this.joiningDate = joiningDate;
 		this.grade_id = grade_id;
+		this.confirmpassword= confirmpassword;
 	}
 
 	public int getId() {
@@ -163,6 +169,16 @@ public class Userinfo {
 
 	public void setGrade_id(int grade_id) {
 		this.grade_id = grade_id;
+	}
+	
+	
+
+	public String getConfirmpassword() {
+		return confirmpassword;
+	}
+
+	public void setConfirmpassword(String confirmpassword) {
+		this.confirmpassword = confirmpassword;
 	}
 
 	@Override
