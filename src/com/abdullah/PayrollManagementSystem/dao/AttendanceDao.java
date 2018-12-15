@@ -99,6 +99,35 @@ public class AttendanceDao {
 }
 		});
 	}
+
+	public List<Attendance> getAllAttendanceBetween(LocalDate entryfrom, LocalDate entryto) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("entryfrom", entryfrom );
+		params.addValue("entryto", entryto );
+		//SELECT * FROM attendence where logintime like  :logintime AND userinfo_id=:userinfo_id AND logouttime IS NULL
+		//select * from attendence where logintime between '2018-10-15 22:56:07' and '2018-11-17 15:32:43' ;
+		//SELECT * FROM attendence where logintime like  :logintime AND userinfo_id=:userinfo_id AND logouttime IS NULL
+		//"select * from leaveusers where entryfrom between '" + previousMonththLocalDateTime + "' and '" + currentMonththLocalDateTime + "' and  userinfo_id='"+ userinfoId+"' and leavetype='regular' and status='1'"
+		return jdbc.query("select * from attendence where logintime between '" + entryfrom + "' and '" + entryto + "'", params, new RowMapper<Attendance>() {
+			public Attendance mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Attendance attendance = new Attendance();
+				attendance.setId(rs.getInt("id"));
+				attendance.setLogintime(rs.getTimestamp("logintime").toLocalDateTime());
+				attendance.setLogouttime(rs.getTimestamp("logouttime").toLocalDateTime());
+				attendance.setUserinfo_id(rs.getInt("userinfo_id"));
+				attendance.setIpaddress(rs.getString("ipaddress"));
+				attendance.setWorkinghours(rs.getInt("workinghours"));
+				
+				System.out.println("Retriving data from database : " + attendance);
+				
+				return attendance;// return single object
+			}
+		});
+	}
+	
+	
+	
+
 	
 	
 }

@@ -126,4 +126,9 @@ public class AttendanceService {
 		
 		
 	}
+
+	public List<Attendance> getAllAttendanceBetween(LocalDate entryfrom, LocalDate entryto) {
+		List<Attendance> attendencesBetween = attendanceDao.getAllAttendanceBetween(entryfrom, entryto);
+		return attendencesBetween;
+	}
 }

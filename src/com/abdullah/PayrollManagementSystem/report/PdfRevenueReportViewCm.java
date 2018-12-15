@@ -1,4 +1,4 @@
-package com.abdullah.PayrollManagementSystem.controller;
+package com.abdullah.PayrollManagementSystem.report;
 
 import java.util.Map;
 
