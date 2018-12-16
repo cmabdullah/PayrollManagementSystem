@@ -108,7 +108,7 @@ public class AttendanceDao {
 		//select * from attendence where logintime between '2018-10-15 22:56:07' and '2018-11-17 15:32:43' ;
 		//SELECT * FROM attendence where logintime like  :logintime AND userinfo_id=:userinfo_id AND logouttime IS NULL
 		//"select * from leaveusers where entryfrom between '" + previousMonththLocalDateTime + "' and '" + currentMonththLocalDateTime + "' and  userinfo_id='"+ userinfoId+"' and leavetype='regular' and status='1'"
-		return jdbc.query("select * from attendence where logintime between '" + entryfrom + "' and '" + entryto + "'", params, new RowMapper<Attendance>() {
+		return jdbc.query("select * from attendence where logintime between '" + entryfrom + "' and '" + entryto + "' and logouttime IS NOT NULL", params, new RowMapper<Attendance>() {
 			public Attendance mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Attendance attendance = new Attendance();
 				attendance.setId(rs.getInt("id"));
@@ -118,7 +118,7 @@ public class AttendanceDao {
 				attendance.setIpaddress(rs.getString("ipaddress"));
 				attendance.setWorkinghours(rs.getInt("workinghours"));
 				
-				System.out.println("Retriving data from database : " + attendance);
+				//System.out.println("Retriving data from database : " + attendance);
 				
 				return attendance;// return single object
 			}

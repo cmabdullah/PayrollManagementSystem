@@ -11,6 +11,7 @@ public class Attendance {
 	private LocalDateTime logouttime ;
 	
 	private int userinfo_id;
+	private Integer userinfo_idObject;
 	
 	private String ipaddress;
 	
@@ -74,12 +75,23 @@ public class Attendance {
 	public void setWorkinghours(int workinghours) {
 		this.workinghours = workinghours;
 	}
+	
+	
+	
+	public Integer getUserinfo_idObject() {
+		return userinfo_idObject;
+	}
+	public void setUserinfo_idObject(Integer userinfo_idObject) {
+		this.userinfo_idObject = userinfo_idObject;
+	}
 	@Override
 	public String toString() {
 		return "Attendance [id=" + id + ", logintime=" + logintime + ", logouttime=" + logouttime + ", userinfo_id="
-				+ userinfo_id + ", ipaddress=" + ipaddress + ", workinghours=" + workinghours + "]";
+				+ userinfo_id + ", userinfo_idObject=" + userinfo_idObject + ", ipaddress=" + ipaddress
+				+ ", workinghours=" + workinghours + "]";
 	}
 	
+
 	
 
 	

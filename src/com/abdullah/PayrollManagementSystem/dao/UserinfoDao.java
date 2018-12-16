@@ -69,6 +69,7 @@ public class UserinfoDao {
 				userinfo.setAddress(rs.getString("address"));
 				userinfo.setEmail(rs.getString("email"));
 				userinfo.setPhone(rs.getInt("phone"));
+				userinfo.setAuthority(rs.getString("authority"));
 				return userinfo;// return single object
 			}
 		});

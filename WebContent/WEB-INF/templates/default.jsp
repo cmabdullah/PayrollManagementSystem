@@ -10,10 +10,16 @@
 <title><tiles:getAsString name="title"></tiles:getAsString></title>
 <!-- Bootstrap core CSS -->
     <link href="<c:url value='/static/lib/bootstrap/css/bootstrap.css'/>" rel="stylesheet">
+    <link href="<c:url value='/static/lib/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
+    
+    
     <!-- Custom styles for this template -->
     <link href="<c:url value='/static/css/notice-main.css'/>" rel="stylesheet">
     
     <link href="<c:url value='/static/css/customize.css'/>" rel="stylesheet">
+   
+   
+    <link href="<c:url value='/static/css/font-awesome.min.css'/>" rel="stylesheet">
     
     <script type="text/javascript" src="<c:url value='/static/js/loader.js'/>"></script>
     
