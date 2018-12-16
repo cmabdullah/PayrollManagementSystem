@@ -47,7 +47,7 @@
 	</div>
 </div>
 
-
+<!-- 
 <c:if test="${attendanceVisualizer != null}">
 	<h1>show data</h1>
 </c:if>
@@ -71,7 +71,7 @@
 
 </c:if>
 
-
+ -->
 <div id="container" style="width: 550px;  margin: 0 auto">
 </div>
 
@@ -114,12 +114,8 @@ my int month
 
 
 
+<!-- 
 
-<%
-        int accounts[];
-        accounts = new int[1000];
-       
-%>
 
 <c:if test="${attendanceVisualizer != null}">
 	<table class="table table-striped">
@@ -137,8 +133,7 @@ my int month
 					 Year <fmt:parseNumber var="myY" value="${fn:substring(year, 0, 4)}" integerOnly="true" /> 
 					 my int month <h1>  <c:out value='${myY}' /> </h1> 
 					 
-					 <%accounts[0] = 0; %>
-					 
+					
 
 					 month <fmt:parseNumber var="myM" value="${fn:substring(localDate, 5, 7)}" integerOnly="true" /> 
 					 my int month <h1>  <c:out value='${myM}' /> </h1> 
@@ -153,77 +148,140 @@ my int month
 	</table>
 </c:if>
 
-
+ -->
 
 
 <%
 List<AttendanceVisualizer>  attendanceVisualizer =  (List<AttendanceVisualizer>)request.getAttribute("attendanceVisualizer");
 %>
-
-
-
-<%!
-  String[] names = { "A","B", "C", "D" };
-  int[]    ages  = { 29, 8, 6, 5};
-%>
-
-<c-rt:forEach var="person" items="<%= names %>">
-        <TR>
-          <TD><c:out value="${person}"  /></TD>
-          <TD><c:out value="${ages[i]}" /></TD>
-        </TR>
-      </c-rt:forEach>
-
-
+<%-- <% out.println("This is comments example"+attendanceVisualizer.size()+ " \n"); %> --%>
 
 <%
-  int[] names= {20, 30, 40, 50};
-  pageContext.setAttribute("names", names);
+
+
+int[] year = new int[1000];
+int[] month = new int[1000];
+int[] day = new int[1000];
+int[] renge = new int[1000];
+
+for(int i = 0 ; i< attendanceVisualizer.size() ; i++){
+	
+	//out.println("This is comments example un bboxed data "+attendanceVisualizer.get(i).getLocalDate().substring(5, 7)+ " \n");
+	year[i] = Integer.parseInt(attendanceVisualizer.get(i).getLocalDate().substring(0, 4));
+	month[i] = Integer.parseInt(attendanceVisualizer.get(i).getLocalDate().substring(5, 7));
+	day[i] = Integer.parseInt(attendanceVisualizer.get(i).getLocalDate().substring(8, 10));
+	renge[i] = attendanceVisualizer.get(i).getTotalDays();
+	//out.println("This is comments example boxed data "+month[i]+ " \n");
+}
+// out.println("year length"+year.length+ " \n");
+// out.println("month length"+month.length+ " \n");
+// out.println("day length"+day.length+ " \n");
+// out.println("renge length"+renge.length+ " \n");
+
+// for(int i = 0 ; i <20 ; i++){
+// 	out.println("This is comments example"+month[i]+ " \n");
+// }
+
 %>
-  
-<c:set var="msg" value="The names are:"/>
-<c:forEach var="name" items="${names}" varStatus="status">
-  <c:set var="msg">
-    <c:out value="${msg} ${name}"/>
-    <c:if test="${not status.last}">,</c:if>
-  </c:set>
-</c:forEach>
-<c:out value="${msg}"/>
-
-
-
 
 <img src="static/images/Payroll-Management.jpg" width="100%"
 	height="100%">
 
-
-
-
-
 <script type = "text/javascript">
 
+console.log("hello world");
 
+
+<%if(year != null) { %>
+var yyyy = new Array(<%
+for(int i = 0; i < year.length; i++) {
+  out.print("\""+year[i]+"\"");
+  if(i+1 < year.length) {
+    out.print(",");
+  }
+}
+%>);
+<% } %>
+console.log(yyyy.length);
+// for(count = 0; count < 10; count++){
+//     console.log(yyyy[count]);
+//  }
+
+<%if(month != null) { %>
+var mm = new Array(<%
+for(int i = 0; i < month.length; i++) {
+  out.print("\""+month[i]+"\"");
+  if(i+1 < month.length) {
+    out.print(",");
+  }
+}
+%>);
+<% } %>
+console.log(mm.length);
+
+<%if(day != null) { %>
+var dd = new Array(<%
+for(int i = 0; i < day.length; i++) {
+  out.print("\""+day[i]+"\"");
+  if(i+1 < day.length) {
+    out.print(",");
+  }
+}
+%>);
+<% } %>
+console.log(dd.length);
+
+
+<%if(renge != null) { %>
+var rr = new Array(<%
+for(int i = 0; i < renge.length; i++) {
+  out.print("\""+renge[i]+"\"");
+  if(i+1 < renge.length) {
+    out.print(",");
+  }
+}
+%>);
+<% } %>
+console.log(rr.length);
+
+
+
+
+var d = ${intValue};
+var m = ${myMonth};
+var y = ${myYear};
+var flag = 17;
+var fruits = [ 2018, 2018, 2018 ];
          google.charts.load('current', {packages: ['corechart','calendar']});     
       
          function drawChart() {
             // Define the chart to be drawn.
             
-            var d = ${intValue};
-            var m = ${myMonth};
-            var y = ${myYear};
+            
             
             var data = new google.visualization.DataTable();
             data.addColumn({ type: 'date', id: 'Date' });
             data.addColumn({ type: 'number', id: 'Students' });
             data.addRows([
-               [ new Date(2018, 3, 13), 50 ],
-               [ new Date(2018, 3, 14), 50 ],
-               [ new Date(2018, 3, 15), 49 ],
-               [ new Date(y, m, d), <c:out value='${y}'/> ],
+            	
+            	
+            	
+               [ new Date(2018, mm[0], dd[0]), <%out.println(renge[0]);%>],
+               [ new Date(2018, mm[1], dd[1]), <%out.println(renge[1]);%>],
+               [ new Date(2018, mm[2], dd[2]), <%out.println(renge[2]);%>],
+               [ new Date(2018, mm[3], dd[3]), <%out.println(renge[3]);%>],
+               [ new Date(2018, mm[4], dd[4]), <%out.println(renge[4]);%>],
+               [ new Date(2018, mm[5], dd[5]), <%out.println(renge[5]);%>],
+               [ new Date(2018, mm[6], dd[6]), <%out.println(renge[6]);%>],
+               
+               
+               
+               
+               
             ]);
             
             // Set chart options
-            var options = {'title':'Attendence', 'width':800};
+            var options = {'title':'Attendence', 'width':800 };
 
             // Instantiate and draw the chart.
             var chart = new google.visualization.Calendar(document.getElementById('container'));
