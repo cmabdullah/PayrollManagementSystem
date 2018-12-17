@@ -5,6 +5,7 @@
 
 
 <div class="container">
+<!-- 
 <table class="table table-striped">
 		<tr>
 			<th scope="col">Name</th>
@@ -30,15 +31,66 @@
 			</c:if>
 
 	</table>
+	 -->
+	 
+	 <div align="center">
+	 <h1>Hi <span class="badge badge-secondary"><c:out value="${usersinfo.fullname}"></c:out></span></h1>
+	 </div>
+
+<table class="table">
+    <thead>
+      
+    </thead>
+    <tbody>
+      <tr>
+        <td>Address</td>
+        <td><c:out value="${usersinfo.address}"></c:out></td>
+       
+      </tr>      
+      <tr class="success">
+        <td>Email</td>
+        <td><c:out value="${usersinfo.email}"></c:out></td>
+       
+      </tr>
+      <tr class="danger">
+        <td>Phone</td>
+        <td><c:out value="${usersinfo.phone}"></c:out></td>
+     
+      </tr>
+      <tr class="info">
+        <td>Your Loan</td>
+        <td><c:out value="${runningLoanInformations.amount}"></c:out></td>
+  
+      </tr>
+      <tr class="warning">
+        <td>Paid Amount </td>
+        <td><c:out value="${runningLoanInformations.paidamount}"></c:out></td>
+      
+      </tr>
+      <tr class="active">
+        <td>Update Profile</td>
+        <td><a  href="<c:url value='/usersinfo_profile_update/${usersinfo.id}'/>">Update</a></td>
+       
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+	
+	<c:if test="${runningLoanInformations.amount != 0.0}">
 	<div align="center"><h1>Loan Status in Details</h1></div>
-	
-	</div>
-	
-	
 	<div id="piechart" align="center"></div>
 	
+</c:if>
 	
 	
+	
+	</div>
 
 <script type="text/javascript">
 // Load google charts

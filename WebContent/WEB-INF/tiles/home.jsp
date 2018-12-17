@@ -74,7 +74,7 @@
 </c:if>
 
  -->
-<div id="container" style="width: 550px;  margin: 0 auto">
+<div id="container" style="width: 400px; height: 350px; margin: 0 auto">
 </div>
 
 <!-- 
@@ -165,15 +165,16 @@ int[] year = new int[1000];
 int[] month = new int[1000];
 int[] day = new int[1000];
 int[] renge = new int[1000];
-
+if (attendanceVisualizer != null){
 for(int i = 0 ; i< attendanceVisualizer.size() ; i++){
 	
 	//out.println("This is comments example un bboxed data "+attendanceVisualizer.get(i).getLocalDate().substring(5, 7)+ " \n");
 	year[i] = Integer.parseInt(attendanceVisualizer.get(i).getLocalDate().substring(0, 4));
-	month[i] = Integer.parseInt(attendanceVisualizer.get(i).getLocalDate().substring(5, 7));
+	month[i] = Integer.parseInt(attendanceVisualizer.get(i).getLocalDate().substring(5, 7))-1;
 	day[i] = Integer.parseInt(attendanceVisualizer.get(i).getLocalDate().substring(8, 10));
 	renge[i] = attendanceVisualizer.get(i).getTotalDays();
 	//out.println("This is comments example boxed data "+month[i]+ " \n");
+}
 }
 // out.println("year length"+year.length+ " \n");
 // out.println("month length"+month.length+ " \n");
@@ -267,7 +268,6 @@ var fruits = [ 2018, 2018, 2018 ];
             data.addRows([
             	
             	
-            	
                [ new Date(2018, mm[0], dd[0]), <%out.println(renge[0]);%>],
                [ new Date(2018, mm[1], dd[1]), <%out.println(renge[1]);%>],
                [ new Date(2018, mm[2], dd[2]), <%out.println(renge[2]);%>],
@@ -275,15 +275,25 @@ var fruits = [ 2018, 2018, 2018 ];
                [ new Date(2018, mm[4], dd[4]), <%out.println(renge[4]);%>],
                [ new Date(2018, mm[5], dd[5]), <%out.println(renge[5]);%>],
                [ new Date(2018, mm[6], dd[6]), <%out.println(renge[6]);%>],
-               
-               
-               
-               
+               [ new Date(2018, mm[7], dd[7]), <%out.println(renge[7]);%>],
+               [ new Date(2018, mm[8], dd[8]), <%out.println(renge[8]);%>],
+               [ new Date(2018, mm[9], dd[9]), <%out.println(renge[9]);%>],
+               [ new Date(2018, mm[10], dd[10]), <%out.println(renge[10]);%>],
+               [ new Date(2018, mm[11], dd[11]), <%out.println(renge[11]);%>],
+               [ new Date(2018, mm[12], dd[12]), <%out.println(renge[12]);%>],
+               [ new Date(2018, mm[13], dd[13]), <%out.println(renge[13]);%>],
+               [ new Date(2018, mm[14], dd[14]), <%out.println(renge[14]);%>],
+               [ new Date(2018, mm[15], dd[15]), <%out.println(renge[15]);%>],
+               [ new Date(2018, mm[16], dd[16]), <%out.println(renge[16]);%>],
+               [ new Date(2018, mm[17], dd[17]), <%out.println(renge[17]);%>],
+               [ new Date(2018, mm[18], dd[18]), <%out.println(renge[18]);%>],
+               [ new Date(2018, mm[19], dd[19]), <%out.println(renge[19]);%>],
+               [ new Date(2018, mm[20], dd[20]), <%out.println(renge[20]);%>],
                
             ]);
             
             // Set chart options
-            var options = {'title':'Attendence', 'width':800 };
+            var options = {'title':'Attendence', 'width':750 };
 
             // Instantiate and draw the chart.
             var chart = new google.visualization.Calendar(document.getElementById('container'));

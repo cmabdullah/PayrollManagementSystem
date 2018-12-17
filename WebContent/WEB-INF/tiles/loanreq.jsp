@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <!--JSTL prifix added-->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,12 +13,11 @@
 <c:if test="${isRunningLoan == true}">
 	<h1>You have already a running loan</h1>
 </c:if>
-
+<!-- 
 <div class="col-xs-12 col-md-offset-3">
 	<form class="form-horizontal" method="post"
 		action="${pageContext.request.contextPath}/loanreq_process" >
 
-			<!-- Textarea -->
 			<div class="form-group">
 				<label class="col-xs-12 control-label" for="text">Loan Reason :</label>
 				<div class="col-xs-12">
@@ -27,36 +26,19 @@
 				</div>
 			</div>
 			
-			
-			
-			<!-- Text input
-				<div class="form-group">
-					
-					<div class="col-md-4">
-						
-							<input type="radio" name="loanType" value="give_medical">Medical<br>
-							<input type="radio" name="loanType" value="give_study">Study<br>
-							<input type="radio" name="loanType" value="give_business">Business<br>
-							
-							
-					</div>
-				</div>
-				-->
-				
-				<!-- Material inline 1 -->
 			<div class="form-check form-check-inline">
 				<input type="radio" class="form-check-input" id="materialInline1"
 					name="loanType" value="give_medical" checked> <label
 					class="form-check-label" for="materialInline1">Medical</label>
 			</div>
 
-			<!-- Material inline 2 -->
+	
 			<div class="form-check form-check-inline">
 				<input type="radio" class="form-check-input" id="materialInline2"
 					name="loanType" value="give_study"> <label
 					class="form-check-label" for="materialInline2">Study</label>
 			</div>
-			<!-- Material inline 2 -->
+		
 			<div class="form-check form-check-inline">
 				<input type="radio" class="form-check-input" id="materialInline2"
 					name="loanType" value="give_business"> <label
@@ -64,18 +46,62 @@
 			</div>
 			
 			<input name="create query" type="submit" class="btn btn-primary btn-lg"/>
-			
-			
-			<!-- Button 
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="submit"></label>
-				<div class="col-md-4">
-					<button id="submit" name="submit" class="btn btn-primary">Submit request</button>
-				</div>
-			</div>-->
+		
 
 	</form>
 </div>
+-->
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 col-md-offset-12">
+			<div class="login-panel panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">You can apply for Loan , You can get
+						Business loan = salary*6 , Medical loan = salary*3, Study loan =
+						salary*2</h4>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal" method="post" role="form"
+						action="${pageContext.request.contextPath}/loanreq_process">
+
+						<fieldset>
+
+							<div class="form-group">
+								<textarea class="form-control" id="reason" name="reason"
+									autofocus></textarea>
+							</div>
 
 
+
+							<div class="form-check form-check-inline">
+								<input type="radio" class="form-check-input"
+									id="materialInline1" name="loanType" value="give_medical"
+									checked> <label class="form-check-label"
+									for="materialInline1">Medical</label>
+							</div>
+
+							<!-- Material inline 2 -->
+							<div class="form-check form-check-inline">
+								<input type="radio" class="form-check-input"
+									id="materialInline2" name="loanType" value="give_study">
+								<label class="form-check-label" for="materialInline2">Study</label>
+							</div>
+							<!-- Material inline 2 -->
+							<div class="form-check form-check-inline">
+								<input type="radio" class="form-check-input"
+									id="materialInline2" name="loanType" value="give_business">
+								<label class="form-check-label" for="materialInline2">Business</label>
+							</div>
+
+							<input name="create query" type="submit"
+								class="btn btn-lg btn-success btn-block" />
+
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 

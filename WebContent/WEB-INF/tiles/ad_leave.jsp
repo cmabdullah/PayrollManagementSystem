@@ -43,7 +43,7 @@
 </sf:form>
 
  -->
-
+<div align="center"><h3> You can Accept or Deny Leave Request following the table below </h3><br></div>
 <c:if test="${leaveInit != null}">
 <table class="table table-striped">
 		<tr>

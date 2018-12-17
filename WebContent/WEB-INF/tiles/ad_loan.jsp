@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--Spring form taglib-->
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
-
+<div align="center"><h3> You can Accept or Deny Loan Request following the table below </h3><br></div>
 <c:if test="${loanAllPendingRequests != null}">
 <table class="table table-striped">
 		<tr>
