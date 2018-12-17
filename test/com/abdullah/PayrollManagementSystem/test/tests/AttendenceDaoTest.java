@@ -84,14 +84,14 @@ public class AttendenceDaoTest {
 
 		List<Attendance> attendenceListOfThisYear = AttendenceDao.getAllAttendanceBetween(firstDayOfYear.toLocalDate(),
 				lastDayOfYear.toLocalDate());
+		System.out.println("attendenceListOfThisYear size : "+ attendenceListOfThisYear.size());
 		System.out.println(attendenceListOfThisYear.size());
 		for (Attendance attendance : attendenceListOfThisYear) {
 			//System.out.println(attendance);
 			attendance.setUserinfo_idObject(new Integer(attendance.getUserinfo_id()));
 		}
 		
-		List<Attendance> attendenceListOfThisYearQ = attendenceListOfThisYear;
-
+		
 		Set<String> set2 = new TreeSet<String>();
 		for (int i = 0; i < attendenceListOfThisYear.size(); i++) {
 			String currentMonthString1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
@@ -99,18 +99,24 @@ public class AttendenceDaoTest {
 			set2.add(currentMonthString1);
 		}
 
+		
+		System.out.println("My set Size : "+set2.size());
 		ArrayList<String> arrayList = new ArrayList<>(set2);
+		System.out.println("My array Size : "+arrayList.size());
 		//HashMap<String, Integer> map = new HashMap<>();
 		List<AttendanceVisualizer> attendanceVisualizer = new ArrayList<>();
 		
-		for (int i = 0; i < arrayList.size(); i++) {
+		for (int i = 0; i < arrayList.size(); i++) {//outer loop 8
 			AttendanceVisualizer x = new AttendanceVisualizer();
+			List<Attendance> attendenceListInstance = new ArrayList<>();
 			int flag = 0;
-			for (int j = 0; j < attendenceListOfThisYear.size(); j++) {
+			for (int j = 0; j < attendenceListOfThisYear.size(); j++) {//17
 				if (arrayList.get(i).equals(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 						.format(attendenceListOfThisYear.get(j).getLogintime()).substring(0, 10)))
-					flag++;
+					//flag++;
+					attendenceListInstance.add(attendenceListOfThisYear.get(j));
 			}
+			flag = myFilter(attendenceListInstance);
 			//map.put(arrayList.get(i), flag);
 			System.out.println("arrayList.get(i) " + arrayList.get(i) + " days : " + flag);
 			x.setLocalDate(arrayList.get(i));
@@ -141,5 +147,13 @@ public class AttendenceDaoTest {
 			System.out.println(attendanceVisualizer2);
 		}
 
+	}
+
+	private int myFilter(List<Attendance> attendenceListInstance) {
+		Set<Integer> set2 = new TreeSet<>();
+		for (int i = 0; i < attendenceListInstance.size(); i++) {
+			set2.add(attendenceListInstance.get(i).getUserinfo_id());
+		}
+		return set2.size();
 	}
 }

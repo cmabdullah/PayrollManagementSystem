@@ -25,10 +25,10 @@
 				<i class="fa fa-bell-o fa-5x" style="color: green"></i>
 			</div>
 			<div class="col-xs-9 text-right">
-				<h1>26</h1>
+				<h1>${allLeaveListSize}</h1>
 				<div>New Leave Request</div>
 			</div>
-			<a href="#"> <span class="pull-left">View Details</span> <span
+			<a href="<c:url value='/ad_leave'/>"> <span class="pull-left">View Details</span> <span
 				class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 			</a>
 		</div>
@@ -37,14 +37,16 @@
 				<i class="fa fa-credit-card-alt fa-5x" style="color: red"></i>
 			</div>
 			<div class="col-xs-9 text-right">
-				<h1>26</h1>
+				<h1>${loanAllPendingRequestsSize}</h1>
 				<div>New Loan Request</div>
 			</div>
-			<a href="#"> <span class="pull-left">View Details</span> <span
+			<a href="<c:url value='/ad_loan'/>"> <span class="pull-left">View Details</span> <span
 				class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 			</a>
 		</div>
 	</div>
+	
+	
 </div>
 
 <!-- 

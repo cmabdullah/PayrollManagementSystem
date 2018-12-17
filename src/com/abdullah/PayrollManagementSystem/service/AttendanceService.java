@@ -171,12 +171,15 @@ public class AttendanceService {
 		
 		for (int i = 0; i < arrayList.size(); i++) {
 			AttendanceVisualizer x = new AttendanceVisualizer();
+			List<Attendance> attendenceListInstance = new ArrayList<>();
 			int flag = 0;
 			for (int j = 0; j < attendenceListOfThisYear.size(); j++) {
 				if (arrayList.get(i).equals(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 						.format(attendenceListOfThisYear.get(j).getLogintime()).substring(0, 10)))
-					flag++;
+					//flag++;
+					attendenceListInstance.add(attendenceListOfThisYear.get(j));
 			}
+			flag = myFilter(attendenceListInstance);
 			//map.put(arrayList.get(i), flag);
 			System.out.println("arrayList.get(i) " + arrayList.get(i) + " days : " + flag);
 			x.setLocalDate(arrayList.get(i));
@@ -191,4 +194,15 @@ public class AttendanceService {
 //		
 		return attendanceVisualizer;
 	}
+	
+	
+	private int myFilter(List<Attendance> attendenceListInstance) {
+		Set<Integer> set2 = new TreeSet<>();
+		for (int i = 0; i < attendenceListInstance.size(); i++) {
+			set2.add(attendenceListInstance.get(i).getUserinfo_id());
+		}
+		return set2.size();
+	}	
+	
+	
 }
