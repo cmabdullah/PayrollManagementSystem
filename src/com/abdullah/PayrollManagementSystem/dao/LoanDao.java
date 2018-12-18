@@ -60,29 +60,32 @@ public class LoanDao {
 	}
 
 	public List<Loan> getAllLoanPendingRequests() {
-		
-		//SELECT * FROM leaveusers  LEFT JOIN userinfo ON leaveusers.userinfo_id = userinfo.id  where  status='0' OR (status='2' and entryfrom between '" + oneMonthsBeforeDate + "' and '" + currentDate + "' );"
-		//SELECT * FROM loan where  approvedate IS NULL AND status IS NULL
-		return jdbc.query("select * from loan left join userinfo on loan.userinfo_id = userinfo.id where approvedate IS NULL AND status IS NULL;", new RowMapper<Loan>() {
-			public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Loan loan = new Loan();
-				loan.setId(rs.getInt("id"));
-				loan.setUserinfo_id(rs.getInt("userinfo_id"));
-				loan.setReason(rs.getString("reason"));
-				loan.setAmount(rs.getInt("amount"));
-				loan.setFullname(rs.getString("fullname"));
-				loan.setEmail(rs.getString("email"));
 
-				return loan;
-			}
-		});
+		// SELECT * FROM leaveusers LEFT JOIN userinfo ON leaveusers.userinfo_id =
+		// userinfo.id where status='0' OR (status='2' and entryfrom between '" +
+		// oneMonthsBeforeDate + "' and '" + currentDate + "' );"
+		// SELECT * FROM loan where approvedate IS NULL AND status IS NULL
+		return jdbc.query(
+				"select * from loan left join userinfo on loan.userinfo_id = userinfo.id where approvedate IS NULL AND status IS NULL;",
+				new RowMapper<Loan>() {
+					public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
+						Loan loan = new Loan();
+						loan.setId(rs.getInt("id"));
+						loan.setUserinfo_id(rs.getInt("userinfo_id"));
+						loan.setReason(rs.getString("reason"));
+						loan.setAmount(rs.getInt("amount"));
+						loan.setFullname(rs.getString("fullname"));
+						loan.setEmail(rs.getString("email"));
+
+						return loan;
+					}
+				});
 	}
 
 	public boolean deletePendingLoanApplication(Loan loan) { // delete method
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(loan);
 		return jdbc.update("update loan set approvedate=:approvedate,status=:status where id=:id", params) == 1;
 	}
-
 
 	public List<Loan> checkRunningLoan(int userinfo_id) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
@@ -137,86 +140,108 @@ public class LoanDao {
 			}
 		});
 	}
-	
+
 	@Transactional
 	public int[] payLoanInstallment(List<Loan> loan) {
 		SqlParameterSource[] params = SqlParameterSourceUtils.createBatch(loan.toArray());
-		return jdbc.batchUpdate("insert into loanpaiddetails (datetime , paidamount, loan_id) values (:datetime,:paidamount,:loan_id)", params);
+		return jdbc.batchUpdate(
+				"insert into loanpaiddetails (datetime , paidamount, loan_id) values (:datetime,:paidamount,:loan_id)",
+				params);
 	}
-
 
 	public boolean updateLoanStatusBasedOnLoanId(Loan loan) {
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(loan);
 		return jdbc.update("update loan set status=:status where id=:loan_id", params) == 1;
-		
+
 	}
 
 	public boolean acceptPendingLoanApplication(Loan loan) {
 		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(loan);
 		return jdbc.update("update loan set approvedate=:approvedate,status=:status where id=:id", params) == 1;
-		
+
 	}
 
-	 public Loan getLoanApplicationInfoBasedOnLoanId(int id) {
-		 MapSqlParameterSource params = new MapSqlParameterSource();
-			params.addValue("id", id);
-
-			return jdbc.queryForObject("SELECT * FROM loan where id=:id", params, new RowMapper<Loan>() {
-				public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
-					Loan loan = new Loan();
-					loan.setId(rs.getInt("id"));
-					loan.setAmount(rs.getFloat("amount"));
-					loan.setUserinfo_id(rs.getInt("userinfo_id"));
-					return loan;// return single object
-				}
-			});
-	}
-	 
-	 
-	 public List<Loan> checkRunningLoanDetails(int userinfo_id) {
-			MapSqlParameterSource params = new MapSqlParameterSource();
-			params.addValue("userinfo_id", userinfo_id);
-			// select * from notices where id = :id
-			// SELECT * FROM leaveusers where userinfo_id=:userinfo_id AND entryfrom IS NULL
-			// AND entryto IS NULL
-			return jdbc.query(
-					"select * from loan right join loanpaiddetails on loan.id=loanpaiddetails.loan_id  where userinfo_id=:userinfo_id and status=1", params,
-					new RowMapper<Loan>() {
-						public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
-							Loan loan = new Loan();
-							loan.setId(rs.getInt("id"));
-							loan.setReason(rs.getString("reason"));
-							loan.setAmount(rs.getInt("amount"));
-							loan.setPaidamount(rs.getFloat("paidamount"));
-							// System.out.println("Retriving loan info from database : " + loan);
-							return loan;// return single object
-						}
-					});
-		}
-
-	public List<Loan> getAllLoanBetween(LocalDate entryfrom, LocalDate entryto) {
+	public Loan getLoanApplicationInfoBasedOnLoanId(int id) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("entryfrom", entryfrom );
-		params.addValue("entryto", entryto );
-		return jdbc.query("select loan.id, loan.placedate , loan.amount, loan.status , loan.reason , userinfo.fullname  from loan  left join userinfo on loan.userinfo_id = userinfo.id  and placedate between '" + entryfrom + "' and '" + entryto + "'", params, new RowMapper<Loan>() {
+		params.addValue("id", id);
+
+		return jdbc.queryForObject("SELECT * FROM loan where id=:id", params, new RowMapper<Loan>() {
 			public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
-				
 				Loan loan = new Loan();
 				loan.setId(rs.getInt("id"));
-				loan.setStatus(rs.getInt("status"));
-				loan.setReason(rs.getString("reason"));
-				loan.setAmount(rs.getInt("amount"));
-				loan.setPlacedate(rs.getTimestamp("placedate").toLocalDateTime());
-				loan.setFullname(rs.getString("fullname"));
-				// System.out.println("Retriving loan info from database : " + loan);
+				loan.setAmount(rs.getFloat("amount"));
+				loan.setUserinfo_id(rs.getInt("userinfo_id"));
 				return loan;// return single object
-				
-				
 			}
 		});
 	}
 
-	 
-	 
+	public List<Loan> checkRunningLoanDetails(int userinfo_id) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("userinfo_id", userinfo_id);
+		// select * from notices where id = :id
+		// SELECT * FROM leaveusers where userinfo_id=:userinfo_id AND entryfrom IS NULL
+		// AND entryto IS NULL
+		return jdbc.query(
+				"select * from loan right join loanpaiddetails on loan.id=loanpaiddetails.loan_id  where userinfo_id=:userinfo_id and status=1",
+				params, new RowMapper<Loan>() {
+					public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
+						Loan loan = new Loan();
+						loan.setId(rs.getInt("id"));
+						loan.setReason(rs.getString("reason"));
+						loan.setAmount(rs.getInt("amount"));
+						loan.setPaidamount(rs.getFloat("paidamount"));
+						// System.out.println("Retriving loan info from database : " + loan);
+						return loan;// return single object
+					}
+				});
+	}
+
+	public List<Loan> getAllLoanBetween(LocalDate entryfrom, LocalDate entryto) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("entryfrom", entryfrom);
+		params.addValue("entryto", entryto);
+		return jdbc.query(
+				"select loan.id, loan.placedate , loan.amount, loan.status , loan.reason , userinfo.fullname  from loan  left join userinfo on loan.userinfo_id = userinfo.id  and placedate between '"
+						+ entryfrom + "' and '" + entryto + "' and loan.userinfo_id != 0",
+				params, new RowMapper<Loan>() {
+					public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+						Loan loan = new Loan();
+						loan.setId(rs.getInt("id"));
+						loan.setStatus(rs.getInt("status"));
+						loan.setReason(rs.getString("reason"));
+						loan.setAmount(rs.getInt("amount"));
+						loan.setPlacedate(rs.getTimestamp("placedate").toLocalDateTime());
+						loan.setFullname(rs.getString("fullname"));
+						// System.out.println("Retriving loan info from database : " + loan);
+						return loan;// return single object
+					}
+				});
+	}
+
+	public List<Loan> getAllLoanBetween(LocalDate entryfrom, LocalDate entryto, int userId) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("entryfrom", entryfrom);
+		params.addValue("entryto", entryto);
+		return jdbc.query(
+				"select loan.id, loan.placedate , loan.amount, loan.status , loan.reason , userinfo.fullname  from loan  left join userinfo on loan.userinfo_id = userinfo.id  and placedate between '"
+						+ entryfrom + "' and '" + entryto + "' and loan.userinfo_id='" + userId + "'",
+				params, new RowMapper<Loan>() {
+					public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+						Loan loan = new Loan();
+						loan.setId(rs.getInt("id"));
+						loan.setStatus(rs.getInt("status"));
+						loan.setReason(rs.getString("reason"));
+						loan.setAmount(rs.getInt("amount"));
+						loan.setPlacedate(rs.getTimestamp("placedate").toLocalDateTime());
+						loan.setFullname(rs.getString("fullname"));
+						// System.out.println("Retriving loan info from database : " + loan);
+						return loan;// return single object
+
+					}
+				});
+	}
 
 }

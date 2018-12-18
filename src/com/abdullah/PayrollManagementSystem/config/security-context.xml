@@ -106,6 +106,8 @@
 		<security:intercept-url pattern="/report"  access="permitAll" />
 		<security:intercept-url pattern="/report_process"  access="permitAll" />
 		<security:intercept-url pattern="/search_by_id"  access="permitAll" />
+		<security:intercept-url pattern="/search_by_id_report"  access="permitAll" />
+		<security:intercept-url pattern="/data_not_found"  access="permitAll" />
 		<!-- <security:intercept-url pattern="/PdfRevenueReportViewCm"  access="permitAll" /> -->
 		
 		

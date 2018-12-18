@@ -141,4 +141,10 @@ public class LoanService {
 		List<Loan> loanBetweenBetween = loanDao.getAllLoanBetween(entryfrom, entryto);
 		return loanBetweenBetween;
 	}
+
+
+	public List<Loan> getAllLoanBetween(LocalDate entryfrom, LocalDate entryto, int userId) {
+		List<Loan> loanBetweenBetween = loanDao.getAllLoanBetween(entryfrom, entryto , userId);
+		return loanBetweenBetween;
+	}
 }

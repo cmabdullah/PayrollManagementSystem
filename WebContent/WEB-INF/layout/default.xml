@@ -142,5 +142,16 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/leave_report.jsp"></put-attribute>		
 	</definition>
 	
+	<definition name="search_by_id_report" extends="manager.base">
+		<put-attribute name="title" value="search_by_id_report details....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/search_by_id_report.jsp"></put-attribute>		
+	</definition>
+	
+	<definition name="data_not_found" extends="manager.base">
+		<put-attribute name="title" value="data not find details....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/data_not_found.jsp"></put-attribute>		
+	</definition>
+	
+	
 
 </tiles-definitions>

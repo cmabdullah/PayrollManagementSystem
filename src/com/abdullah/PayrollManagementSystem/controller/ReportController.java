@@ -28,6 +28,7 @@ import com.abdullah.PayrollManagementSystem.dao.Leave;
 import com.abdullah.PayrollManagementSystem.dao.Loan;
 import com.abdullah.PayrollManagementSystem.dao.Report;
 import com.abdullah.PayrollManagementSystem.dao.Salary;
+import com.abdullah.PayrollManagementSystem.dao.SearchData;
 import com.abdullah.PayrollManagementSystem.service.AttendanceService;
 import com.abdullah.PayrollManagementSystem.service.LeaveService;
 import com.abdullah.PayrollManagementSystem.service.LoanService;
@@ -66,9 +67,9 @@ public class ReportController extends AbstractController {
 	public void setLoanService(LoanService loanService) {
 		this.loanService = loanService;
 	}
-	
+
 	UserinfoService userinfoService;
-	
+
 	@Autowired
 	public void setUserinfoService(UserinfoService userinfoService) {
 		this.userinfoService = userinfoService;
@@ -82,47 +83,78 @@ public class ReportController extends AbstractController {
 		return "report";
 
 	}
-	
-	
+
 	@RequestMapping("/search_by_id")
-	public String showThreeTypesofReport(Model model, HttpServletRequest request, HttpServletResponse response) {
-		
-		LocalDateTime entryfrom = LocalDateTime.parse(request.getParameter("entryfromString").concat(" 00:00"),
-				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-		
-		LocalDateTime entryto = LocalDateTime.parse(request.getParameter("entrytoString").concat(" 00:00"),
-				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-		
-		String username = request.getParameter("username"); 
+	public String showThreeTypesofReport(Model model, SearchData searchData, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		LocalDateTime entryfrom = searchData.getEntryfrom();
+
+		LocalDateTime entryto = searchData.getEntryto();
+
+		String username = searchData.getUsername();
 		String reportType = request.getParameter("reportType");
+
+		boolean inValidData = false;
+		if (!userinfoService.exists(username)) {
+			System.out.println("else........");
+			inValidData = true;
+			model.addAttribute("inValidData", inValidData);
+			return "data_not_found";
+		}
+
 		int userId = userinfoService.getUserIdFromName(username).getId();
-		System.out.println("username : "+ username + " entryfrom : "+entryfrom + " entryto "+ entryto + " userId : "+ userId);
+
+		System.out.println(
+				"username : " + username + " entryfrom : " + entryfrom + " entryto " + entryto + " userId : " + userId);
 		boolean wrongpattern = false;
 		if (entryfrom.isAfter(entryto)) {
 			wrongpattern = true;
 			return "redirect:report";
-			//return new ModelAndView("redirect:report", "wrongpattern", wrongpattern);
 		}
-		
+
 		List<Attendance> attendanceListByUser;
 		if (reportType.equals("attendance")) {
 			System.out.println("Working on attendance");
-			attendanceListByUser = attendanceService.getAllAttendanceBetween(entryfrom.toLocalDate(), entryto.toLocalDate(), userId);
+			LocalDateTime today = LocalDateTime.now();
+			LocalDateTime sevenDaysAgo = today.minusWeeks(1);
+			attendanceListByUser = attendanceService.getAllAttendanceBetween(entryto.toLocalDate(),
+					entryfrom.toLocalDate(), userId);
+			// attendanceListByUser =
+			// attendanceService.getAllAttendanceBetween(today.toLocalDate(),sevenDaysAgo.toLocalDate(),
+			// userId);
 			System.out.println("Size : " + attendanceListByUser.size());
-			model.addAttribute(attendanceListByUser);
-			return "leave_report";
+			model.addAttribute("attendanceListByUser", attendanceListByUser);
+			return "search_by_id_report";
 		}
-		
-		
-		
-		return "leave_report";
-		
+
+		List<Salary> salaryListByUser;
+		if (reportType.equals("salary")) {
+			System.out.println("Working on salary");
+			salaryListByUser = salaryService.getAllSalaryBetween(entryfrom.toLocalDate(), entryto.toLocalDate(),
+					userId);
+			System.out.println("salaryListByUser : " + salaryListByUser.size());
+			model.addAttribute("salaryListByUser", salaryListByUser);
+			return "search_by_id_report";
+		}
+
+		List<Loan> loanListByUser;
+		if (reportType.equals("loan")) {
+			System.out.println("Working on Loan");
+			loanListByUser = loanService.getAllLoanBetween(entryfrom.toLocalDate(), entryto.toLocalDate() , userId);
+			System.out.println("Size : " + loanListByUser.size());
+			for (Loan loan : loanListByUser) {
+				System.out.println("loanobject details : " + loan);
+			}
+
+			model.addAttribute("loanListByUser", loanListByUser);
+			return "search_by_id_report";
+
+		}
+
+		return "search_by_id_report";
+
 	}
-	
-	
-	
-	
-	
 
 	@RequestMapping("/leaveGroupBy/{leavetype}")
 	public String showleaveGroupBy(@PathVariable String leavetype, Model model) {
@@ -197,10 +229,10 @@ public class ReportController extends AbstractController {
 		if (reportType.equals("loan")) {
 			System.out.println("Working on Loan");
 			loanList = loanService.getAllLoanBetween(entryfrom.toLocalDate(), entryto.toLocalDate());
-			 System.out.println("Size : "+loanList.size());
-			 for (Loan loan : loanList) {
-			 System.out.println("loanobject details : "+ loan);
-			 }
+			System.out.println("Size : " + loanList.size());
+			for (Loan loan : loanList) {
+				System.out.println("loanobject details : " + loan);
+			}
 			return new ModelAndView("LoanPdfSummary", "loanList", loanList);
 
 		}

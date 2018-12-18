@@ -385,4 +385,9 @@ INFO - salary Object : Salary [id=0, userinfo_id=2028, username=null, usertype=R
 		return salaryBetween;
 	}
 
+	public List<Salary> getAllSalaryBetween(LocalDate entryfrom, LocalDate entryto , int userId) {
+		List<Salary> salaryBetween = salaryDao.getAllSalaryBetween(entryfrom, entryto , userId);
+		return salaryBetween;
+	}
+
 }

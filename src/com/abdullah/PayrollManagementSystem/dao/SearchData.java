@@ -12,19 +12,21 @@ public class SearchData {
 	private String username;
 	private String entryfromString;
 	private String entrytoString;
+	private String reportType;
 	
 	public SearchData(){
 		
 	}
 
 	public SearchData(int id, LocalDateTime entryfrom, LocalDateTime entryto, String username, String entryfromString,
-			String entrytoString) {
+			String entrytoString, String reportType) {
 		this.id = id;
 		this.entryfrom = entryfrom;
 		this.entryto = entryto;
 		this.username = username;
 		this.entryfromString = entryfromString;
 		this.entrytoString = entrytoString;
+		this.reportType = reportType;
 	}
 
 	public int getId() {
@@ -79,9 +81,21 @@ public class SearchData {
 		this.entryto =  LocalDateTime.parse(entrytoString.concat(" 00:00"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 	}
 
+	public String getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(String reportType) {
+		this.reportType = reportType;
+	}
+
 	@Override
 	public String toString() {
 		return "SearchData [id=" + id + ", entryfrom=" + entryfrom + ", entryto=" + entryto + ", username=" + username
-				+ ", entryfromString=" + entryfromString + ", entrytoString=" + entrytoString + "]";
-	}	
+				+ ", entryfromString=" + entryfromString + ", entrytoString=" + entrytoString + ", reportType="
+				+ reportType + "]";
+	}
+	
+
+		
 }

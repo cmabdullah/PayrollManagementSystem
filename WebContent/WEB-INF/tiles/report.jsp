@@ -8,7 +8,10 @@
 	<h1>Wrong pattern data input</h1>
 </c:if>
 
+<c:if test="${inValidData == true}">
+ <div align="center"><h1>username not found</h1></div>
 
+</c:if>
 
 
 

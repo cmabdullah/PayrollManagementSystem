@@ -164,12 +164,17 @@ public class AttendenceDaoTest {
 public void getLastSevenDaysAttendance() {
 		int userId = 2026;
 		LocalDateTime today = LocalDateTime.now();
-		
 		LocalDateTime sevenDaysAgo = today.minusWeeks(1);
 		System.out.println("today : "+today +" sevenDaysAgo : "+sevenDaysAgo);
+		
+		//username : zxcv entryfrom : 2018-10-02T00:00 entryto 2018-12-18T00:00 userId : 2026
+		
 		List<Attendance> attendenceListOfThisYear = AttendenceDao.getAllAttendanceBetween(today.toLocalDate(),sevenDaysAgo.toLocalDate(), userId);
 		//assertEquals("Number of users shuld be 1",2, attendenceListOfThisYear.size());
 		System.out.println("attendenceListSpecificEmployee "+attendenceListOfThisYear.size());
+	for (Attendance attendance : attendenceListOfThisYear) {
+		System.out.println(attendance);
+	}
 		
 
 	}

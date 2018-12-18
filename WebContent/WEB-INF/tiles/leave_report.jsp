@@ -37,31 +37,6 @@
 
 
 
-
-<div align="center"><h3> Your Last One Week Login Activity </h3><br></div>
-<c:if test="${attendanceListByUser != null}">
-<table class="table table-striped">
-		<tr>
-			<th scope="col">Login Time</th>
-			<th scope="col">Working Hours</th>
-		</tr>
-		<c:forEach var="singleUserOneDaysSplitData" items="${attendanceListByUser}">
-			<tr>
-				<td><c:out value="${singleUserOneDaysSplitData.logintime}"></c:out></td>
-				<td><c:out value="${singleUserOneDaysSplitData.workinghours}"></c:out></td>
-			</tr>
-		</c:forEach>
-	</table>
-
-</c:if>
-
-
-
-
-
-
-
-
 <p class="print-align-right">
      <a href="#" onclick="javascript:window.print();" >Print this page</a>
 </p>
