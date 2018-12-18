@@ -137,5 +137,10 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/report.jsp"></put-attribute>		
 	</definition>
 	
+	<definition name="leave_report" extends="manager.base">
+		<put-attribute name="title" value="leave_report details....."></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/leave_report.jsp"></put-attribute>		
+	</definition>
+	
 
 </tiles-definitions>

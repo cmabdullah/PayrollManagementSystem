@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,8 +25,14 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import com.abdullah.PayrollManagementSystem.dao.Attendance;
 import com.abdullah.PayrollManagementSystem.dao.Leave;
+import com.abdullah.PayrollManagementSystem.dao.Loan;
 import com.abdullah.PayrollManagementSystem.dao.Report;
+import com.abdullah.PayrollManagementSystem.dao.Salary;
 import com.abdullah.PayrollManagementSystem.service.AttendanceService;
+import com.abdullah.PayrollManagementSystem.service.LeaveService;
+import com.abdullah.PayrollManagementSystem.service.LoanService;
+import com.abdullah.PayrollManagementSystem.service.SalaryService;
+import com.abdullah.PayrollManagementSystem.service.UserinfoService;
 
 //defining beans [PdfRevenueSummary]
 @Controller
@@ -38,64 +45,167 @@ public class ReportController extends AbstractController {
 	public void setAttendanceService(AttendanceService attendanceService) {
 		this.attendanceService = attendanceService;
 	}
+
+	@Autowired
+	LeaveService leaveService;
+
+	public void setLeaveService(LeaveService leaveService) {
+		this.leaveService = leaveService;
+	}
+
+	@Autowired
+	SalaryService salaryService;
+
+	public void setSalaryService(SalaryService salaryService) {
+		this.salaryService = salaryService;
+	}
+
+	LoanService loanService;
+
+	@Autowired
+	public void setLoanService(LoanService loanService) {
+		this.loanService = loanService;
+	}
 	
+	UserinfoService userinfoService;
+	
+	@Autowired
+	public void setUserinfoService(UserinfoService userinfoService) {
+		this.userinfoService = userinfoService;
+	}
+
 	@RequestMapping("/report")
-	public String showReport() {
+	public String showReport(Model model) {
+		List<Leave> leaveStatusGroupBy = leaveService.getLeaveStatusGroupBy();
+		System.out.println(leaveStatusGroupBy.size());
+		model.addAttribute("leaveStatusGroupBy", leaveStatusGroupBy);
 		return "report";
 
 	}
-
-//	@RequestMapping("/report")
-//	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
-//			throws Exception {
-//
-//		// dummy data
-//		Map<String, String> revenueData = new HashMap<String, String>();
-//		revenueData.put("1/20/2010", "$100,000");
-//		revenueData.put("1/21/2010", "$200,000");
-//		revenueData.put("1/22/2010", "$300,000");
-//		revenueData.put("1/23/2010", "$400,000");
-//		revenueData.put("1/24/2010", "$500,000");
-//		 return new ModelAndView("PdfRevenueSummary", "revenueData", revenueData);
-//		//return new ModelAndView("report", "revenueData", revenueData);
-//
-//	}
-
 	
 	
+	@RequestMapping("/search_by_id")
+	public String showThreeTypesofReport(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		LocalDateTime entryfrom = LocalDateTime.parse(request.getParameter("entryfromString").concat(" 00:00"),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		
+		LocalDateTime entryto = LocalDateTime.parse(request.getParameter("entrytoString").concat(" 00:00"),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		
+		String username = request.getParameter("username"); 
+		String reportType = request.getParameter("reportType");
+		int userId = userinfoService.getUserIdFromName(username).getId();
+		System.out.println("username : "+ username + " entryfrom : "+entryfrom + " entryto "+ entryto + " userId : "+ userId);
+		boolean wrongpattern = false;
+		if (entryfrom.isAfter(entryto)) {
+			wrongpattern = true;
+			return "redirect:report";
+			//return new ModelAndView("redirect:report", "wrongpattern", wrongpattern);
+		}
+		
+		List<Attendance> attendanceListByUser;
+		if (reportType.equals("attendance")) {
+			System.out.println("Working on attendance");
+			attendanceListByUser = attendanceService.getAllAttendanceBetween(entryfrom.toLocalDate(), entryto.toLocalDate(), userId);
+			System.out.println("Size : " + attendanceListByUser.size());
+			model.addAttribute(attendanceListByUser);
+			return "leave_report";
+		}
+		
+		
+		
+		return "leave_report";
+		
+	}
+	
+	
+	
+	
+	
+
+	@RequestMapping("/leaveGroupBy/{leavetype}")
+	public String showleaveGroupBy(@PathVariable String leavetype, Model model) {
+		List<Leave> leaveStatusGroupByLeavetype = leaveService.getLeaveStatusGroupByLeavetype(leavetype);
+		model.addAttribute("leaveStatusGroupByLeavetype", leaveStatusGroupByLeavetype);
+		model.addAttribute("leaveReportFlag", leavetype);
+		return "leave_report";
+
+	}
+
+	// @RequestMapping("/report")
+	// protected ModelAndView handleRequestInternal(HttpServletRequest request,
+	// HttpServletResponse response)
+	// throws Exception {
+	//
+	// // dummy data
+	// Map<String, String> revenueData = new HashMap<String, String>();
+	// revenueData.put("1/20/2010", "$100,000");
+	// revenueData.put("1/21/2010", "$200,000");
+	// revenueData.put("1/22/2010", "$300,000");
+	// revenueData.put("1/23/2010", "$400,000");
+	// revenueData.put("1/24/2010", "$500,000");
+	// return new ModelAndView("PdfRevenueSummary", "revenueData", revenueData);
+	// //return new ModelAndView("report", "revenueData", revenueData);
+	//
+	// }
+
 	@RequestMapping(value = "/report_process", method = RequestMethod.POST)
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		
-		//String entryfrom = request.getParameter("entryfromString");
-		LocalDateTime entryfrom = LocalDateTime.parse(request.getParameter("entryfromString").concat(" 00:00"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-		System.out.println("Hi HI "+entryfrom);
-		
-		LocalDateTime entryto = LocalDateTime.parse(request.getParameter("entrytoString").concat(" 00:00"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-		
+
+		// String entryfrom = request.getParameter("entryfromString");
+		LocalDateTime entryfrom = LocalDateTime.parse(request.getParameter("entryfromString").concat(" 00:00"),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		System.out.println("Hi HI " + entryfrom);
+
+		LocalDateTime entryto = LocalDateTime.parse(request.getParameter("entrytoString").concat(" 00:00"),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
 		String reportType = request.getParameter("reportType");
-		
+
 		boolean wrongpattern = false;
 		if (entryfrom.isAfter(entryto)) {
 			wrongpattern = true;
 			return new ModelAndView("redirect:report", "wrongpattern", wrongpattern);
 
 		}
-		
-		List<Attendance> attendanceList ;
+
+		List<Attendance> attendanceList;
 		if (reportType.equals("attendance")) {
 			System.out.println("Working on attendance");
 			attendanceList = attendanceService.getAllAttendanceBetween(entryfrom.toLocalDate(), entryto.toLocalDate());
-			System.out.println("Size : "+attendanceList.size());
+			System.out.println("Size : " + attendanceList.size());
 			return new ModelAndView("AttendancePdfSummary", "attendanceList", attendanceList);
 
 		}
-		
-		
-		
-		
-		
-		//2018-12-14
+		List<Salary> salaryList;
+		if (reportType.equals("salary")) {
+			System.out.println("Working on salary");
+			salaryList = salaryService.getAllSalaryBetween(entryfrom.toLocalDate(), entryto.toLocalDate());
+			// System.out.println("Size : "+salaryList.size());
+			//
+			//
+			// for (Salary salary : salaryList) {
+			// System.out.println("Salaryobject details : "+ salary);
+			// }
+			return new ModelAndView("SalaryPdfSummary", "salaryList", salaryList);
+
+		}
+
+		List<Loan> loanList;
+		if (reportType.equals("loan")) {
+			System.out.println("Working on Loan");
+			loanList = loanService.getAllLoanBetween(entryfrom.toLocalDate(), entryto.toLocalDate());
+			 System.out.println("Size : "+loanList.size());
+			 for (Loan loan : loanList) {
+			 System.out.println("loanobject details : "+ loan);
+			 }
+			return new ModelAndView("LoanPdfSummary", "loanList", loanList);
+
+		}
+
+		// 2018-12-14
 		// dummy data
 		Map<String, String> revenueData = new HashMap<String, String>();
 		revenueData.put("1/20/2010", "$100,000");
@@ -103,33 +213,34 @@ public class ReportController extends AbstractController {
 		revenueData.put("1/22/2010", "$300,000");
 		revenueData.put("1/23/2010", "$400,000");
 		revenueData.put("1/24/2010", "$500,000");
-		 return new ModelAndView("PdfRevenueSummary", "revenueData", revenueData);
-		//return new ModelAndView("report", "revenueData", revenueData);
+		return new ModelAndView("PdfRevenueSummary", "revenueData", revenueData);
+		// return new ModelAndView("report", "revenueData", revenueData);
 
 	}
-	
-	
-	
-//	@RequestMapping(value = "/report_process", method = RequestMethod.POST)
-//	public String leaveRequestProcess(Model model, @Valid Report report, Principal principal) {
-//
-//		boolean wrongpattern = false;
-//		if (report.getEntryfrom().isAfter(report.getEntryto())) {
-//			report.setEntryfrom(null);
-//			report.setEntryto(null);
-//			wrongpattern = true;
-//			model.addAttribute("wrongpattern", wrongpattern);
-//			return "redirect:report";
-//		}
-//		List<Attendance> attendanceList ;
-//		if (report.getReportType().equals("attendance")) {
-//			System.out.println("Working on attendance");
-//			attendanceList = attendanceService.getAllAttendanceBetween(report.getEntryfrom().toLocalDate(), report.getEntryto().toLocalDate());
-//			System.out.println(attendanceList.size());
-//
-//		}
-//
-//		return "disable_enable_user_success";
-//	}
+
+	// @RequestMapping(value = "/report_process", method = RequestMethod.POST)
+	// public String leaveRequestProcess(Model model, @Valid Report report,
+	// Principal principal) {
+	//
+	// boolean wrongpattern = false;
+	// if (report.getEntryfrom().isAfter(report.getEntryto())) {
+	// report.setEntryfrom(null);
+	// report.setEntryto(null);
+	// wrongpattern = true;
+	// model.addAttribute("wrongpattern", wrongpattern);
+	// return "redirect:report";
+	// }
+	// List<Attendance> attendanceList ;
+	// if (report.getReportType().equals("attendance")) {
+	// System.out.println("Working on attendance");
+	// attendanceList =
+	// attendanceService.getAllAttendanceBetween(report.getEntryfrom().toLocalDate(),
+	// report.getEntryto().toLocalDate());
+	// System.out.println(attendanceList.size());
+	//
+	// }
+	//
+	// return "disable_enable_user_success";
+	// }
 
 }

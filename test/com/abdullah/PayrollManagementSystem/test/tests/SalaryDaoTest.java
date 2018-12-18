@@ -1,9 +1,5 @@
 package com.abdullah.PayrollManagementSystem.test.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,13 +15,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.abdullah.PayrollManagementSystem.dao.Attendance;
 import com.abdullah.PayrollManagementSystem.dao.Leave;
 import com.abdullah.PayrollManagementSystem.dao.LeaveDao;
-import com.abdullah.PayrollManagementSystem.dao.Loan;
-import com.abdullah.PayrollManagementSystem.dao.LoanDao;
-import com.abdullah.PayrollManagementSystem.dao.Userinfo;
-import com.abdullah.PayrollManagementSystem.dao.UserinfoDao;
+import com.abdullah.PayrollManagementSystem.dao.Salary;
+import com.abdullah.PayrollManagementSystem.dao.SalaryDao;
 
 
 @ActiveProfiles("dev")
@@ -35,9 +28,9 @@ import com.abdullah.PayrollManagementSystem.dao.UserinfoDao;
 		"classpath:com/abdullah/PayrollManagementSystem/test/config/datasource.xml"	
 })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class LoanDaoTest {
+public class SalaryDaoTest {
 	@Autowired
-	private LoanDao loanDao; 
+	private SalaryDao salaryDao; 
 	@Autowired
 	private DataSource dataSource;
 	
@@ -46,16 +39,14 @@ public class LoanDaoTest {
 		JdbcTemplate jdbc = new  JdbcTemplate(dataSource);
 	}
 	@Test
-	public void loadNewUserInfo() {
-		List<Loan> loanList = loanDao.checkRunningLoanDetails(2026);
-		assertEquals("Number of users shuld be 2",2, loanList.size());
-	}
-	@Test
-	public void loanBetweenBetween() {
-		List<Loan> loanBetweenBetween = loanDao.getAllLoanBetween(LocalDate.now().minusYears(1), LocalDate.now());
-		assertNotNull(loanBetweenBetween);
-		for (Loan loan : loanBetweenBetween) {
-			System.out.println("loanBetweenBetween : "+loan);
+	public void salaryJoin() {
+		
+		List<Salary> salaryBetween = salaryDao.getAllAttendanceBetween(LocalDate.now().minusYears(1), LocalDate.now());
+		System.out.println("salaryBetween : "+ salaryBetween);
+		System.out.println("salary size : "+ salaryBetween.size());
+		
+		for (Salary salary : salaryBetween) {
+			System.out.println(salary);
 		}
 	}
 }

@@ -202,7 +202,67 @@ public class AttendanceService {
 			set2.add(attendenceListInstance.get(i).getUserinfo_id());
 		}
 		return set2.size();
-	}	
+	}
+	
+	public List<AttendanceVisualizer> getSingleUserAttendanceOfThisYear() {
+
+		LocalDateTime firstDayOfYear = LocalDateTime.parse(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+				.format(LocalDateTime.now()).substring(0, 5).concat("01-01 00:00"),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		LocalDateTime lastDayOfYear = LocalDateTime.parse(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+				.format(LocalDateTime.now()).substring(0, 5).concat("12-30 23:00"),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+		List<Attendance> attendenceListOfThisYear = attendanceDao.getAllAttendanceBetween(firstDayOfYear.toLocalDate(),
+				lastDayOfYear.toLocalDate());
+		//System.out.println(attendenceListOfThisYear.size());
+		for (Attendance attendance : attendenceListOfThisYear) {
+			//System.out.println(attendance);
+			attendance.setUserinfo_idObject(new Integer(attendance.getUserinfo_id()));
+		}
+		
+		//List<Attendance> attendenceListOfThisYearQ = attendenceListOfThisYear;
+
+		Set<String> set2 = new TreeSet<String>();
+		for (int i = 0; i < attendenceListOfThisYear.size(); i++) {
+			String currentMonthString1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+					.format(attendenceListOfThisYear.get(i).getLogintime()).substring(0, 10);
+			set2.add(currentMonthString1);
+		}
+
+		ArrayList<String> arrayList = new ArrayList<>(set2);
+		//HashMap<String, Integer> map = new HashMap<>();
+		List<AttendanceVisualizer> attendanceVisualizer = new ArrayList<>();
+		
+		for (int i = 0; i < arrayList.size(); i++) {
+			AttendanceVisualizer x = new AttendanceVisualizer();
+			int flag = 0;
+			for (int j = 0; j < attendenceListOfThisYear.size(); j++) {
+				if (arrayList.get(i).equals(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+						.format(attendenceListOfThisYear.get(j).getLogintime()).substring(0, 10)))
+					flag++;
+					
+			}
+			System.out.println("arrayList.get(i) " + arrayList.get(i) + " days : " + flag);
+			x.setLocalDate(arrayList.get(i));
+			x.setTotalDays(flag);
+			attendanceVisualizer.add(x);
+		}
+		return attendanceVisualizer;
+	}
+
+	public List<Attendance> getLastSevenDaysAttendance(int userId) {
+		
+		LocalDate today = LocalDate.now();
+		LocalDate sevenDaysAgo = today.minusWeeks(1);
+		List<Attendance> attendenceListOfThisYear = attendanceDao.getAllAttendanceBetween(today,sevenDaysAgo, userId);
+		return attendenceListOfThisYear;
+	}
+	//return specific id info
+	public List<Attendance> getAllAttendanceBetween(LocalDate entryfrom, LocalDate entryto, int userId) {
+		List<Attendance> attendencesBetween = attendanceDao.getAllAttendanceBetween(entryfrom, entryto, userId);
+		return attendencesBetween;
+	}
 	
 	
 }

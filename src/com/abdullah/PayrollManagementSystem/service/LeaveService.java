@@ -143,4 +143,17 @@ public class LeaveService {
 		else
 			return false;
 	}
+
+	public List<Leave> getLeaveStatusGroupBy() {
+		
+		List<Leave> leaveStatusGroupBy = leaveDao.getLeaveStatusGroupBy();
+		System.out.println(leaveStatusGroupBy.size());
+		return leaveStatusGroupBy;
+	}
+
+	public List<Leave> getLeaveStatusGroupByLeavetype(String leavetype) {
+		List<Leave> leaveStatusGroupByLeavetype = leaveDao.getLeaveStatusGroupByLeavetype(leavetype);
+		System.out.println(leaveStatusGroupByLeavetype.size());
+		return leaveStatusGroupByLeavetype;
+	}
 }

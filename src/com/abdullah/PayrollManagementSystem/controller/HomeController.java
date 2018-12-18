@@ -71,6 +71,11 @@ public class HomeController {
 			model.addAttribute("loanAllPendingRequestsSize",loanAllPendingRequestsSize.size());
 
 		}
+		
+		if (usersinfo.getAuthority().equals("ROLE_EMPLOYEE")) {
+			List<AttendanceVisualizer> attendanceVisualizer = attendanceService.getSingleUserAttendanceOfThisYear();
+			model.addAttribute("attendanceVisualizer", attendanceVisualizer);
+		}
 
 		String x = "2018-10-16";
 

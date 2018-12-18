@@ -11,5 +11,13 @@
 	<bean id="AttendancePdfSummary"
 	   	class="com.abdullah.PayrollManagementSystem.report.AttendancePdf">
 	</bean>
+	
+	<bean id="SalaryPdfSummary"
+	   	class="com.abdullah.PayrollManagementSystem.report.SalaryPdf">
+	</bean>
+	
+	<bean id="LoanPdfSummary"
+	   	class="com.abdullah.PayrollManagementSystem.report.LoanPdf">
+	</bean>
  
 </beans>

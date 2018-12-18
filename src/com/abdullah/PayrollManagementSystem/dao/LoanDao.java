@@ -2,6 +2,7 @@ package com.abdullah.PayrollManagementSystem.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -192,6 +193,29 @@ public class LoanDao {
 						}
 					});
 		}
+
+	public List<Loan> getAllLoanBetween(LocalDate entryfrom, LocalDate entryto) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("entryfrom", entryfrom );
+		params.addValue("entryto", entryto );
+		return jdbc.query("select loan.id, loan.placedate , loan.amount, loan.status , loan.reason , userinfo.fullname  from loan  left join userinfo on loan.userinfo_id = userinfo.id  and placedate between '" + entryfrom + "' and '" + entryto + "'", params, new RowMapper<Loan>() {
+			public Loan mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				Loan loan = new Loan();
+				loan.setId(rs.getInt("id"));
+				loan.setStatus(rs.getInt("status"));
+				loan.setReason(rs.getString("reason"));
+				loan.setAmount(rs.getInt("amount"));
+				loan.setPlacedate(rs.getTimestamp("placedate").toLocalDateTime());
+				loan.setFullname(rs.getString("fullname"));
+				// System.out.println("Retriving loan info from database : " + loan);
+				return loan;// return single object
+				
+				
+			}
+		});
+	}
+
 	 
 	 
 

@@ -3,12 +3,12 @@ package com.abdullah.PayrollManagementSystem.controller;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,8 +34,6 @@ public class AttendanceController {
 	public void setAttendanceService(AttendanceService attendanceService) {
 		this.attendanceService = attendanceService;
 	}
-
-	
 
 	@RequestMapping("/attendance")
 	public String giveAttendence( Model model, HttpServletRequest request, Principal principal) {
@@ -67,7 +65,13 @@ public class AttendanceController {
 			
 			return "block";
 		}
-
+		
+		
+		int userId = userinfoService.getUserIdFromName(principal.getName()).getId();
+		List<Attendance> singleUserSevenDaysAttendanceLog = attendanceService.getLastSevenDaysAttendance(userId);
+		if(singleUserSevenDaysAttendanceLog != null) {
+			model.addAttribute("singleUserSevenDaysAttendanceLog",singleUserSevenDaysAttendanceLog);
+		}
 		return "attendance";
 	}
 	

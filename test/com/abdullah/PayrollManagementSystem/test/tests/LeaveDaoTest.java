@@ -53,18 +53,16 @@ public class LeaveDaoTest {
 		String entryfromString = null;
 		String entrytoString = null;
 		
-//		Leave leave = new Leave(reasone,from,to,userinfo_id,status,leavetype,entryfromString,entrytoString);
-//		assertTrue("User create should be return true",leaveDao.postLeaveApplication(leave));
-//		
-		
-//		List<Leave> leave1 = leaveDao.checkPandingLeaveRequest( 2026);
-//		
-//		assertEquals("Number of users shuld be 1",1, leave1.size());
-//		
-		
 		List<Leave> leavePendingRequest = leaveDao.getAllLeaveRequests();
-		assertEquals("Number of users shuld be 1",1, leavePendingRequest.size());
+		//assertEquals("Number of users shuld be 1",1, leavePendingRequest.size());
 		
+		List<Leave> leaveStatusGroupBy = leaveDao.getLeaveStatusGroupBy();
+		
+		//
+		System.out.println(leaveStatusGroupBy.size());
+		
+		List<Leave> leaveStatusGroupByLeavetype = leaveDao.getLeaveStatusGroupByLeavetype("regular");
+		System.out.println("leaveStatusGroupByLeavetype : " +leaveStatusGroupByLeavetype.size());
 		
 		
 	}

@@ -1,5 +1,7 @@
 package com.abdullah.PayrollManagementSystem.test.tests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -155,5 +157,20 @@ public class AttendenceDaoTest {
 			set2.add(attendenceListInstance.get(i).getUserinfo_id());
 		}
 		return set2.size();
+	}
+	
+	
+	@Test
+public void getLastSevenDaysAttendance() {
+		int userId = 2026;
+		LocalDateTime today = LocalDateTime.now();
+		
+		LocalDateTime sevenDaysAgo = today.minusWeeks(1);
+		System.out.println("today : "+today +" sevenDaysAgo : "+sevenDaysAgo);
+		List<Attendance> attendenceListOfThisYear = AttendenceDao.getAllAttendanceBetween(today.toLocalDate(),sevenDaysAgo.toLocalDate(), userId);
+		//assertEquals("Number of users shuld be 1",2, attendenceListOfThisYear.size());
+		System.out.println("attendenceListSpecificEmployee "+attendenceListOfThisYear.size());
+		
+
 	}
 }

@@ -2,6 +2,7 @@ package com.abdullah.PayrollManagementSystem.service;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -377,6 +378,11 @@ INFO - salary Object : Salary [id=0, userinfo_id=2028, username=null, usertype=R
 		
 		
 		return totalWorkingHour;
+	}
+
+	public List<Salary> getAllSalaryBetween(LocalDate entryfrom, LocalDate entryto) {
+		List<Salary> salaryBetween = salaryDao.getAllAttendanceBetween(entryfrom, entryto);
+		return salaryBetween;
 	}
 
 }

@@ -1,11 +1,13 @@
 package com.abdullah.PayrollManagementSystem.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.abdullah.PayrollManagementSystem.dao.Attendance;
 import com.abdullah.PayrollManagementSystem.dao.Leave;
 import com.abdullah.PayrollManagementSystem.dao.Loan;
 import com.abdullah.PayrollManagementSystem.dao.LoanDao;
@@ -132,5 +134,11 @@ public class LoanService {
 		
 		loan.setPaidamount(paidAmount);
 		return loan;
+	}
+
+
+	public List<Loan> getAllLoanBetween(LocalDate entryfrom, LocalDate entryto) {
+		List<Loan> loanBetweenBetween = loanDao.getAllLoanBetween(entryfrom, entryto);
+		return loanBetweenBetween;
 	}
 }

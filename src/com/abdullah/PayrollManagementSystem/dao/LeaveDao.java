@@ -195,4 +195,41 @@ public class LeaveDao {
 //		// TODO Auto-generated method stub
 //		
 //	}
+	
+	
+	public List<Leave> getLeaveStatusGroupBy() {
+		//"SELECT * FROM leaveusers where userinfo_id=:userinfo_id AND status=:status and leavetype='regular'  and entryfrom between '" + oneMonthsBeforeDate + "' and '" + currentDate + "' "
+				return jdbc.query("select count(id) , leavetype from leaveusers group by leavetype", new RowMapper<Leave>() {
+					public Leave mapRow(ResultSet rs, int rowNum) throws SQLException {
+						Leave leave = new Leave();
+						leave.setId(rs.getInt("count(id)"));
+						leave.setLeavetype(rs.getString("leavetype"));
+						return leave;
+					
+						}
+				});
+	}
+
+	public List<Leave> getLeaveStatusGroupByLeavetype(String leavetype) {
+		System.out.println("leavetype : "+leavetype);
+		return jdbc.query("select * from leaveusers LEFT JOIN userinfo ON leaveusers.userinfo_id = userinfo.id where leavetype='" + leavetype + "' and entryfrom IS NOT NULL ", new RowMapper<Leave>() {
+			public Leave mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Leave leave = new Leave();
+				leave.setId(rs.getInt("id"));
+				leave.setUserinfo_id(rs.getInt("userinfo_id"));
+				leave.setReasone(rs.getString("reasone"));
+				leave.setLeavetype(rs.getString("leavetype"));
+				leave.setEntryfrom(rs.getTimestamp("entryfrom").toLocalDateTime());
+				leave.setEntryto(rs.getTimestamp("entryto").toLocalDateTime());
+				leave.setTotal_leave_days(rs.getInt("total_leave_days"));
+				leave.setStatus(rs.getInt("status"));
+				leave.setFullname(rs.getString("fullname"));
+				leave.setEmail(rs.getString("email"));
+				return leave;
+			
+				}
+		});
+	}
+	
+	
 }
