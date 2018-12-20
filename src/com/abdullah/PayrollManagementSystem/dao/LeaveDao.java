@@ -25,6 +25,7 @@ public class LeaveDao {
 	
 	private NamedParameterJdbcTemplate jdbc;
 	private static Logger logger = Logger.getLogger(LoanController.class);
+	
 	@Autowired
 	public void setDataSource(DataSource jdbc) {
 		this.jdbc = new NamedParameterJdbcTemplate(jdbc);

@@ -10,7 +10,6 @@
 <title><tiles:getAsString name="title"></tiles:getAsString></title>
 <!-- Bootstrap core CSS -->
     <link href="<c:url value='/static/lib/bootstrap/css/bootstrap.css'/>" rel="stylesheet">
-    <link href="<c:url value='/static/lib/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
     
     
     <!-- Custom styles for this template -->
