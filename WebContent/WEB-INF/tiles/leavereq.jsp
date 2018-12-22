@@ -143,6 +143,10 @@
 	</div>
 </div>
 
-
+<script>
+if ( $('[type="date"]').prop('type') != 'date' ) {
+    $('[type="date"]').datepicker({format : 'yyyy-mm-dd'});
+}
+</script>
 
 

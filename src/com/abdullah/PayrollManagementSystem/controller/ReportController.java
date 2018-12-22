@@ -186,7 +186,10 @@ public class ReportController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		// String entryfrom = request.getParameter("entryfromString");
+		String entryfrom2 = request.getParameter("entryfromString");
+		System.out.println("entryfrom2 : "+entryfrom2);
+		//2018-12-04 google chrome
+		//2018/12/02 safari exceptions
 		LocalDateTime entryfrom = LocalDateTime.parse(request.getParameter("entryfromString").concat(" 00:00"),
 				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 		System.out.println("Hi HI " + entryfrom);

@@ -16,11 +16,14 @@
     <link href="<c:url value='/static/css/notice-main.css'/>" rel="stylesheet">
     
     <link href="<c:url value='/static/css/customize.css'/>" rel="stylesheet">
+    <link href="<c:url value='/static/css/datepicker.css'/>" rel="stylesheet">
    
    
     <link href="<c:url value='/static/css/font-awesome.min.css'/>" rel="stylesheet">
     
     <script type="text/javascript" src="<c:url value='/static/js/loader.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/static/js/jquery-3.3.1.slim.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/static/js/bootstrap-datepicker.js'/>"></script>
     
    
 </head>

@@ -71,6 +71,20 @@ public class HomeController {
 			model.addAttribute("loanAllPendingRequestsSize",loanAllPendingRequestsSize.size());
 
 		}
+		if (usersinfo.getAuthority().equals("ROLE_ACCOUNTANT")) {
+			List<AttendanceVisualizer> attendanceVisualizer = attendanceService.getAllAttendanceOfThisYear();
+			for (AttendanceVisualizer attendanceVisualizer2 : attendanceVisualizer) {
+				System.out.println(attendanceVisualizer2);
+			}
+			model.addAttribute("attendanceVisualizer", attendanceVisualizer);
+//			
+//			List<Leave> allLeaveListSize = leaveService.getAllLeaveRequests();
+//			model.addAttribute("allLeaveListSize", allLeaveListSize.size());
+//			
+//			List<Loan> loanAllPendingRequestsSize = loanService.getAllPendingRequests();
+//			model.addAttribute("loanAllPendingRequestsSize",loanAllPendingRequestsSize.size());
+			
+		}
 		
 		if (usersinfo.getAuthority().equals("ROLE_EMPLOYEE")) {
 			List<AttendanceVisualizer> attendanceVisualizer = attendanceService.getSingleUserAttendanceOfThisYear();

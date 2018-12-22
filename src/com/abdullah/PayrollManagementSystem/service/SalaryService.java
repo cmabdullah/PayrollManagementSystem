@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.abdullah.PayrollManagementSystem.controller.LoanController;
 import com.abdullah.PayrollManagementSystem.dao.Attendance;
 import com.abdullah.PayrollManagementSystem.dao.AttendanceDao;
 import com.abdullah.PayrollManagementSystem.dao.Grade;
@@ -35,7 +34,7 @@ import com.abdullah.PayrollManagementSystem.messageBrokerService.SendMessageServ
 
 @Service("salaryService")
 public class SalaryService {
-	private static Logger logger = Logger.getLogger(LoanController.class);
+	private static Logger logger = Logger.getLogger(SalaryService.class);
 
 	private SalaryDao salaryDao;
 	private UserinfoDao userinfoDao;

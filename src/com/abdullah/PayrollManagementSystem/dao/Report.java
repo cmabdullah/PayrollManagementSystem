@@ -79,6 +79,7 @@ public class Report {
 
 	public void setEntrytoString(String entrytoString) {
 		this.entrytoString = entrytoString;
+		System.out.println("entrytoString : "+entrytoString);
 		this.entryto =  LocalDateTime.parse(entrytoString.concat(" 00:00"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 	}
 	

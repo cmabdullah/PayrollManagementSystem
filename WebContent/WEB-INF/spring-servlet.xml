@@ -33,6 +33,7 @@
 	<!--Enable bootstrap-->
 	<mvc:resources location="/resources/" mapping="/static/**" />
 		
+	
 	<!--linking with message properties....-->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">

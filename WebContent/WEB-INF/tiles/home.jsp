@@ -16,9 +16,12 @@
 <%@ page import = "com.abdullah.PayrollManagementSystem.dao.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c-rt" %>
+
+<% String role = (String)request.getAttribute("role"); %>
+
+<%if(role != null && role.equals("ROLE_ADMIN") ){%>
+
 <div class="container-fluid">
-
-
 	<div class="row">
 		<div class="col-sm-6" style="background-color: lavender;">
 			<div class="col-xs-6">
@@ -45,9 +48,32 @@
 			</a>
 		</div>
 	</div>
-	
-	
 </div>
+<%}%> 
+
+
+<%if(role != null && !role.equals("ROLE_ADMIN") ){%>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12" style="background-color: lavender;">
+			<div class="col-xs-12">
+				<i class="fa fa-bell-o fa-5x" style="color: green"></i>
+			</div>
+			<div class="col-xs-9 text-right">
+				<h1>${allLeaveListSize}</h1>
+				<div>Your Notifications</div>
+			</div>
+			<a href="<c:url value='/notification'/>"> <span class="pull-left">View Details</span> <span
+				class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+			</a>
+		</div>
+	</div>
+</div>
+<%}%> 
+
+
+
 
 <!-- 
 <c:if test="${attendanceVisualizer != null}">

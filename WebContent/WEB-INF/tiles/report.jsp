@@ -107,9 +107,9 @@
 
 	<div class="row">
 		<div class="col-md-12 col-md-offset-12">
-			<div class="login-panel panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Please Enter Date Range what you wanted to search from given calendar</h3>
+			
+				<div >
+					<h3 >Please Enter Date Range what you wanted to search from given calendar</h3>
 				</div>
 				<div class="panel-body">
 					<form class="form-horizontal" method="post" role="form"
@@ -144,7 +144,7 @@
 						</fieldset>
 					</form>
 				</div>
-			</div>
+			
 		</div>
 	</div>
 	
@@ -154,7 +154,6 @@
 	
 		<div class="row">
 		<div class="col-md-12 col-md-offset-12">
-			<div class="login-panel panel panel-default">
 			<br>
 				<div align="center">
 					<h3 class="panel-title">Search Based on Id</h3>
@@ -166,6 +165,7 @@
 							<div class="form-group">
                                    <input id="username" name="username" type="text" placeholder="Enter your username" class="form-control input-md"  required="required"/>   
                             </div>
+                            <!-- dd/mm/yy -->
 							<div class="form-group">
 								<span class="badge badge-secondary"><h6>Select Date
 										From</h6></span> <input type="date" name="entryfromString" required>
@@ -195,7 +195,6 @@
 						</fieldset>
 					</form>
 				</div>
-			</div>
 		</div>
 	</div>
 	
@@ -222,7 +221,12 @@
 
 
 
-
+<script>
+if ( $('[type="date"]').prop('type') != 'date' ) {
+    $('[type="date"]').datepicker({format : 'yyyy-mm-dd'});
+    
+}
+</script>
 
 
 
