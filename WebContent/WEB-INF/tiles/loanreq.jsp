@@ -54,7 +54,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-12 col-md-offset-12">
+		<div class="col-md-12">
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">You can apply for Loan , You can get

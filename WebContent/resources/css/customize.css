@@ -3,7 +3,7 @@
     to go underneath the header and footer */
     body{
     background-image: url(static/images/Payroll-Management.jpg);        
-        padding-top: 60px;
+        /* padding-top: 60px; */
         padding-bottom: 40px;
     }
     .fixed-header, .fixed-footer{

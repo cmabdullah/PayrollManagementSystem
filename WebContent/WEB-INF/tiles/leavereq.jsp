@@ -79,7 +79,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-12 col-md-offset-12">
+		<div class="col-md-12">
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">Please Enter Date Range what you
@@ -100,7 +100,7 @@
 							</div>
 
 							<div class="form-group">
-								<label class="col-xs-12 control-label" for="text">Enter Your Leave
+								<label class="col-xs-12" for="text">Enter Your Leave
 									Reason :</label>
 								<div class="col-xs-12">
 									<textarea class="form-control" id="reasone" name="reasone"></textarea>

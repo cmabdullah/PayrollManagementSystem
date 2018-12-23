@@ -10,7 +10,7 @@
 <!--fmt taglib added-->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<div class="col-xs-12  col-md-offset-3">
+<div class="col-xs-12">
 	<sf:form class="form-horizontal" method="post"
 		action="${pageContext.request.contextPath}/docreate"
 		commandName="userinfo">
@@ -21,7 +21,7 @@
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-xs-12 control-label" for="name">Full Name
+				<label class="col-xs-12" for="name">Full Name
 					:</label>
 				<div class="col-xs-12">
 					<sf:input id="fullname" path="fullname" name="fullname" type="text"
@@ -33,7 +33,7 @@
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-xs-12 control-label" for="name">Address :</label>
+				<label class="col-xs-12" for="name">Address :</label>
 				<div class="col-xs-12">
 					<sf:input id="address" path="address" name="address" type="text"
 						placeholder="Enter your address" class="form-control input-md" />
@@ -44,7 +44,7 @@
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-xs-12 control-label" for="name">Eemail :</label>
+				<label class="col-xs-12" for="name">Eemail :</label>
 				<div class="col-xs-12">
 					<sf:input id="email" path="email" name="email" type="text"
 						placeholder="Enter your email" class="form-control input-md" />
@@ -55,7 +55,7 @@
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-xs-12 control-label" for="name">Phone :</label>
+				<label class="col-xs-12" for="name">Phone :</label>
 				<div class="col-xs-12">
 					<sf:input id="phone" path="phone" name="phone" type="text"
 						placeholder="Enter your phone" class="form-control input-md" />
@@ -66,7 +66,7 @@
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-xs-12 control-label" for="name">User Name
+				<label class="col-xs-12" for="name">User Name
 					:</label>
 				<div class="col-xs-12">
 					<!-- Path must be equal to input name , this is the attribute of sf tag-->
@@ -79,7 +79,7 @@
 
 			<!-- Password input-->
 			<div class="form-group">
-				<label class="col-xs-12 control-label" for="email">Password
+				<label class="col-xs-12" for="email">Password
 					:</label>
 				<div class="col-xs-12">
 					<sf:input id="password" name="password" path="password"
@@ -91,7 +91,7 @@
 			</div>
 			<!--Conform Password input-->
 			<div class="form-group">
-				<label class="col-xs-12 control-label" for="email">Confirm
+				<label class="col-xs-12" for="email">Confirm
 					Password :</label>
 				<div class="col-xs-12">
 					<input id="confirmpassword" name="confirmpassword" type="password"

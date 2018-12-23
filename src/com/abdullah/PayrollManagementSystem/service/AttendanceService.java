@@ -264,5 +264,22 @@ public class AttendanceService {
 		return attendencesBetween;
 	}
 	
+	//return specific id info
+	public List<Attendance> getAllAttendanceOfSingleEmployeeBetweenThisYear(int userId) {
+		
+		
+		LocalDateTime firstDayOfYear = LocalDateTime.parse(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+				.format(LocalDateTime.now()).substring(0, 5).concat("01-01 00:00"),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		LocalDateTime lastDayOfYear = LocalDateTime.parse(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+				.format(LocalDateTime.now()).substring(0, 5).concat("12-30 23:00"),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		
+		
+		List<Attendance> attendencesBetween = attendanceDao.getAllAttendanceBetween(lastDayOfYear.toLocalDate(),
+				firstDayOfYear.toLocalDate(), userId);
+		return attendencesBetween;
+	}
+	
 	
 }

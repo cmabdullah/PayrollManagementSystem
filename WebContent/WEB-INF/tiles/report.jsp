@@ -12,69 +12,7 @@
  <div align="center"><h1>username not found</h1></div>
 
 </c:if>
-
-
-
-
-<!-- 
-<div class="col-xs-12 col-md-offset-12">
-	<form class="form-horizontal" method="post"
-		action="${pageContext.request.contextPath}/report_process">
-
-		<div class="form-group">
-			<label class="col-xs-12 control-label" for="text">From</label>
-			<div class="col-xs-12">
-				<input type="date" name="entryfromString" required><br>
-
-			</div>
-		</div>
-		
-		<div class="form-group">
-			<label class="col-xs-12 control-label" for="text">To</label>
-			<div class="col-xs-12">
-				<input type="date" name="entrytoString" required><br>
-
-			</div>
-		</div>
-
-		
-		<div class="form-check form-check-inline">
-			<input type="radio" class="form-check-input" id="materialInline1"
-				name="reportType" value="attendance" checked> <label
-				class="form-check-label" for="materialInline1">Attendance</label>
-		</div>
-
-		
-		<div class="form-check form-check-inline">
-			<input type="radio" class="form-check-input" id="materialInline2"
-				name="reportType" value="salary"> <label
-				class="form-check-label" for="materialInline2">Salary</label>
-		</div>
-		
-		
-		<div class="form-check form-check-inline">
-			<input type="radio" class="form-check-input" id="materialInline2"
-				name="reportType" value="loan"> <label
-				class="form-check-label" for="materialInline2">Loan</label>
-		</div>
-
-		<input name="create query" type="submit"
-			class="btn btn-primary btn-lg" />
-
-	</form>
-</div>
-
--->
-
-
-
-
-
 <div class="container">
-
-
-
-
 <div align="center"><h3> Leave Status Quick Overview</h3><br></div>
 <c:if test="${leaveStatusGroupBy != null}">
 <table class="table table-striped">
@@ -91,22 +29,9 @@
 			</tr>
 		</c:forEach>
 	</table>
-
 </c:if>
-
-
-
-
-
-
-
-
-
-
-
-
 	<div class="row">
-		<div class="col-md-12 col-md-offset-12">
+		<div class="col-md-12">
 			
 				<div >
 					<h3 >Please Enter Date Range what you wanted to search from given calendar</h3>
@@ -147,13 +72,8 @@
 			
 		</div>
 	</div>
-	
-	
-	
-	
-	
 		<div class="row">
-		<div class="col-md-12 col-md-offset-12">
+		<div class="col-md-12">
 			<br>
 				<div align="center">
 					<h3 class="panel-title">Search Based on Id</h3>
@@ -200,26 +120,7 @@
 	
 	<br>
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </div>
-
-
-
-
-
-
 
 <script>
 if ( $('[type="date"]').prop('type') != 'date' ) {

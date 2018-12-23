@@ -50,7 +50,7 @@ public class SalaryController {
 		}
 		
 		sendMessageService.givePermissionToPaySalary();
-		return "accept_loan_request";//test message
+		return "disable_enable_user_success";//test message
 	}
 	@RequestMapping("/give_salary")
 	public String paySalary(Model model) {

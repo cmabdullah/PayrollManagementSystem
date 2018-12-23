@@ -127,6 +127,7 @@ public class AttendanceDao {
 
 	public List<Attendance> getAllAttendanceBetween(LocalDate today, LocalDate sevenDaysAgo, int userId) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
+		System.out.println("Dao Data : today : "+ today +" sevenDaysAgo : "+ sevenDaysAgo + " id : "+userId);
 		params.addValue("entryfrom", today );
 		params.addValue("logintime", today + "%");
 		params.addValue("entryto", sevenDaysAgo );

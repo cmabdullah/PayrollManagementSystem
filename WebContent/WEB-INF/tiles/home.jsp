@@ -100,7 +100,7 @@
 </c:if>
 
  -->
-<div id="container" style="width: 400px; height: 350px; margin: 0 auto">
+<div id="container" style="width: 1000px; height: 350px; margin: 0 auto">
 </div>
 
 <!-- 
@@ -319,7 +319,7 @@ var fruits = [ 2018, 2018, 2018 ];
             ]);
             
             // Set chart options
-            var options = {'title':'Attendence', 'width':750 };
+            var options = {'title':'Attendence', 'width':920 };
 
             // Instantiate and draw the chart.
             var chart = new google.visualization.Calendar(document.getElementById('container'));

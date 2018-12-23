@@ -44,7 +44,7 @@
 
 <br>
  <div class="row">
-            <div class="col-md-12 col-md-offset-12">
+            <div class="col-md-12">
                     <div  align="center">
                         <h3 class="panel-title" >Please Give Your Attendance</h3>
                     </div>

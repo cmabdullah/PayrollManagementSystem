@@ -43,7 +43,7 @@
       
     </thead>
     <tbody>
-      <tr>
+      <tr class="success">
         <td>Salary Status</td>
         <td><c:out value="${salaryNotice}"></c:out></td>
        
@@ -53,7 +53,7 @@
         <td><c:out value="${leaveMessage}"></c:out></td>
        
       </tr>
-      <tr class="danger">
+      <tr class="success">
         <td>Loan Status</td>
         <td><c:out value="${loanMessage}"></c:out></td>
      
@@ -64,7 +64,7 @@
         <td><c:out value="${isMenagerSalaryPermissionGiven}"></c:out></td>
   
       </tr> -->
-      <tr class="info">
+      <tr class="success">
         <td>Bonus Status</td>
         <td><c:out value="${isMenagerBonusPermissionGiven}"></c:out></td>
   

@@ -34,7 +34,7 @@
 	 -->
 	 
 	 <div align="center">
-	 <h1>Hi <span class="badge badge-secondary"><c:out value="${usersinfo.fullname}"></c:out></span></h1>
+	 <h1>Hi <c:out value="${usersinfo.fullname}"></c:out></h1>
 	 </div>
 
 <table class="table">
@@ -42,7 +42,7 @@
       
     </thead>
     <tbody>
-      <tr>
+      <tr class="success">
         <td>Address</td>
         <td><c:out value="${usersinfo.address}"></c:out></td>
        
@@ -52,12 +52,12 @@
         <td><c:out value="${usersinfo.email}"></c:out></td>
        
       </tr>
-      <tr class="danger">
+      <tr class="success">
         <td>Phone</td>
         <td><c:out value="${usersinfo.phone}"></c:out></td>
      
       </tr>
-      <tr class="info">
+      <tr class="success">
         <td>Your Loan</td>
         <td><c:out value="${runningLoanInformations.amount}"></c:out></td>
   
