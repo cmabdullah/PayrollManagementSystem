@@ -30,5 +30,6 @@
 	
 
 	
-	<!--Account create link added-->
+	<!--Account create link added
 		<p><a href="<c:url value='/newaccount'/>">create new Account</a> </p>
+		-->

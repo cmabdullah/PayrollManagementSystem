@@ -87,7 +87,7 @@ public class HomeController {
 		}
 		
 		if (usersinfo.getAuthority().equals("ROLE_EMPLOYEE")) {
-			List<AttendanceVisualizer> attendanceVisualizer = attendanceService.getSingleUserAttendanceOfThisYear();
+			List<AttendanceVisualizer> attendanceVisualizer = attendanceService.getSingleUserAttendanceOfThisYear(usersinfo.getId());
 			model.addAttribute("attendanceVisualizer", attendanceVisualizer);
 		}
 

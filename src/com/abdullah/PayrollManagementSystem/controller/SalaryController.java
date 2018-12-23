@@ -94,7 +94,7 @@ public class SalaryController {
 		String isMenagerSalaryPermissionGiven = sendMessageService.isMenagerPermissionGiven("n");
 		String isMenagerBonusPermissionGiven = sendMessageService.isMenagerBonusPermissionGiven("n");
 		salaryService.calculateSalary(salary.getBonus());
-		return "accept_loan_request";//test message
+		return "disable_enable_user_success";//test message
 	}
 	/// give_salary
 }

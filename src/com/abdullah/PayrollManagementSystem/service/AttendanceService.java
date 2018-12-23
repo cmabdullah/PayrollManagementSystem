@@ -204,7 +204,7 @@ public class AttendanceService {
 		return set2.size();
 	}
 	
-	public List<AttendanceVisualizer> getSingleUserAttendanceOfThisYear() {
+	public List<AttendanceVisualizer> getSingleUserAttendanceOfThisYear(int userId) {
 
 		LocalDateTime firstDayOfYear = LocalDateTime.parse(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 				.format(LocalDateTime.now()).substring(0, 5).concat("01-01 00:00"),
@@ -213,8 +213,8 @@ public class AttendanceService {
 				.format(LocalDateTime.now()).substring(0, 5).concat("12-30 23:00"),
 				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
-		List<Attendance> attendenceListOfThisYear = attendanceDao.getAllAttendanceBetween(firstDayOfYear.toLocalDate(),
-				lastDayOfYear.toLocalDate());
+		List<Attendance> attendenceListOfThisYear = attendanceDao.getAllAttendanceBetween(lastDayOfYear.toLocalDate(),
+				 firstDayOfYear.toLocalDate(), userId);
 		//System.out.println(attendenceListOfThisYear.size());
 		for (Attendance attendance : attendenceListOfThisYear) {
 			//System.out.println(attendance);

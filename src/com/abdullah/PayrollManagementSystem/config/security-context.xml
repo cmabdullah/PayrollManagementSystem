@@ -50,10 +50,10 @@
 		<!-- <security:intercept-url pattern="/admin" access="permitAll" />		-->
 		
 		<security:intercept-url pattern="/" access="isAuthenticated()" />
-		<security:intercept-url pattern="/usersinfo" access="permitAll" />
-		<security:intercept-url pattern="/usersinfo_profile_update/*" access="permitAll" />
-		<security:intercept-url pattern="/usersinfo_profile_update_process" access="permitAll" />
-		<security:intercept-url pattern="/update_users_info" access="permitAll" />
+		<security:intercept-url pattern="/usersinfo" access="isAuthenticated()" />
+		<security:intercept-url pattern="/usersinfo_profile_update/*" access="isAuthenticated()" />
+		<security:intercept-url pattern="/usersinfo_profile_update_process" access="isAuthenticated()" />
+		<security:intercept-url pattern="/update_users_info" access="isAuthenticated()" />
 		<!--Permit all static resources like bootstrup library and so one...-->
 		<security:intercept-url pattern="/static/**" access="permitAll" />
 		<security:intercept-url pattern="/login" access="permitAll" />
@@ -64,18 +64,18 @@
 		<security:intercept-url pattern="/docreate" access="isAuthenticated()" />
 		<security:intercept-url pattern="/registrationsuccess" access="isAuthenticated()" />
 		
-		<security:intercept-url pattern="/newaccount" access="permitAll" />
-		<security:intercept-url pattern="/createaccount" access="permitAll" />
-		<security:intercept-url pattern="/accountcreated" access="permitAll" />
+		<security:intercept-url pattern="/newaccount" access="isAuthenticated()" />
+		<security:intercept-url pattern="/createaccount" access="isAuthenticated()" />
+		<security:intercept-url pattern="/accountcreated" access="isAuthenticated()" />
 		<security:intercept-url pattern="/loggedout " access="isAuthenticated()" />
 		
 		<security:intercept-url pattern="/disable_enable_user " access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/disable_enable_user_success " access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/DEU " access="permitAll" />
+		<security:intercept-url pattern="/DEU " access="isAuthenticated()" />
 		
 		<security:intercept-url pattern="/attendance" access="hasRole('ROLE_EMPLOYEE')" />
-		<security:intercept-url pattern="/start" access="permitAll" />
-		<security:intercept-url pattern="/block" access="permitAll" />
+		<security:intercept-url pattern="/start" access="isAuthenticated()" />
+		<security:intercept-url pattern="/block" access="isAuthenticated()" />
 		
 		<security:intercept-url pattern="/leavereq" access="hasRole('ROLE_EMPLOYEE')" />
 		<security:intercept-url pattern="/leavereq_process" access="hasRole('ROLE_EMPLOYEE')" />
@@ -94,20 +94,20 @@
 		<!-- http://localhost:8081/PayrollManagementSystem/deleteemp/4 -->
 		
 		
-		<security:intercept-url pattern="/permission_for_pay_salary"  access="permitAll" />
-		<security:intercept-url pattern="/permission_for_pay_salary_accept_by_admin"  access="permitAll" />
+		<security:intercept-url pattern="/permission_for_pay_salary"  access="isAuthenticated()" />
+		<security:intercept-url pattern="/permission_for_pay_salary_accept_by_admin"  access="isAuthenticated()" />
 		
-		<security:intercept-url pattern="/notification"  access="permitAll" />
-		<security:intercept-url pattern="/sendMessage"  access="permitAll" />
+		<security:intercept-url pattern="/notification"  access="isAuthenticated()" />
+		<security:intercept-url pattern="/sendMessage"  access="isAuthenticated()" />
 
 		<security:intercept-url pattern="/give_salary"  access="hasRole('ROLE_ACCOUNTANT')" />
 		<security:intercept-url pattern="/prcess_salary"  access="hasRole('ROLE_ACCOUNTANT')" />
 		
-		<security:intercept-url pattern="/report"  access="permitAll" />
-		<security:intercept-url pattern="/report_process"  access="permitAll" />
-		<security:intercept-url pattern="/search_by_id"  access="permitAll" />
-		<security:intercept-url pattern="/search_by_id_report"  access="permitAll" />
-		<security:intercept-url pattern="/data_not_found"  access="permitAll" />
+		<security:intercept-url pattern="/report"  access="isAuthenticated()" />
+		<security:intercept-url pattern="/report_process"  access="isAuthenticated()" />
+		<security:intercept-url pattern="/search_by_id"  access="isAuthenticated()" />
+		<security:intercept-url pattern="/search_by_id_report"  access="isAuthenticated()" />
+		<security:intercept-url pattern="/data_not_found"  access="isAuthenticated()" />
 		<!-- <security:intercept-url pattern="/PdfRevenueReportViewCm"  access="permitAll" /> -->
 		
 		

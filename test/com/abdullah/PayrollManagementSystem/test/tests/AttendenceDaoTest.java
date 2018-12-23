@@ -200,7 +200,44 @@ public void getLastSevenDaysAttendance() {
 		//assertEquals("Number of users shuld be 1",2, attendenceListOfThisYear.size());
 		System.out.println("attendenceListSpecificEmployeeBetween this year"+attendenceListOfThisYear.size());
 		
-		for (Attendance attendance : attendenceListOfThisYear) {
+		
+		
+		
+		
+		
+		Set<String> set2 = new TreeSet<String>();
+		for (int i = 0; i < attendenceListOfThisYear.size(); i++) {
+			String currentMonthString1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+					.format(attendenceListOfThisYear.get(i).getLogintime()).substring(0, 10);
+			set2.add(currentMonthString1);
+		}
+
+		ArrayList<String> arrayList = new ArrayList<>(set2);
+		//HashMap<String, Integer> map = new HashMap<>();
+		List<AttendanceVisualizer> attendanceVisualizer = new ArrayList<>();
+		
+		for (int i = 0; i < arrayList.size(); i++) {
+			AttendanceVisualizer x = new AttendanceVisualizer();
+			int flag = 0;
+			for (int j = 0; j < attendenceListOfThisYear.size(); j++) {
+				if (arrayList.get(i).equals(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+						.format(attendenceListOfThisYear.get(j).getLogintime()).substring(0, 10)))
+					flag++;
+					
+			}
+			System.out.println("arrayList.get(i) " + arrayList.get(i) + " days : " + flag);
+			x.setLocalDate(arrayList.get(i));
+			x.setTotalDays(flag);
+			attendanceVisualizer.add(x);
+		}
+		
+		
+		
+		
+		
+		
+		
+		for (AttendanceVisualizer attendance : attendanceVisualizer) {
 			System.out.println(attendance);
 		}
 		
