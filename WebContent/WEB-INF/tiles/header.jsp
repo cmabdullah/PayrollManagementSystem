@@ -60,7 +60,13 @@
 				<li class="nav-item"><a class="nav-link"
 					href="<c:url value='/permission_for_pay_salary'/>">Salary</a></li>
 			</sec:authorize>
+			
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<li class="nav-item"><a class="nav-link"
+					href="<c:url value='/report'/>">Report</a></li>
+			</sec:authorize>
+			
+			<sec:authorize access="hasRole('ROLE_ACCOUNTANT')">
 				<li class="nav-item"><a class="nav-link"
 					href="<c:url value='/report'/>">Report</a></li>
 			</sec:authorize>

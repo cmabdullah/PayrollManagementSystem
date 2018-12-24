@@ -18,7 +18,7 @@
 <table class="table table-striped">
 		<tr>
 			<th scope="col">Leave Type</th>
-			<th scope="col">count(id)</th>
+			<th scope="col">Total</th>
 			<th scope="col">Details</th>
 		</tr>
 		<c:forEach var="leaveStatusGroupByData" items="${leaveStatusGroupBy}">

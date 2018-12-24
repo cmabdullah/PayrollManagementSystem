@@ -1,7 +1,5 @@
 package com.abdullah.PayrollManagementSystem.service;
 
-import static org.junit.Assert.assertEquals;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +21,6 @@ import com.abdullah.PayrollManagementSystem.dao.LoanDao;
 import com.abdullah.PayrollManagementSystem.dao.Salary;
 import com.abdullah.PayrollManagementSystem.dao.SalaryDao;
 import com.abdullah.PayrollManagementSystem.dao.Userinfo;
-
 import com.abdullah.PayrollManagementSystem.dao.UserinfoDao;
 import com.abdullah.PayrollManagementSystem.messageBrokerService.SendMessageService;
 
