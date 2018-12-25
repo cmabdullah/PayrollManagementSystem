@@ -241,6 +241,9 @@ public void getLastSevenDaysAttendance() {
 			System.out.println(attendance);
 		}
 		
+		Attendance attendencesBetween = AttendenceDao.pendingLogoutProcess(2026);
+		System.out.println("Logout back test : "+attendencesBetween);
+		
 
 	}
 	

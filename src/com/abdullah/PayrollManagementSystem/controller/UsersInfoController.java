@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.abdullah.PayrollManagementSystem.dao.Loan;
 import com.abdullah.PayrollManagementSystem.dao.Userinfo;
 import com.abdullah.PayrollManagementSystem.dao.UserinfoUpdateableData;
+import com.abdullah.PayrollManagementSystem.service.AttendanceService;
 import com.abdullah.PayrollManagementSystem.service.LoanService;
 import com.abdullah.PayrollManagementSystem.service.UserinfoService;
 
@@ -41,6 +42,13 @@ public class UsersInfoController {
 	@Autowired
 	public void setLoanService(LoanService loanService) {
 		this.loanService = loanService;
+	}
+	
+	AttendanceService attendanceService;
+	
+	@Autowired
+	public void setAttendanceService(AttendanceService attendanceService) {
+		this.attendanceService = attendanceService;
 	}
 
 	@RequestMapping("/usersinfo")
@@ -121,6 +129,17 @@ public class UsersInfoController {
 					"this username already exist, please choose different username");
 			return "registration";
 		}
+		
+		
+		if (userinfoService.existsEmail(userinfo.getEmail())) {
+			result.rejectValue("email", "DuplicateKey.userinfo.email",
+					"this email already exist, please choose different email");
+			return "registration";
+		}
+		
+		
+		
+		
 		System.out.println(userinfo);
 		try {
 			userinfoService.create(userinfo);// save data into database
@@ -150,7 +169,8 @@ public class UsersInfoController {
 	public String enableDisablee(Model model, Userinfo userinfo, BindingResult result) {// spring magically inject
 																						// information what comes from
 																						// registration into userinfo
-																						// bean
+		int userId = userinfoService.getUserIdFromName(userinfo.getUsername()).getId();																				// bean
+		System.out.println(userId);
 		System.out.println("Enable disable");
 		System.out.println(userinfo);
 		// enable disable user
@@ -158,6 +178,9 @@ public class UsersInfoController {
 		if (userinfoService.exists(userinfo.getUsername())) {
 
 			userinfoService.disableEnable(userinfo);
+			
+			if(userinfo.isEnabled() == true)
+				attendanceService.pendingLogoutProcess(userId);
 
 			return "disable_enable_user_success";
 		} else {

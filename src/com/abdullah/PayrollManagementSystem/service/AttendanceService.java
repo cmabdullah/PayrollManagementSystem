@@ -280,6 +280,63 @@ public class AttendanceService {
 				firstDayOfYear.toLocalDate(), userId);
 		return attendencesBetween;
 	}
+	//this method low level implementation is under construction
+	public void pendingLogoutProcess(int userId) {
+		
+		try {
+			//Attendance [id=0, logintime=2018-12-24T01:20:09, logouttime=null, userinfo_id=2026, userinfo_idObject=null, ipaddress=null, workinghours=0]
+			Attendance attendencesBetween = attendanceDao.pendingLogoutProcess(userId);
+			
+			//convert localdate to string
+	    	String defultLogoutTimeString = DateTimeFormatter.ofPattern("yyyy-MM-dd").format( attendencesBetween.getLogintime().toLocalDate()) +" 18:00";
+	    	//convert string to Localdatetime
+	    	LocalDateTime defultLogoutTime = LocalDateTime.parse(defultLogoutTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+	    	System.out.println("defultLogoutTime : "+ defultLogoutTime);
+			LocalDateTime currentTime = attendencesBetween.getLogintime();
+			System.out.println("currentTime : "+ currentTime);
+			//this method has bug write testcase
+			int count = 0;
+			System.out.println("defultLogoutTime "+defultLogoutTime);
+			
+			if (currentTime.plusHours(8).isBefore(defultLogoutTime)) {
+				count = 8;
+			} else if(currentTime.plusHours(7).isBefore(defultLogoutTime)) {
+				count = 7;
+			} else if(currentTime.plusHours(6).isBefore(defultLogoutTime)) {
+				count = 6;
+			} else if(currentTime.plusHours(5).isBefore(defultLogoutTime)) {
+				count = 5;
+			} else if(currentTime.plusHours(4).isBefore(defultLogoutTime)) {
+				count = 4;
+			} else if(currentTime.plusHours(3).isBefore(defultLogoutTime)) {
+				count = 3;
+			} else if(currentTime.plusHours(2).isBefore(defultLogoutTime)) {
+				count = 2;
+			} else if(currentTime.plusHours(1).isBefore(defultLogoutTime)) {
+				count = 1;
+			} else if(currentTime.plusHours(0).isBefore(defultLogoutTime)) {
+				count = 0;
+			} else {
+				count = 0;
+			}
+			System.out.println(count);
+			attendencesBetween.setLogouttime(LocalDateTime.now());
+			attendencesBetween.setWorkinghours(count);
+			
+			((AttendanceDao) attendanceDao).updateAttendenceTrappedState(attendencesBetween);
+			
+			
+		} catch (Exception e) {
+			System.out.println("Auto logout by admin exception catched"+e.getMessage());
+		}
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 	
 }

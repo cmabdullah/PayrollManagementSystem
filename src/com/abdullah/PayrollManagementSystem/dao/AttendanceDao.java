@@ -150,8 +150,27 @@ public class AttendanceDao {
 		});
 	}
 
+	public Attendance pendingLogoutProcess(int userId) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		System.out.println("suer id : "+userId);
+		params.addValue("userinfo_id", userId);
 
+		return jdbc.queryForObject("select * from attendence where logouttime is null and userinfo_id =:userinfo_id", params, new RowMapper<Attendance>() {
+			public Attendance mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Attendance attendance = new Attendance();
+				attendance.setId(rs.getInt("id"));
+				attendance.setLogintime(rs.getTimestamp("logintime").toLocalDateTime());
+				attendance.setUserinfo_id(rs.getInt("userinfo_id"));
+				return attendance;// return single object
+			}
+		});
+	}
 	
+	public boolean updateAttendenceTrappedState(Attendance attendance) {
+		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(attendance);
+		return jdbc.update("update attendence set logouttime=:logouttime,workinghours=:workinghours  where id =:id", params) == 1;
+	}
+
 	
 	
 

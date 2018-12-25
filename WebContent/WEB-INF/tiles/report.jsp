@@ -76,7 +76,7 @@
 		<div class="col-md-12">
 			<br>
 				<div align="center">
-					<h3 class="panel-title">Search Based on Id</h3>
+					<h3 class="panel-title">Search Based on Username</h3>
 				</div>
 				<div class="panel-body">
 					<form class="form-horizontal" method="post" role="form"

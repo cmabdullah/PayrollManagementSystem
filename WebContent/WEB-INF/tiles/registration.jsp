@@ -44,7 +44,7 @@
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-xs-12" for="name">Eemail :</label>
+				<label class="col-xs-12" for="name">Email :</label>
 				<div class="col-xs-12">
 					<sf:input id="email" path="email" name="email" type="text"
 						placeholder="Enter your email" class="form-control input-md" />
