@@ -106,7 +106,7 @@ public class UsersInfoController {
 																							// information what comes
 																							// from registration into
 																							// userinfo bean
-		System.out.println(userinfo);
+		System.out.println("User authority "+userinfo.getAuthority());
 
 		if (result.hasErrors()) {
 			return "registration";

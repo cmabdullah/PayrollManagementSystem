@@ -89,9 +89,7 @@ public class AttendanceService {
 			if(currentTime.isBefore(defultLogoutTime)) {
 				defultLogoutTime  = currentTime;
 			}
-			
-
-			
+						
 			int count = 0;
 			System.out.println("defultLogoutTime "+defultLogoutTime);
 			
