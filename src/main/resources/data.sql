@@ -1,0 +1,1 @@
+insert into attendance values (100, 'Abdullah');
