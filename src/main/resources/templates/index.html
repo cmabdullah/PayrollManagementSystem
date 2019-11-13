@@ -1,10 +1,15 @@
+
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
 <body>
-<h1>Hello world</h1>
+	<div th:replace="common/header :: navbar" ></div>
+	<div class="container">
+		<div class="row banner"></div>
+	</div>
+
+		<div th:replace="common/header :: footer"></div>
+	<!-- 	<div th:replace="common/header :: body-bottom-scripts" /> -->
 </body>
 </html>

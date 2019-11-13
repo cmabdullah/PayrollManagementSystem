@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+
+	<div class="container">
+		<table class="table table-striped">
+			<caption>All Attendances</caption>
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>loginIpAddress</th>
+					<th>loginTime</th>
+					<th>logoutTime</th>
+					<th>workingHours</th>
+					<th>Update</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr data-th-each="attendance : ${attendances}">
+
+					<td><input hidden="hidden" name="id" th:value="attendance" />
+						<input th:id="'selected'+${attendance.id}" class="checkboxBook"
+						type="checkbox" /></td>
+
+					<td th:text="${attendance.loginIpAddress}"></td>
+					<td
+						th:text="${#temporals.format(attendance.loginTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+					<td
+						th:text="${#temporals.format(attendance.logoutTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+					<td th:text="${attendance.workingHours}"></td>
+					<td><a type="button" class="btn btn-success"
+						th:href="@{/update-attendance(id=${attendance.id})}"> Update</a></td>
+					<td><a type="button" class="btn btn-warning"
+						th:href="@{/delete-attendance(id=${attendance.id})}">Delete</a></td>
+				</tr>
+
+			</tbody>
+		</table>
+
+
+	</div>
+
+
+
+
+
+
+
+
+	<div th:replace="common/header :: footer"></div>
+	<!-- 	<div th:replace="common/header :: body-bottom-scripts" /> -->
+</body>
+</html>

@@ -1,1 +1,2 @@
-insert into attendance values (100, 'Abdullah');
+insert into attendance values (2,'0:0:0:0:0:0:0:1' ,{ts '2012-09-17 18:47:52.69'}, {ts '2012-09-17 18:47:52.69'}, 201, 7, 333);
+insert into attendance values (3,'0:0:0:0:0:0:0:1' ,{ts '2012-09-18 18:47:52.69'}, {ts '2012-09-18 18:47:52.69'}, 202, 6, 334);
