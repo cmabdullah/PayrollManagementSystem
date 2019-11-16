@@ -17,14 +17,14 @@ import com.abdullah.pms.service.AttendanceService;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j//log is not working
+@Slf4j // log is not working
 public class AttendanceLogServiceImpl implements AttendanceLogService {
 	@Autowired
 	AttendanceLogRepository attendanceLogRepository;
 
 	@Autowired
 	AttendanceService attendanceService;
-	
+
 	@Override
 	public AttendanceLog save(AttendanceLog attendanceLog) {
 		return attendanceLogRepository.save(attendanceLog);
@@ -34,11 +34,13 @@ public class AttendanceLogServiceImpl implements AttendanceLogService {
 	public boolean hasLogout(Attendance attendance) {
 		Optional<List<AttendanceLog>> list = Optional
 				.ofNullable(attendanceLogRepository.findByAttendanceId(attendance.getId()));
-		//list.get().forEach(n -> System.out.println("Ha Haaa" + n.toString()));
+		// list.get().forEach(n -> System.out.println("Ha Haaa" + n.toString()));
 
 		Optional<AttendanceLog> opt = Optional.empty();
+		Optional<AttendanceLog> savedAttendanceLog = Optional.empty();
+		Optional<Attendance> updateAttendanceWorkingHour = Optional.empty();
 		if (list.isPresent()) {
-			 opt = Optional.of((list.get()).get(0));
+			opt = Optional.of((list.get()).get(0));
 			// opt.get().setLogoutTime(LocalDateTime.now());
 			// opt.get().setId(0);
 			// attendanceLogRepository.save(opt.get());
@@ -51,7 +53,7 @@ public class AttendanceLogServiceImpl implements AttendanceLogService {
 					.shiftId((list.get()).get(0).getShiftId()).attendance(attendance1).build();
 
 			log.debug("object ready to save");
-			attendanceLogRepository.save(attendanceLog);
+			savedAttendanceLog = Optional.ofNullable( attendanceLogRepository.save(attendanceLog));
 			log.debug("objectsaved");
 
 			// compute working hour
@@ -59,10 +61,11 @@ public class AttendanceLogServiceImpl implements AttendanceLogService {
 			log.debug("Actual workingHours : " + workingHours);
 			log.debug("AttendanceLog : " + opt.get().toString());
 			attendance.setWorkingHours((int) workingHours);
-			attendanceService.save(attendance);
+
+			updateAttendanceWorkingHour = Optional.ofNullable(attendanceService.save(attendance));
 		}
 
-		return false;
+		return savedAttendanceLog.isPresent() && updateAttendanceWorkingHour.isPresent();
 	}
 
 	double computeLogInLogOutDiff(LocalDateTime loginTime, LocalDateTime logoutTime) {

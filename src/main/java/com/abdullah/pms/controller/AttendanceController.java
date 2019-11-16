@@ -31,6 +31,7 @@ public class AttendanceController {
 
 	@Autowired
 	AttendanceService attendanceService;
+	
 	@Autowired
 	AttendanceLogService attendanceLogService;
 
@@ -64,30 +65,36 @@ public class AttendanceController {
 
 	@RequestMapping(value = "/give-attendance", method = RequestMethod.POST)
 	public String giveAttendance(Model model, @Valid CUser cUser, BindingResult result, HttpServletRequest request) {
+		
+		
 		Optional<Attendance> hasLoginEmployee = Optional.empty();
-
-		List<UserInfo> userInfos = userInfoService.findAll();
-		Optional<UserInfo> filteredUserInfo = userInfos.stream()
-				.filter(userInfo -> (cUser.getUsername().equals(userInfo.getUsername())
+		Optional<List<UserInfo>> userInfos = Optional.ofNullable(userInfoService.findAll());
+		Optional<UserInfo> filteredUserInfo = userInfos.get()
+				.stream()
+				.filter(userInfo -> (
+						cUser.getUsername().equals(userInfo.getUsername())
 						&& cUser.getPassword().equals(userInfo.getPassword())))
 				.findFirst();
-		userInfos.forEach(n -> System.out.println("Login user Info : " + n.toString()));
-
+		
 		if (filteredUserInfo.isPresent()) {
+//			System.out.println(filteredUserInfo.isPresent());//true
 			// give attendance
-			hasLoginEmployee = Optional.ofNullable( attendanceService.hasLogin(filteredUserInfo.get()));
+			hasLoginEmployee =  attendanceService.hasLogin(filteredUserInfo.get());
 			// return false causes not logd in so we have to login
 
+			//this line not executed
+			System.out.println("hasLoginEmployee "+hasLoginEmployee.isPresent());//false
 			if (!hasLoginEmployee.isPresent()) {
+				System.out.println("if");
 				// if you are not login today then log in , //this module is working
 				boolean doLogin = attendanceService.doLogin(filteredUserInfo.get(), request.getRemoteAddr());
 			} else {
+				System.out.println("els");
 				boolean hasLogout = attendanceLogService.hasLogout(hasLoginEmployee.get());
 			}
 			System.out.println("Login status : " + hasLoginEmployee.isPresent());
 		}
 
-		System.out.println(cUser.toString());
 		return "redirect:/give-attendance";
 	}
 
