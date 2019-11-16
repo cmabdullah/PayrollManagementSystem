@@ -6,11 +6,8 @@ import java.util.Optional;
 import com.abdullah.pms.domain.Attendance;
 import com.abdullah.pms.domain.UserInfo;
 
-public interface AttendanceService {
-	List<Attendance> findAll();
+public interface UserInfoService {
+	List<UserInfo> findAll();
 	Optional<Attendance> findById(int id);
 	void deleteById(int id);
-	Attendance save(Attendance attendance);
-	boolean hasLogin(UserInfo userInfo);
-	boolean doLogin(UserInfo userInfo, String remoteAddr);
 }

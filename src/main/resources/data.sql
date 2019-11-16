@@ -1,2 +1,10 @@
-insert into attendance values (2,'0:0:0:0:0:0:0:1' ,{ts '2012-09-17 18:47:52.69'}, {ts '2012-09-17 18:47:52.69'}, 201, 7, 333);
+/**insert into attendance values (2,'0:0:0:0:0:0:0:1' ,{ts '2012-09-17 18:47:52.69'}, {ts '2012-09-17 18:47:52.69'}, 201, 7, 333);
 insert into attendance values (3,'0:0:0:0:0:0:0:1' ,{ts '2012-09-18 18:47:52.69'}, {ts '2012-09-18 18:47:52.69'}, 202, 6, 334);
+**/
+
+INSERT INTO GRADE VALUES (1233, 'A', 22000, 15, 50, 10, 10, 25);
+INSERT INTO GRADE VALUES (1234, 'B', 16500, 15, 50, 10, 10, 25);
+INSERT INTO GRADE VALUES (1235, 'C' ,14300, 15, 50, 10, 10, 25);
+INSERT INTO GRADE VALUES (1236, 'D',9530, 15, 50, 10, 10, 25);
+INSERT INTO GRADE VALUES (1237, 'E',8000, 15, 50, 10, 10, 25);
+
