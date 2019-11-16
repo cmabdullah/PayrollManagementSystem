@@ -33,7 +33,7 @@ public class Attendance {
 	private int id;
 	private String loginIpAddress;
 	private LocalDate loginDate;
-	private double workingHours;
+	private int workingHours;
 	
 	@OneToOne
 	@JoinColumn(name="gradeId")

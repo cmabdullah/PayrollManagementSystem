@@ -25,11 +25,10 @@ import com.abdullah.pms.service.UserInfoService;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 @Slf4j
 @Controller
 public class AttendanceController {
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AttendanceController.class);
+
 	@Autowired
 	AttendanceService attendanceService;
 	@Autowired
@@ -47,7 +46,7 @@ public class AttendanceController {
 		attendances.forEach(n -> System.out.println(n.toString()));
 		model.put("attendances", attendances);
 		Optional<Attendance> op = attendanceService.findById(2);
-		log.info("receive objct",op.get());
+		log.info("receive objct", op.get());
 		return "list_attendances";
 	}
 
@@ -65,30 +64,28 @@ public class AttendanceController {
 
 	@RequestMapping(value = "/give-attendance", method = RequestMethod.POST)
 	public String giveAttendance(Model model, @Valid CUser cUser, BindingResult result, HttpServletRequest request) {
-		Optional<Attendance> hasLoginEmployee =  Optional.empty();
-		
+		Optional<Attendance> hasLoginEmployee = Optional.empty();
+
 		List<UserInfo> userInfos = userInfoService.findAll();
 		Optional<UserInfo> filteredUserInfo = userInfos.stream()
 				.filter(userInfo -> (cUser.getUsername().equals(userInfo.getUsername())
 						&& cUser.getPassword().equals(userInfo.getPassword())))
 				.findFirst();
-		userInfos.forEach(n -> System.out.println("Login user Info : "+n.toString()));
+		userInfos.forEach(n -> System.out.println("Login user Info : " + n.toString()));
 
 		if (filteredUserInfo.isPresent()) {
 			// give attendance
-			boolean hasLogin = attendanceService.hasLogin(filteredUserInfo.get());
+			hasLoginEmployee = Optional.ofNullable( attendanceService.hasLogin(filteredUserInfo.get()));
 			// return false causes not logd in so we have to login
 
-			if (!hasLogin) {
+			if (!hasLoginEmployee.isPresent()) {
 				// if you are not login today then log in , //this module is working
 				boolean doLogin = attendanceService.doLogin(filteredUserInfo.get(), request.getRemoteAddr());
+			} else {
+				boolean hasLogout = attendanceLogService.hasLogout(hasLoginEmployee.get());
 			}
-			System.out.println("Login status : " + hasLogin);
+			System.out.println("Login status : " + hasLoginEmployee.isPresent());
 		}
-		//else {
-		
-		//boolean hasLogout = attendanceLogService.hasLogout(hasLoginEmployee.get());
-		//}
 
 		System.out.println(cUser.toString());
 		return "redirect:/give-attendance";

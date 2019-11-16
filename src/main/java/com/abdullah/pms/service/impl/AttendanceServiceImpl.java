@@ -41,13 +41,14 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 	
 	@Override
-	public boolean hasLogin(UserInfo userInfo) {
+	public Attendance hasLogin(UserInfo userInfo) {
 		List<Attendance> list = attendanceRepository.retrieveByTodaysLogin(LocalDate.now(), userInfo);
 		System.out.println("Size : " + list.size());
 		// in case multiple value came,
 		Optional<Attendance> opt = list.stream().findFirst();
 		list.forEach(n -> System.out.println(n.toString()));
-		return opt.isPresent();
+
+		return opt.get();
 	}
 
 	@Override
@@ -57,6 +58,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 				.shift(userInfo.getShift()).loginIpAddress(remoteAddr).loginDate(LocalDate.now()).build();
 		Optional<Attendance> at = Optional.ofNullable( attendanceRepository.save(attendance));
 
+		//valid logoutTime(LocalDateTime.now()) shift validation
 		AttendanceLog attendanceLog = AttendanceLog.builder().loginTime(LocalDateTime.now()).logoutTime(LocalDateTime.now()).userId(userInfo.getId())
 				.shiftId(userInfo.getShift().getId()).attendance(attendance).ipAddress(remoteAddr).build();
 

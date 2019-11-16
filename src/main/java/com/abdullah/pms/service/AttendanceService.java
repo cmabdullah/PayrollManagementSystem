@@ -11,6 +11,6 @@ public interface AttendanceService {
 	Optional<Attendance> findById(int id);
 	void deleteById(int id);
 	Attendance save(Attendance attendance);
-	boolean hasLogin(UserInfo userInfo);
+	Attendance hasLogin(UserInfo userInfo);
 	boolean doLogin(UserInfo userInfo, String remoteAddr);
 }

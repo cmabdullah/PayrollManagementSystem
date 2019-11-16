@@ -29,8 +29,8 @@ public class Shift {
 	private int id;
 	private String name;
 	private int duration;
-	private LocalDateTime startTime;
-	private LocalDateTime endTime;
+	private String startTime;
+	private String endTime;
 	private String type;
 
 }
