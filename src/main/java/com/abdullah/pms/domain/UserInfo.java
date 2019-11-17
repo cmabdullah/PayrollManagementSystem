@@ -1,6 +1,6 @@
 package com.abdullah.pms.domain;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -52,7 +52,7 @@ public class UserInfo {
 	//@Pattern(regexp=".*\\@.*\\..*", message = "Not a valied email address")
 	private String email;
 	private int phone;
-	LocalDateTime joiningDate;
+	Date joiningDate;
 	//private int gradeId;
 	
 	@OneToOne

@@ -31,6 +31,7 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="/">Home</a></li>
 					<li><a href="/give-attendance">Attendance</a></li>
+					<li><a href="/registration">Registration</a></li>
 
 				</ul>
 
@@ -47,10 +48,19 @@
 	</div>
 
 
-		<div th:fragment="body-bottom-scripts">
-			<script src="/webjars/jquery/1.9.1/jquery.min.js"></script>
-			<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!-- 		<script th:src="@{/js/scripts.js}"></script> -->
-		</div>
+	<div th:fragment="body-bottom-scripts">
+		<script src="/webjars/jquery/1.9.1/jquery.min.js"></script>
+		<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="webjars/bootstrap-datepicker/1.0.1/js/bootstrap-datepicker.js"></script>
+
+		<!-- 		<script th:src="@{/js/scripts.js}">
+			
+		</script>
+		-->
+
+<script type="text/javascript">
+$('#date').datepicker({ dateFormat: 'dd-mm-yy' })
+</script>
+	</div>
 </body>
 </html>
