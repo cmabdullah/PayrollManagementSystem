@@ -1,0 +1,111 @@
+package com.abdullah.pms.rest.controller;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.abdullah.pms.domain.BiometricData;
+import com.abdullah.pms.domain.CUser;
+import com.abdullah.pms.domain.UserInfo;
+import com.abdullah.pms.service.AttendanceLogService;
+import com.abdullah.pms.service.UserInfoService;
+
+import lombok.extern.slf4j.Slf4j;
+//https://www.roytuts.com/file-upload-example-using-spring-rest-controller/
+@Slf4j
+@RestController
+public class BiometricRestController {
+
+
+	@Autowired
+	UserInfoService userInfoService;
+
+	@Autowired
+	AttendanceLogService attendanceLogService;
+
+	@RequestMapping(value = "/biometric-reg-rest", method = RequestMethod.GET)
+	// @ResponseBody
+	public BiometricData bioAdd(ModelMap model) {
+		model.addAttribute("cUser", new CUser(0, "", ""));
+		BiometricData biometricData = new BiometricData();
+		model.addAttribute("biometricData", biometricData);
+		return biometricData;
+	}
+
+	@PostMapping( "/biometric-reg-rest")
+	public ResponseEntity<String> bioReg(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("password") String password) {
+
+		String message = "";
+		CUser cUser = new CUser();
+		cUser.setUsername(username);
+		cUser.setPassword(password);
+		
+		if (file == null) {
+			message = "No file exist!";
+			return new ResponseEntity<String>(message, HttpStatus.OK);
+		}
+		
+		MultipartFile biometricImage = file ;
+		
+		// collect all user
+		Optional<List<UserInfo>> userInfos = Optional.ofNullable(userInfoService.findAll());
+		// filter this user exist or not?
+		Optional<UserInfo> filteredUserInfo = userInfos.get().stream()
+				.filter(userInfo -> (cUser.getUsername().equals(userInfo.getUsername())
+						&& cUser.getPassword().equals(userInfo.getPassword())))
+				.findFirst();
+		
+		// if exist then perform registration
+		if (filteredUserInfo.isPresent()) {
+			System.out.println("user Id : " + filteredUserInfo.get().getId());
+			try {
+				String name = filteredUserInfo.get().getId() + ".png";
+				byte[] bytes = biometricImage.getBytes();
+				System.out.println("Byte length "+bytes.length);
+
+				File filePath = new File("src/main/resources/static/image/biometric/" + name);
+				
+				if (!filePath.exists()) {
+					BufferedOutputStream stream = new BufferedOutputStream(
+							new FileOutputStream(filePath));
+					stream.write(bytes);
+					stream.close();
+					message = "Registration Success";
+				}else {
+					message = "Already registared";
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			message = "User not valid";
+			// this user is not valid
+		}
+		return new ResponseEntity<String>(message, HttpStatus.OK);
+	}
+	
+	
+	@PostMapping("/upload2")
+	public ResponseEntity<String> uploadData(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("password") String password) throws Exception {
+		System.out.println(username);
+		System.out.println(password);
+		String originalName = file.getOriginalFilename();
+		// Do processing with uploaded file data in Service layer
+		return new ResponseEntity<String>(originalName, HttpStatus.OK);
+	}
+
+}
