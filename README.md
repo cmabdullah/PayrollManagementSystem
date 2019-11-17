@@ -3,6 +3,11 @@
 
 >> mvn install
 
+# Biometric Registration API end point
+> http://localhost:8080/biometric-reg-rest
+
+# Biometric Attendance API end point
+> http://localhost:8080/biometric-att-rest
 
 
 

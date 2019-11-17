@@ -13,4 +13,5 @@ public interface AttendanceService {
 	Attendance save(Attendance attendance);
 	Optional<Attendance> hasLogin(UserInfo userInfo);
 	boolean doLogin(UserInfo userInfo, String remoteAddr);
+	
 }

@@ -8,6 +8,8 @@ import com.abdullah.pms.domain.UserInfo;
 
 public interface UserInfoService {
 	List<UserInfo> findAll();
-	Optional<Attendance> findById(int id);
+	
 	void deleteById(int id);
+
+	Optional<UserInfo> findById(int decodeUserId);
 }

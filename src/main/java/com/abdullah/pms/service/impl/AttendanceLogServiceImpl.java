@@ -48,18 +48,23 @@ public class AttendanceLogServiceImpl implements AttendanceLogService {
 			Attendance attendance1 = Attendance.builder().id(attendance.getId()).build();
 			AttendanceLog attendanceLog = AttendanceLog.builder()
 					// .id((list.get()).get(0).getId())
-					.ipAddress((list.get()).get(0).getIpAddress()).loginTime((list.get()).get(0).getLoginTime())
-					.logoutTime(LocalDateTime.now()).userId((list.get()).get(0).getUserId())
-					.shiftId((list.get()).get(0).getShiftId()).attendance(attendance1).build();
+					.ipAddress((list.get()).get(0).getIpAddress())
+					.loginTime((list.get()).get(0).getLoginTime())
+					.logoutTime(LocalDateTime.now())
+					.userId((list.get()).get(0).getUserId())
+					.shiftId((list.get()).get(0).getShiftId())
+					.attendance(attendance1).build();
 
-			log.debug("object ready to save");
+			System.out.println("object ready to save");
 			savedAttendanceLog = Optional.ofNullable( attendanceLogRepository.save(attendanceLog));
-			log.debug("objectsaved");
+			System.out.println("Saveable : "+savedAttendanceLog.get().toString());
+			
+			System.out.println("objectsaved");
 
 			// compute working hour
 			double workingHours = computeLogInLogOutDiff(opt.get().getLoginTime(), LocalDateTime.now());
-			log.debug("Actual workingHours : " + workingHours);
-			log.debug("AttendanceLog : " + opt.get().toString());
+			System.out.println("Actual workingHours : " + workingHours);
+			System.out.println("AttendanceLog : " + opt.get().toString());
 			attendance.setWorkingHours((int) workingHours);
 
 			updateAttendanceWorkingHour = Optional.ofNullable(attendanceService.save(attendance));

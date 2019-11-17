@@ -21,7 +21,7 @@
 	</properties>
 
 	<dependencies>
-<!-- unit test purpose -->
+		<!-- unit test purpose -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -41,7 +41,13 @@
 			<artifactId>junit-vintage-engine</artifactId>
 			<scope>test</scope>
 		</dependency>
-<!-- unit test purpose end-->
+		<!-- unit test purpose end -->
+
+		<dependency>
+			<groupId>com.machinezoo.sourceafis</groupId>
+			<artifactId>sourceafis</artifactId>
+			<version>3.8.1</version>
+		</dependency>
 
 
 

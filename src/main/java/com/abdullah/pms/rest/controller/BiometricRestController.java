@@ -3,25 +3,35 @@ package com.abdullah.pms.rest.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.abdullah.pms.domain.BiometricData;
+import com.abdullah.pms.domain.Attendance;
 import com.abdullah.pms.domain.CUser;
 import com.abdullah.pms.domain.UserInfo;
 import com.abdullah.pms.service.AttendanceLogService;
+import com.abdullah.pms.service.AttendanceService;
+import com.abdullah.pms.service.BiomatricRestService;
 import com.abdullah.pms.service.UserInfoService;
+import com.machinezoo.sourceafis.FingerprintImage;
+import com.machinezoo.sourceafis.FingerprintMatcher;
+import com.machinezoo.sourceafis.FingerprintTemplate;
 
 import lombok.extern.slf4j.Slf4j;
 //https://www.roytuts.com/file-upload-example-using-spring-rest-controller/
@@ -35,15 +45,54 @@ public class BiometricRestController {
 
 	@Autowired
 	AttendanceLogService attendanceLogService;
+	
+	@Autowired
+	BiomatricRestService biomatricRestService;
+	
+	@Autowired
+	AttendanceService attendanceService;
+	
+	
+	
 
-	@RequestMapping(value = "/biometric-reg-rest", method = RequestMethod.GET)
-	// @ResponseBody
-	public BiometricData bioAdd(ModelMap model) {
-		model.addAttribute("cUser", new CUser(0, "", ""));
-		BiometricData biometricData = new BiometricData();
-		model.addAttribute("biometricData", biometricData);
-		return biometricData;
+	@PostMapping( "/biometric-att-rest")
+	public ResponseEntity<String> bioAdd(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+		
+		String message = "";
+		if (file == null) {
+			message = "No file exist!";
+			return new ResponseEntity<String>(message, HttpStatus.OK);
+		}
+		
+		Optional<Path> userValidation = Optional.ofNullable(biomatricRestService.checkValidation(file));
+		int decodeUserId = Integer.MIN_VALUE;
+		if (userValidation.isPresent()) {
+			decodeUserId = biomatricRestService.decodeUserIdFromPath(userValidation.get());
+		}
+		
+		Optional<UserInfo> filteredUserInfo = userInfoService.findById(decodeUserId);
+		Optional<Attendance> hasLoginEmployee = Optional.empty();
+		if (filteredUserInfo.isPresent()) {
+			// give attendance
+			hasLoginEmployee =  attendanceService.hasLogin(filteredUserInfo.get());
+			// return false causes not logd in so we have to login
+
+			//this line not executed
+			if (!hasLoginEmployee.isPresent()) {
+				boolean doLogin = attendanceService.doLogin(filteredUserInfo.get(), request.getRemoteAddr());
+				message = "Login Success";
+			} else {
+				boolean hasLogout = attendanceLogService.hasLogout(hasLoginEmployee.get());
+				message = "Logout Success";
+			}
+			System.out.println("Login status : " + hasLoginEmployee.isPresent());
+		}else {
+			message = "User not valid";
+		}
+		
+		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
+
 
 	@PostMapping( "/biometric-reg-rest")
 	public ResponseEntity<String> bioReg(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("password") String password) {
@@ -97,15 +146,4 @@ public class BiometricRestController {
 		}
 		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
-	
-	
-	@PostMapping("/upload2")
-	public ResponseEntity<String> uploadData(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("password") String password) throws Exception {
-		System.out.println(username);
-		System.out.println(password);
-		String originalName = file.getOriginalFilename();
-		// Do processing with uploaded file data in Service layer
-		return new ResponseEntity<String>(originalName, HttpStatus.OK);
-	}
-
 }

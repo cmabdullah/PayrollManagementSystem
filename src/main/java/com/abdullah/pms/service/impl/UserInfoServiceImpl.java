@@ -21,16 +21,17 @@ public class UserInfoServiceImpl implements UserInfoService{
 		return userInfoRepository.findAll();
 	}
 
-	@Override
-	public Optional<Attendance> findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void deleteById(int id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public Optional<UserInfo> findById(int decodeUserId) {
+		return userInfoRepository.findById(decodeUserId);
 	}
 
 }
