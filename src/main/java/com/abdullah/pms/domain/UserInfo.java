@@ -1,9 +1,13 @@
 package com.abdullah.pms.domain;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.abdullah.pms.domain.security.Authority;
+import com.abdullah.pms.domain.security.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -26,7 +35,11 @@ import lombok.ToString;
 @Entity
 @ToString
 @Builder
-public class UserInfo {
+public class UserInfo implements UserDetails{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //add this 
 	//@Column(name = "id", unique = true, nullable = false)
@@ -55,6 +68,10 @@ public class UserInfo {
 	Date joiningDate;
 	//private int gradeId;
 	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<UserRole> userRoles = new HashSet<>();
+	
 	@OneToOne
 	@JoinColumn(name="gradeId")
 	private Grade grade;
@@ -67,4 +84,35 @@ public class UserInfo {
 	//(mappedBy = "userInfo")
 	@JsonIgnore
 	private List<Attendance> attendance;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Set<GrantedAuthority> authorites = new HashSet<>();
+		userRoles.forEach(ur -> authorites.add(new Authority(ur.getRole().getName())));
+		return authorites;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return enabled;
+	}
 }
