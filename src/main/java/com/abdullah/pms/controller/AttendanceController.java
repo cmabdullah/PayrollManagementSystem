@@ -77,7 +77,7 @@ public class AttendanceController {
 				.findFirst();
 		
 		if (filteredUserInfo.isPresent()) {
-//			System.out.println(filteredUserInfo.isPresent());//true
+			System.out.println(filteredUserInfo.isPresent());//true
 			// give attendance
 			hasLoginEmployee =  attendanceService.hasLogin(filteredUserInfo.get());
 			// return false causes not logd in so we have to login

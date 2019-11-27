@@ -3,6 +3,8 @@ package com.abdullah.pms.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +26,28 @@ public class UserInfoServiceImpl implements UserInfoService{
 
 	@Override
 	public void deleteById(int id) {
-		// TODO Auto-generated method stub
-		
 	}
 
 
 	@Override
 	public Optional<UserInfo> findById(int decodeUserId) {
 		return userInfoRepository.findById(decodeUserId);
+	}
+
+
+	@Override
+	public UserInfo save(@Valid UserInfo userInfo) {
+		return userInfoRepository.save(userInfo);
+	}
+
+	@Override
+	public Optional<UserInfo> exists(String username) {
+		return userInfoRepository.findByUsername(username);
+	}
+
+	@Override
+	public Optional<UserInfo> existsEmail(String email) {
+		return userInfoRepository.findByEmail(email);
 	}
 
 }

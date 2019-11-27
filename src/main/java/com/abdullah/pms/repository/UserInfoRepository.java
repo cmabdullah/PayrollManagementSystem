@@ -12,4 +12,6 @@ public interface UserInfoRepository extends CrudRepository<UserInfo, Long>{
 	List<UserInfo> findAll();
 	Optional<UserInfo> findById(int id);
 	void deleteById(int id);
+	Optional<UserInfo> findByUsername(String username);
+	Optional<UserInfo> findByEmail(String email);
 }
