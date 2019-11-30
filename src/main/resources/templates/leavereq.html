@@ -6,14 +6,13 @@
 <body>
 	<div th:replace="common/header :: navbar"></div>
 
+<div th:if="${isPandingRequest}">
+  <h1>You have already a pending request</h1>
+</div>
 
-	<div class="container">
-		<form class="form-horizontal" th:action="@{/leavereq_process}"
+	<div class="container" th:unless="${isPandingRequest}">
+		<form class="form-horizontal" th:action="@{/leavereq}"
 			method="post" th:object="${leave}">
-
-			
-			
-			
 			<label for="entryFrom">entryFrom</label>
 			<div class="input-group date" data-provide="datepicker">
 
@@ -71,13 +70,8 @@
 				<input type="checkbox"
 				value="medical" name="leaveType">Medical
 			</label> <br />
-
-
-
-
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
-
 	</div>
 
 

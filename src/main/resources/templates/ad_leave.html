@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+	<div th:if="${isPandingRequest}">
+		<h1>You have already a pending request</h1>
+	</div>
+
+	<div class="container">
+		<table class="table table-striped">
+			<caption>You can Accept or Deny Leave Request following the
+				table below</caption>
+			<thead>
+				<tr>
+					<th>Fullname</th>
+					<th>Email</th>
+					<th>Reason</th>
+					<th>Leave Type</th>
+					<th>Entry From</th>
+					<th>Entry To</th>
+					<th>Total Leave Days</th>
+					<th>Accept</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr data-th-each="leave : ${leaveList}">
+
+					<!-- 					<td><input hidden="hidden" name="id" th:value="leave" /> <input -->
+					<!-- 						th:id="'selected'+${leave.id}" class="checkboxBook" -->
+					<!-- 						type="checkbox" /></td> -->
+
+					<td th:text="${leave.userInfo.fullname}"></td>
+					<td th:text="${leave.userInfo.email}"></td>
+					<td th:text="${leave.reason}"></td>
+					<td th:text="${leave.leaveType}"></td>
+					<td th:text="${#dates.format(leave.entryFrom, 'dd-MM-yyyy')}"></td>
+					<td th:text="${#dates.format(leave.entryTo, 'dd-MM-yyyy')}"></td>
+					<td th:text="${leave.totalLeaveDays}"></td>
+					<td><a type="button" class="btn btn-success"
+						th:href="@{/acceptLeave/{id}(id=${leave.id})}"> Accept</a></td>
+						
+					<td><a type="button" class="btn btn-warning"
+						th:href="@{/deleteLeave/{id}(id=${leave.id})}">Delete</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+
+	<div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+</body>
+</html>
