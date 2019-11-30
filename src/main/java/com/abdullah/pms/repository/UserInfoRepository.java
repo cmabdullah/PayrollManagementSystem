@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.abdullah.pms.domain.UserInfo;
 
@@ -14,4 +15,5 @@ public interface UserInfoRepository extends CrudRepository<UserInfo, Long>{
 	void deleteById(int id);
 	Optional<UserInfo> findByUsername(String username);
 	Optional<UserInfo> findByEmail(String email);
+	//UserDetails findByUsername(String username);
 }

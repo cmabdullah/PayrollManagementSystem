@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -46,7 +45,7 @@ public class UserInfo {
 	@Pattern(regexp="^\\w{4,}$")
 	private String username;
 	@NotBlank
-	@Size(min=3  ,max=15)
+	//@Size(min=3  ,max=15)
 	@Pattern(regexp="^\\S+$")
 	private String password;
 	//javascript validation perpose
@@ -76,6 +75,5 @@ public class UserInfo {
 	//(mappedBy = "userInfo")
 	@JsonIgnore
 	private List<Attendance> attendance;
-
 	
 }

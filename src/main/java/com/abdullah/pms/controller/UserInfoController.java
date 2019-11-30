@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -38,11 +39,15 @@ public class UserInfoController {
 	@Autowired
 	GradeService gradeService;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
+	
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		// Date - dd/MM/yyyy
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/DD/yyyy");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, false));
 	}
@@ -107,8 +112,11 @@ public class UserInfoController {
 //			return "newaccount";
 //		}
 
+		String pwd = userInfo.getPassword();
+		String encryptPwd = passwordEncoder.encode(pwd);
+		userInfo.setPassword(encryptPwd);
 		System.out.println("CM " + userInfo.toString());
-		// userInfoService.save(userInfo);
+		 userInfoService.save(userInfo);
 		return "redirect:/registration";
 	}
 
