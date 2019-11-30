@@ -62,7 +62,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
 		Attendance attendance = Attendance.builder().userInfo(userInfo).grade(userInfo.getGrade())
 				.shift(userInfo.getShift()).loginIpAddress(remoteAddr).loginDate(LocalDate.now()).build();
-		
+		//save attendance
 		Optional<Attendance> at = Optional.ofNullable(attendanceRepository.save(attendance));
 		
 		Optional<Shift> op = shiftService.findAll().stream().filter(n -> n.getId() == userInfo.getShift().getId())

@@ -1,6 +1,7 @@
 package com.abdullah.pms.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,11 @@ public class ShiftServiceImpl implements ShiftService{
 	@Override
 	public List<Shift> findAll() {
 		return shiftRepository.findAll();
+	}
+
+	@Override
+	public Optional<Shift> findById(int id) {
+		return shiftRepository.findById( id);
 	}
 
 }

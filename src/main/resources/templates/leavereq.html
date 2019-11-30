@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+
+	<div class="container">
+		<form class="form-horizontal" th:action="@{/leavereq_process}"
+			method="post" th:object="${leave}">
+
+			
+			
+			
+			<label for="entryFrom">entryFrom</label>
+			<div class="input-group date" data-provide="datepicker">
+
+				<input type="text" class="form-control" th:field="*{entryFrom}"
+					id="date" name="entryFrom"></input>
+				<div class="input-group-addon">
+					<span class="glyphicon glyphicon-th"></span>
+				</div>
+
+				<span class="validationError"
+					th:if="${#fields.hasErrors('entryFrom')}"
+					th:errors="*{joiningDate}">entryFrom not valid</span>
+			</div>
+			
+			<label for="entryTo">entryTo</label>
+			<div class="input-group date" data-provide="datepicker">
+
+				<input type="text" class="form-control" th:field="*{entryTo}"
+					id="date" name="entryTo"></input>
+				<div class="input-group-addon">
+					<span class="glyphicon glyphicon-th"></span>
+				</div>
+
+				<span class="validationError"
+					th:if="${#fields.hasErrors('entryTo')}"
+					th:errors="*{entryTo}">entryTo not valid</span>
+			</div>
+			
+			
+			<div class="form-group">
+				<label for="address">Reason</label>
+				<textarea class="form-control" name="reason" th:field="*{reason}"
+					id="reason" rows="3" required="required"></textarea>
+
+				<span class="validationError"
+					th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}">
+					Enter Your Leave Reason </span>
+
+			</div>
+			
+			
+
+			<label for="leaveType">leaveType</label> 
+			<label class="checkbox-inline"> 
+				<input type="checkbox"
+				value="regular" name="leaveType">Regular
+			</label> 
+			
+			<label class="checkbox-inline">
+			<input type="checkbox"
+				value="study" name="leaveType">Study</label> 
+				
+				<label
+				class="checkbox-inline"> 
+				<input type="checkbox"
+				value="medical" name="leaveType">Medical
+			</label> <br />
+
+
+
+
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+
+	</div>
+
+
+	<div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+</body>
+</html>

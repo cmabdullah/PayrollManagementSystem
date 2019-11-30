@@ -1,16 +1,21 @@
 package com.abdullah.pms.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.abdullah.pms.domain.Grade;
@@ -32,6 +37,15 @@ public class UserInfoController {
 
 	@Autowired
 	GradeService gradeService;
+	
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		// Date - dd/MM/yyyy
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, false));
+	}
 
 	@GetMapping("/registration")
 	public String createRegister(Model model) {
@@ -49,7 +63,20 @@ public class UserInfoController {
 
 	@PostMapping("/registration")
 	public String registerPost(Model model, @Valid UserInfo userInfo, Errors errors) {
-		// userInfo.setShift(shift);
+
+		//will work later
+//		if (userInfo.getShift() != null) {
+//			Optional<Shift> shift = shiftService.findById(userInfo.getShift().getId());
+//			if (shift.isPresent())
+//				userInfo.setShift(shift.get());
+//		}
+//
+//		if (userInfo.getGrade() != null) {
+//			Optional<Grade> grade = gradeService.findById(userInfo.getGrade().getId());
+//
+//			if (grade.isPresent())
+//				userInfo.setGrade(grade.get());
+//		}
 
 		if (errors.hasErrors()) {
 			System.out.println("Error");
@@ -81,7 +108,7 @@ public class UserInfoController {
 //		}
 
 		System.out.println("CM " + userInfo.toString());
-		userInfoService.save(userInfo);
+		// userInfoService.save(userInfo);
 		return "redirect:/registration";
 	}
 
