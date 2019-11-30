@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+	<div th:if="${isPandingRequest}">
+		<h6>You have already a pending request</h6>
+	</div>
+	<div th:if="${isRunningLoan}">
+		<h6>You have already a Running Loan</h6>
+	</div>
+
+	<div class="container" th:unless="${isPandingRequest} OR  ${isRunningLoan} " >
+
+		<h6>You can apply for Loan, You can get Business loan=salary*6,
+			medical loan = salary*3, study loan=salary*2</h6>
+
+		<form class="form-horizontal" th:action="@{/loanreq}" method="post"
+			th:object="${loan}">
+
+			<div class="form-group">
+				<label for="address">Reason</label>
+				<textarea class="form-control" name="reason" th:field="*{reason}"
+					id="reason" rows="3" required="required"></textarea>
+
+				<span class="validationError" th:if="${#fields.hasErrors('reason')}"
+					th:errors="*{reason}"> Enter Your Loan Reason </span>
+
+			</div>
+
+			<label for="loanType">loanType</label> <label class="checkbox-inline">
+				<input type="checkbox" value="business" name="loanType">Business
+			</label> <label class="checkbox-inline"> <input type="checkbox"
+				value="study" name="loanType">Study
+			</label> <label class="checkbox-inline"> <input type="checkbox"
+				value="medical" name="loanType">Medical
+			</label> <br />
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+
+	<div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+</body>
+</html>

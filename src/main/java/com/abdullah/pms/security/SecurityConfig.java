@@ -29,6 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.access("hasRole('ROLE_ADMIN')")
 		.antMatchers("/leavereq")
 		.access("hasRole('ROLE_EMPLOYEE')")
+		.antMatchers("/loanreq")
+		.access("hasRole('ROLE_EMPLOYEE')")
 		//.access("hasRole('READER')")
 		.antMatchers("/**").permitAll().and()
 				.formLogin()

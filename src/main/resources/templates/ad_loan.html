@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+
+	<div class="container">
+		<table class="table table-striped">
+			<caption>You can Accept or Deny Loan Request following the
+				table below</caption>
+			<thead>
+				<tr>
+					<th>Fullname</th>
+					<th>Email</th>
+					<th>Reason</th>
+					<th>placeDate</th>
+					<th>amount</th>
+					<th>loanType</th>
+					<th>Accept</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr data-th-each="loan : ${loanList}">
+
+
+					<td th:text="${loan.userInfo.fullname}"></td>
+					<td th:text="${loan.userInfo.email}"></td>
+					<td th:text="${loan.reason}"></td>
+					<td th:text="${#dates.format(loan.placeDate, 'dd-MM-yyyy')}"></td>
+					<td th:text="${loan.amount}"></td>
+					<td th:text="${loan.loanType}"></td>
+					<td><a type="button" class="btn btn-success"
+						th:href="@{/acceptLoan/{id}(id=${loan.id})}"> Accept</a></td>
+						
+					<td><a type="button" class="btn btn-warning"
+						th:href="@{/deleteLoan/{id}(id=${loan.id})}">Delete</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+
+	<div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+</body>
+</html>
