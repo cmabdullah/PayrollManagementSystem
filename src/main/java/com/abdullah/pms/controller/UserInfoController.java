@@ -119,5 +119,4 @@ public class UserInfoController {
 		 userInfoService.save(userInfo);
 		return "redirect:/registration";
 	}
-
 }

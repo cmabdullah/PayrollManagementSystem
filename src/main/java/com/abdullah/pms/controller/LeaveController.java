@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.abdullah.pms.cash.service.MessageService;
 import com.abdullah.pms.domain.Leave;
 import com.abdullah.pms.domain.UserInfo;
 import com.abdullah.pms.service.LeaveService;
@@ -33,7 +34,10 @@ public class LeaveController {
 
 	@Autowired
 	UserInfoService userInfoService;
-
+	
+	@Autowired
+	MessageService messageService;
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		// Date - dd/MM/yyyy
@@ -55,6 +59,11 @@ public class LeaveController {
 //				model.addAttribute("isLeaveRequestOutOfLimit",isPandingRequest);
 //			//}
 
+		//this 3 lines are side effect, implement notification controller
+		String mapkey = "pendingleave";
+		String leaveMessage = messageService.getPendingLeaveMessage(userInfo.get(), mapkey);
+		System.out.println("leaveMessage : " + leaveMessage);
+		
 		model.addAttribute("isPandingRequest", isPandingRequest);
 		model.addAttribute("leave", new Leave());
 		return "leavereq";
@@ -99,7 +108,8 @@ public class LeaveController {
 			Leave leaveAcceptStatusUpdate = leave.get();
 			leaveAcceptStatusUpdate.setStatus(1);
 			//show message js
-			leaveService.save(leaveAcceptStatusUpdate);
+			Leave leavesaveRes = leaveService.save(leaveAcceptStatusUpdate);
+			messageService.postLeaveAcceptionMessage(leavesaveRes);
 		}
 		return "redirect:/ad_leave";
 	}

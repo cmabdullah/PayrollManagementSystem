@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -31,7 +32,7 @@ public class AttendanceController {
 
 	@Autowired
 	AttendanceService attendanceService;
-	
+
 	@Autowired
 	AttendanceLogService attendanceLogService;
 
@@ -40,6 +41,9 @@ public class AttendanceController {
 
 	@Autowired
 	UserInfoService userInfoService;
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping("/hello")
 	public String home(ModelMap model) {
@@ -65,25 +69,26 @@ public class AttendanceController {
 
 	@RequestMapping(value = "/give-attendance", method = RequestMethod.POST)
 	public String giveAttendance(Model model, @Valid CUser cUser, BindingResult result, HttpServletRequest request) {
-		
-		
+
 		Optional<Attendance> hasLoginEmployee = Optional.empty();
 		Optional<List<UserInfo>> userInfos = Optional.ofNullable(userInfoService.findAll());
-		Optional<UserInfo> filteredUserInfo = userInfos.get()
-				.stream()
-				.filter(userInfo -> (
-						cUser.getUsername().equals(userInfo.getUsername())
-						&& cUser.getPassword().equals(userInfo.getPassword())))
-				.findFirst();
-		
+		Optional<UserInfo> filteredUserInfo = userInfos.get().stream()
+				.filter(userInfo -> (cUser.getUsername().equals(userInfo.getUsername())
+						// && cUser.getPassword().equals(userInfo.getPassword())
+
+						//Later you can optimize time
+						// true if match row passwod with hash
+						&& passwordEncoder.matches(cUser.getPassword(), userInfo.getPassword())
+
+				)).findFirst();
 		if (filteredUserInfo.isPresent()) {
-			System.out.println(filteredUserInfo.isPresent());//true
+			System.out.println(filteredUserInfo.isPresent());// true
 			// give attendance
-			hasLoginEmployee =  attendanceService.hasLogin(filteredUserInfo.get());
+			hasLoginEmployee = attendanceService.hasLogin(filteredUserInfo.get());
 			// return false causes not logd in so we have to login
 
-			//this line not executed
-			System.out.println("hasLoginEmployee "+hasLoginEmployee.isPresent());//false
+			// this line not executed
+			System.out.println("hasLoginEmployee " + hasLoginEmployee.isPresent());// false
 			if (!hasLoginEmployee.isPresent()) {
 				System.out.println("if");
 				// if you are not login today then log in , //this module is working

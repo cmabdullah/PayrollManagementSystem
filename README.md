@@ -10,4 +10,12 @@
 > http://localhost:8080/biometric-att-rest
 
 
+> https://www.baeldung.com/hibernate-one-to-many
+
+> https://www.baeldung.com/dates-in-thymeleaf
+
+> https://michaelcgood.com/intro-redis-with-spring-boot/
+> https://medium.com/@hulunhao/how-to-use-redis-template-in-java-spring-boot-647a7eb8f8cc
+> https://www.devglan.com/spring-boot/spring-boot-redis-cache
+
 
