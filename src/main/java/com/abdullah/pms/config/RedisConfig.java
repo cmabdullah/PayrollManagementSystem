@@ -4,14 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.listener.ChannelTopic;
-import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
-
-import com.abdullah.pms.cash.queue.MessagePublisher;
-import com.abdullah.pms.cash.queue.MessagePublisherImpl;
-import com.abdullah.pms.cash.queue.MessageSubscriber;
 
 @Configuration
 public class RedisConfig {
@@ -30,24 +23,24 @@ public class RedisConfig {
     }
     
     //4 beans are pub/sub
-    @Bean
-    MessageListenerAdapter messageListener() {
-        return new MessageListenerAdapter(new MessageSubscriber());
-    }
-    @Bean
-    RedisMessageListenerContainer redisContainer() {
-        final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-        container.setConnectionFactory(jedisConnectionFactory());
-        container.addMessageListener(messageListener(), topic());
-        return container;
-    }
-    @Bean
-    MessagePublisher redisPublisher() {
-        return new MessagePublisherImpl(redisTemplate(), topic());
-    }
-    @Bean
-    ChannelTopic topic() {
-        return new ChannelTopic("pubsub:queue");
-    }
+//    @Bean
+//    MessageListenerAdapter messageListener() {
+//        return new MessageListenerAdapter(new MessageSubscriber());
+//    }
+//    @Bean
+//    RedisMessageListenerContainer redisContainer() {
+//        final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+//        container.setConnectionFactory(jedisConnectionFactory());
+//        container.addMessageListener(messageListener(), topic());
+//        return container;
+//    }
+//    @Bean
+//    MessagePublisher redisPublisher() {
+//        return new MessagePublisherImpl(redisTemplate(), topic());
+//    }
+//    @Bean
+//    ChannelTopic topic() {
+//        return new ChannelTopic("pubsub:queue");
+//    }
     
 }

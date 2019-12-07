@@ -1,6 +1,7 @@
 package com.abdullah.pms.service;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,7 @@ public interface LeaveService {
 	List<Leave> getAllLeaveRequests();
 
 	Optional<Leave> findById(int id);
+	List<Leave> findByUserInfoAndEntryFromBetween(UserInfo userInfo, Date dateFrom, Date dateTo);
 
 	Leave save(Leave leave);
 

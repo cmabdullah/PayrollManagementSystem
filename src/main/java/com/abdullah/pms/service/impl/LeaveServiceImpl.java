@@ -1,6 +1,7 @@
 package com.abdullah.pms.service.impl;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +48,7 @@ public class LeaveServiceImpl implements LeaveService {
 	public List<Leave> getAllLeaveRequests() {
 		List<Leave> leaveList = leaveRepository.findByStatus(0);
 
-		//if (leaveList != null)
+		// if (leaveList != null)
 //			leaveList.stream().forEach(n -> System.out.println("Pending list" + n.toString()));
 		return leaveList;
 	}
@@ -60,6 +61,19 @@ public class LeaveServiceImpl implements LeaveService {
 	@Override
 	public Leave save(Leave leave) {
 		return leaveRepository.save(leave);
+	}
+
+	@Override
+	public List<Leave> findByUserInfoAndEntryFromBetween(UserInfo userInfo, Date dateFrom, Date dateTo) {
+		System.out.println(userInfo.toString());
+		System.out.println(dateFrom);
+		System.out.println(dateTo);
+
+		List<Leave> list = leaveRepository.findByUserInfoAndEntryFromBetween(userInfo, dateFrom, dateTo);
+//		List<Leave> list = leaveRepository.findByUserInfo(userInfo);
+		// List<Leave> list = leaveRepository.findByUserInfoIdBetween( dateFrom,
+		// dateTo);
+		return list;
 	}
 
 }

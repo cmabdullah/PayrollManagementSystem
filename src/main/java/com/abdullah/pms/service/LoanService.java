@@ -22,4 +22,6 @@ public interface LoanService {
 
 	boolean isRunningLoan(UserInfo userInfo);
 
+	Loan runningLoanObject(UserInfo userInfo);
+
 }

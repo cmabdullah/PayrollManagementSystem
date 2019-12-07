@@ -31,10 +31,6 @@ import lombok.ToString;
 @ToString
 @Builder
 public class UserInfo {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //add this 
 	//@Column(name = "id", unique = true, nullable = false)

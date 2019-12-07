@@ -29,7 +29,8 @@ public class AttendanceServiceImpl implements AttendanceService {
 
 	@Autowired
 	ShiftService shiftService;
-
+	
+	
 	@Override
 	public List<Attendance> findAll() {
 		return attendanceRepository.findAll();
@@ -110,5 +111,10 @@ public class AttendanceServiceImpl implements AttendanceService {
 	@Override
 	public Attendance save(Attendance attendance) {
 		return attendanceRepository.save(attendance);
+	}
+
+	@Override
+	public List<Attendance> findByUserInfoAndLoginDateBetween(UserInfo userInfo, LocalDate dateFrom, LocalDate dateTo) {
+		return attendanceRepository.findByUserInfoAndLoginDateBetween(userInfo, dateFrom, dateTo);
 	}
 }

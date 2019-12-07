@@ -1,5 +1,6 @@
 package com.abdullah.pms.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,5 +14,6 @@ public interface AttendanceService {
 	Attendance save(Attendance attendance);
 	Optional<Attendance> hasLogin(UserInfo userInfo);
 	boolean doLogin(UserInfo userInfo, String remoteAddr);
+	List<Attendance> findByUserInfoAndLoginDateBetween(UserInfo userInfo, LocalDate dateFrom, LocalDate dateTo);
 	
 }

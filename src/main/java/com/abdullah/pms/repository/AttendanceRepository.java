@@ -23,4 +23,5 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long>{
 	
 	Optional<Attendance> findById(int id);
 	void deleteById(int id);
+	List<Attendance> findByUserInfoAndLoginDateBetween(UserInfo userInfo, LocalDate dateFrom, LocalDate dateTo);
 }

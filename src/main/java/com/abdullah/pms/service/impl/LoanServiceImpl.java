@@ -78,4 +78,16 @@ public class LoanServiceImpl implements LoanService{
 		Optional<Loan> loan = loanRepository.loanInfo(status, userInfo).stream().findAny();
 		return loan.isPresent();
 	}
+
+	@Override
+	public Loan runningLoanObject(UserInfo userInfo) {
+		int status = 1;// for running loan status
+		Optional<Loan> loan = loanRepository.loanInfo(status, userInfo).stream().findAny();
+		//will handle empty class exception
+		
+		if (loan.isPresent())
+			return loan.get();
+		else
+		return null;
+	}
 }
