@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.abdullah.pms.domain.Attendance;
 import com.abdullah.pms.domain.UserInfo;
 
 public interface UserInfoService {
@@ -20,4 +19,6 @@ public interface UserInfoService {
 	Optional<UserInfo> exists(String username);
 
 	Optional<UserInfo> existsEmail(String email);
+	
+	List<UserInfo> findByEnabled(boolean enabled);
 }

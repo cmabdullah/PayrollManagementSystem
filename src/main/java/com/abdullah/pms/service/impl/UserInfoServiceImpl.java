@@ -50,4 +50,11 @@ public class UserInfoServiceImpl implements UserInfoService{
 		return userInfoRepository.findByEmail(email);
 	}
 
+
+	@Override
+	public List<UserInfo> findByEnabled(boolean enabled) {
+		// TODO Auto-generated method stub
+		return userInfoRepository.findByEnabled(enabled);
+	}
+
 }

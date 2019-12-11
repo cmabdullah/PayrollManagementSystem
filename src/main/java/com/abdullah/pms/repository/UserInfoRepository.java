@@ -15,4 +15,5 @@ public interface UserInfoRepository extends CrudRepository<UserInfo, Long>{
 	Optional<UserInfo> findByUsername(String username);
 	Optional<UserInfo> findByEmail(String email);
 	//UserDetails findByUsername(String username);
+	List<UserInfo> findByEnabled(boolean isEnabled);
 }

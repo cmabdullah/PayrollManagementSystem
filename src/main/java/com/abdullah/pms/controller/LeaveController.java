@@ -60,9 +60,9 @@ public class LeaveController {
 //			//}
 
 		//this 3 lines are side effect, implement notification controller
-//		String mapkey = "pendingleave";
-//		String leaveMessage = messageService.getPendingLeaveMessage(userInfo.get(), mapkey);
-//		System.out.println("leaveMessage : " + leaveMessage);
+		String mapkey = "pendingleave";
+		String leaveMessage = messageService.getPendingLeaveMessage(userInfo.get(), mapkey);
+		System.out.println("leaveMessage : " + leaveMessage);
 		
 		model.addAttribute("isPandingRequest", isPandingRequest);
 		model.addAttribute("leave", new Leave());
@@ -90,7 +90,7 @@ public class LeaveController {
 			// implement user auth first
 			leaveService.postLeaveApplication(leave, entryFrom, entryTo, userInfo.get());
 		}
-		return "redirect:/leavereq";
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/ad_leave")
@@ -109,7 +109,7 @@ public class LeaveController {
 			leaveAcceptStatusUpdate.setStatus(1);
 			//show message js
 			Leave leavesaveRes = leaveService.save(leaveAcceptStatusUpdate);
-			//messageService.postLeaveAcceptionMessage(leavesaveRes);
+			messageService.postLeaveAcceptionMessage(leavesaveRes);
 		}
 		return "redirect:/ad_leave";
 	}
