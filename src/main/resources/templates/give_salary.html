@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+
+	<div class="container" th:if="${isSalaryPermissionGiven}">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="login-panel panel panel-default">
+					<div class="panel-heading" align="center">
+						<h3 class="panel-title">Salary Payment Panel</h3>
+					</div>
+					<div class="panel-body">
+
+							<form class="form-horizontal" th:action="@{/give_salary}" method="post">
+							<fieldset>
+								<div class="form-group">
+									<label>There are two bonus can get an employee each
+										year, do you wanted to pay salary with bonus.&nbsp; &nbsp;</label> 
+										
+										<div th:if="${isBonusPermissionGiven}">
+											<label class="radio-inline"> 
+											<input type="radio" name="bonus"
+											id="optionsRadiosInline1" value="give_bonus"> &nbsp;
+											&nbsp; Bonus 
+											</label>
+										</div>
+										
+
+								</div>
+								<!-- Change this to a button or input when using this as a form -->
+								<button id="submit" name="submit"
+									class="btn btn-lg btn-success btn-block">Give
+									Permission</button>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+</body>
+</html>

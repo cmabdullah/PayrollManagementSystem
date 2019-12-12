@@ -9,4 +9,12 @@ public interface MessageService {
 
 	String getPendingLeaveMessage(UserInfo userInfo, String mapkey);
 
+	void givePermissionToPayBonus();
+
+	void givePermissionToPaySalary();
+
+	String isMenagerPermissionGiven(String string);
+
+	String isMenagerBonusPermissionGiven(String string);
+
 }

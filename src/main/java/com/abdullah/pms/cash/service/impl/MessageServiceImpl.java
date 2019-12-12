@@ -29,5 +29,51 @@ public class MessageServiceImpl implements MessageService{
 	public String getPendingLeaveMessage(UserInfo userInfo, String mapkey) {
 		return redisRepository.findByKey( mapkey, String.valueOf(userInfo.getId()));
 	}
+	@Override
+	public void givePermissionToPayBonus() {
+		String message = "give bonus";
+		String queueName = "isApprovedByAdmin";
+		String mapkey = "pendingBonus";
+		redisRepository.add( mapkey,queueName, message);
+		
+	}
+	@Override
+	public void givePermissionToPaySalary() {
+		String message = "give salary";
+		String queueName = "isApprovedByAdmin";
+		String mapkey = "pendingSalary";
+		redisRepository.add( mapkey,queueName, message);
+	}
+	@Override
+	public String isMenagerPermissionGiven(String string) {
+		String queueName = "isApprovedByAdmin";
+		String mapkey = "pendingSalary";
+		if (string.equals("y")) {
+			// !dequeue
+			return redisRepository.findByKey( mapkey, queueName);
+		} if (string.equals("n")) {
+			// dequeue
+			redisRepository.delete( mapkey, queueName);
+			return "pendingSalaryDeleted";
+		} else {
+			return "Sorry"; //mock return
+		}
+	}
+	@Override
+	public String isMenagerBonusPermissionGiven(String string) {
+		// just message class
+				String queueName = "isApprovedByAdmin";
+				String mapkey = "pendingBonus";
+				if (string.equals("y")) {
+					// !dequeue
+					return redisRepository.findByKey( mapkey, queueName);
+				} if (string.equals("n")) {
+					// dequeue
+					redisRepository.delete( mapkey, queueName);
+					return "pendingbonusDeleted";
+				} else {
+					return "Sorry"; //mock return
+				}
+	}
 
 }

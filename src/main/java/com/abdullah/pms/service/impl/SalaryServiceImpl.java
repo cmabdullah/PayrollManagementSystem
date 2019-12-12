@@ -47,7 +47,8 @@ public class SalaryServiceImpl implements SalaryService {
 	SalaryRepository salaryRepository;
 
 	@Override
-	public void calculateSalary() {
+	public void calculateSalary(String bonus) {
+		//compute bonus later
 		// enable disable not valid yet
 		List<UserInfo> userEnableInfo = UserInfoService.findByEnabled(true);
 		userEnableInfo.forEach(singleUserInfo -> {
