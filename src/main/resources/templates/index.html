@@ -7,6 +7,8 @@
 	<div th:replace="common/header :: navbar" ></div>
 	<div class="container">
 		<div class="row banner"></div>
+		<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+		
 	</div>
 
 		<div th:replace="common/header :: footer"></div>

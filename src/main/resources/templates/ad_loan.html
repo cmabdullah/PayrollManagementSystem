@@ -8,6 +8,10 @@
 
 
 	<div class="container">
+	
+	<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+	
+	
 		<table class="table table-striped">
 			<caption>You can Accept or Deny Loan Request following the
 				table below</caption>

@@ -73,8 +73,8 @@ public class SalaryController {
 				return "redirect:give_salary";
 			}
 		}
-		String delMenagerSalaryPermissionGiven = messageService.isMenagerBonusPermissionGiven("n");
-		String delMenagerBonusPermissionGiven = messageService.isMenagerBonusPermissionGiven("n");
+		String delMenagerSalaryPermissionGiven = messageService.isMenagerPermissionGiven("n");
+		String delMenagerBonusPermissionGiven  = messageService.isMenagerBonusPermissionGiven("n");
 		salaryService.calculateSalary(bonus);
 		return "give_salary";
 	}

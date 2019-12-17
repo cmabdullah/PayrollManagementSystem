@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.abdullah.pms.cash.service.MessageService;
 import com.abdullah.pms.domain.Leave;
@@ -70,13 +71,17 @@ public class LeaveController {
 	}
 
 	@RequestMapping(value = "/leavereq", method = RequestMethod.POST)
-	public String leaveRequestProcess(Model model, @Valid Leave leave, Principal principal) {
+	public String leaveRequestProcess(Model model, @Valid Leave leave, Principal principal, RedirectAttributes redirectAttributes) {
 		System.out.println(leave.toString());
 		// convert date to local date
 		LocalDate entryFrom = leave.getEntryFrom().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate entryTo = leave.getEntryTo().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		System.out.println("localDate : " + entryFrom);
 		boolean wrongpattern = false;
+		
+		redirectAttributes.addFlashAttribute("message", "Failed");
+	    redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+	    
 		if ((entryTo.compareTo(entryFrom)) < 0) {
 			// enter a valid date
 			// print error message through js
@@ -87,6 +92,8 @@ public class LeaveController {
 		}
 		Optional<UserInfo> userInfo = userInfoService.exists(principal.getName());
 		if (userInfo.isPresent()) {
+			redirectAttributes.addFlashAttribute("message", "Success");
+		    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 			// implement user auth first
 			leaveService.postLeaveApplication(leave, entryFrom, entryTo, userInfo.get());
 		}
@@ -102,29 +109,40 @@ public class LeaveController {
 	}
 	
 	@RequestMapping(value="/acceptLeave/{id}",method = RequestMethod.GET)  
-	public String acceptLeave(@PathVariable int id){
+	public String acceptLeave(@PathVariable int id,  RedirectAttributes redirectAttributes){
 		Optional<Leave> leave = leaveService.findById(id);
 		if (leave.isPresent()) {
 			Leave leaveAcceptStatusUpdate = leave.get();
 			leaveAcceptStatusUpdate.setStatus(1);
+			
 			//show message js
 			Leave leavesaveRes = leaveService.save(leaveAcceptStatusUpdate);
 			messageService.postLeaveAcceptionMessage(leavesaveRes);
 		}
+		
+		redirectAttributes.addFlashAttribute("message", "Success");
+	    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+		
 		return "redirect:/ad_leave";
 	}
 	
 	
 	@RequestMapping(value="/deleteLeave/{id}",method = RequestMethod.GET)  
-	public String deleteLeave(@PathVariable int id) {
+	public String deleteLeave(@PathVariable int id,  RedirectAttributes redirectAttributes) {
 
 		Optional<Leave> leave = leaveService.findById(id);
 		if (leave.isPresent()) {
 			Leave leaveRejectStatusUpdate = leave.get();
 			leaveRejectStatusUpdate.setStatus(2);//status 2 for reject
+			
 			//show message js
-			leaveService.save(leaveRejectStatusUpdate);
+			Leave leavesaveRes = leaveService.save(leaveRejectStatusUpdate);
+			messageService.postLeaveRejectionMessage(leavesaveRes);
 		}
+		
+		redirectAttributes.addFlashAttribute("message", "Failed");
+	    redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+	    
 		return "redirect:/ad_leave";
 	}
 

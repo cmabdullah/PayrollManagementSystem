@@ -10,7 +10,10 @@
   <h1>You have already a pending request</h1>
 </div>
 
+
 	<div class="container" th:unless="${isPandingRequest}">
+	<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+	
 		<form class="form-horizontal" th:action="@{/leavereq}"
 			method="post" th:object="${leave}">
 			<label for="entryFrom">entryFrom</label>

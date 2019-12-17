@@ -14,7 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.abdullah.pms.cash.service.MessageService;
 import com.abdullah.pms.domain.Loan;
 import com.abdullah.pms.domain.UserInfo;
 import com.abdullah.pms.service.LoanService;
@@ -28,6 +30,9 @@ public class LoanController {
 	
 	@Autowired
 	LoanService loanService;
+	
+	@Autowired
+	MessageService messageService;
 	
 	@RequestMapping("/loanreq")
 	public String requestForLoan(Model model , Principal principal) {
@@ -46,13 +51,15 @@ public class LoanController {
 	}
 	
 	@RequestMapping(value = "/loanreq", method=RequestMethod.POST)
-	public String requestForLoanProcess(Model model, @Valid Loan loan , BindingResult result, Principal principal) {
+	public String requestForLoanProcess(Model model, @Valid Loan loan , BindingResult result, Principal principal,   RedirectAttributes redirectAttributes) {
 		Optional<UserInfo> userInfo = userInfoService.exists(principal.getName());
 		if (userInfo.isPresent()) {
 			// implement user auth first
 			loanService.postLoanApplication(loan, userInfo.get());
 		}
 		
+		redirectAttributes.addFlashAttribute("message", "Success");
+	    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 		
 		System.out.println(loan);
 		
@@ -68,7 +75,7 @@ public class LoanController {
 //			loanService.postLeaveApplication(loan);
 //		}
 		
-		return "redirect:/loanreq";
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/ad_loan")
@@ -80,29 +87,39 @@ public class LoanController {
 	}
 	
 	@RequestMapping(value="/acceptLoan/{id}",method = RequestMethod.GET)  
-	public String acceptLeave(@PathVariable int id){
+	public String acceptLeave(@PathVariable int id,  RedirectAttributes redirectAttributes){
 		Optional<Loan> loan = loanService.findById(id);
 		if (loan.isPresent()) {
 			Loan loanAcceptStatusUpdate = loan.get();
 			loanAcceptStatusUpdate.setStatus(1);
 			loanAcceptStatusUpdate.setApproveDate(new Date());
 			//show message js
-			loanService.save(loanAcceptStatusUpdate);
+			Loan loanSaveRes = loanService.save(loanAcceptStatusUpdate);
+			messageService.postLoanAcceptionMessage(loanSaveRes);
 		}
+		
+		redirectAttributes.addFlashAttribute("message", "Success");
+	    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+		
 		return "redirect:/ad_loan";
 	}
 	
 	
 	@RequestMapping(value="/deleteLoan/{id}",method = RequestMethod.GET)  
-	public String deleteLeave(@PathVariable int id) {
+	public String deleteLeave(@PathVariable int id,  RedirectAttributes redirectAttributes) {
 		Optional<Loan> loan = loanService.findById(id);
 		if (loan.isPresent()) {
 			Loan loanRejectStatusUpdate = loan.get();
 			loanRejectStatusUpdate.setStatus(2);//status 2 for reject
 			loanRejectStatusUpdate.setApproveDate(new Date());
 			//show message js
-			loanService.save(loanRejectStatusUpdate);
+			Loan loanSaveRes =loanService.save(loanRejectStatusUpdate);
+			messageService.postLoanRejectionMessage(loanSaveRes);
 		}
+		
+		redirectAttributes.addFlashAttribute("message", "Failed");
+	    redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+	    
 		return "redirect:/ad_loan";
 	}
 

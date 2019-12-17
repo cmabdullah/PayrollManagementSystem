@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.abdullah.pms.cash.service.MessageService;
 import com.abdullah.pms.domain.Attendance;
 import com.abdullah.pms.domain.Grade;
 import com.abdullah.pms.domain.Leave;
@@ -25,6 +26,8 @@ import com.abdullah.pms.service.LoanService;
 import com.abdullah.pms.service.SalaryService;
 import com.abdullah.pms.service.UserInfoService;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class SalaryServiceImpl implements SalaryService {
 
@@ -42,6 +45,9 @@ public class SalaryServiceImpl implements SalaryService {
 
 	@Autowired
 	LoanPaidDetailsService loanPaidDetailsService;
+	
+	@Autowired
+	MessageService messageService;
 
 	@Autowired
 	SalaryRepository salaryRepository;
@@ -92,7 +98,13 @@ public class SalaryServiceImpl implements SalaryService {
 			if (loanPaidDetails.isPresent())
 				loanPaidDetailsService.save(loanPaidDetails.get());
 			
-			salaryRepository.save(salary);
+			Salary savedSalary = salaryRepository.save(salary);
+			
+			try {
+				messageService.postSalaryMessage(savedSalary);
+			}catch(Exception e) {
+				log.error("unable to post message in redis server"+ e.getMessage());
+			}
 			System.out.println("Calculate method called");
 			System.out.println(singleUserInfo.toString());
 
