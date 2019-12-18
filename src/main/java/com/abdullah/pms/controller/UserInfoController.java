@@ -82,6 +82,14 @@ public class UserInfoController {
 //			if (grade.isPresent())
 //				userInfo.setGrade(grade.get());
 //		}
+		
+		List<Shift> shifts = shiftService.findAll();
+		shifts.forEach(n -> System.out.println(n.toString()));
+		model.addAttribute("shifts", shifts);// add attribute into model
+
+		List<Grade> grades = gradeService.findAll();
+		model.addAttribute("grades", grades);// add attribute into model
+
 
 		if (errors.hasErrors()) {
 			System.out.println("Error");

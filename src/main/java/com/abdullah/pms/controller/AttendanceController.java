@@ -45,6 +45,14 @@ public class AttendanceController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
+	}
+
+	
+	
+	
 	@RequestMapping("/hello")
 	public String home(ModelMap model) {
 		List<Attendance> attendances = attendanceService.findAll();

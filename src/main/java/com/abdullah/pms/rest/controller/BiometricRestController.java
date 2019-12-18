@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,7 +53,9 @@ public class BiometricRestController {
 	@Autowired
 	AttendanceService attendanceService;
 	
-	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
 	
 
 	@PostMapping( "/biometric-att-rest")
@@ -114,7 +117,10 @@ public class BiometricRestController {
 		// filter this user exist or not?
 		Optional<UserInfo> filteredUserInfo = userInfos.get().stream()
 				.filter(userInfo -> (cUser.getUsername().equals(userInfo.getUsername())
-						&& cUser.getPassword().equals(userInfo.getPassword())))
+						&& 
+						passwordEncoder.matches(cUser.getPassword(), userInfo.getPassword())
+						//cUser.getPassword().equals(userInfo.getPassword())
+						))
 				.findFirst();
 		
 		// if exist then perform registration

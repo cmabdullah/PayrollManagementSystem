@@ -1,22 +1,40 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
 <head th:replace="common/header :: common-header" />
 
 <body>
 	<div th:replace="common/header :: navbar"></div>
-			<div class="container-fluid mt-lg-5">
+	
+
+
+		<div th:if="${error}">Unable to login. Check your username and
+			password.</div>
+			
+			
+			
+		
+		
+		<div class="container-fluid mt-lg-5">
     <div class="row mt-lg-5">
       <div class="col-sm-4">
 
       </div>
         <div class="col-sm-4">
+
             <!-- Default form login -->
-            <form class="text-center border border-light p-5" th:action="@{/give-attendance}" method="post">
+            <form class="text-center border border-light p-5" method="POST" th:action="@{/login}">
+
                 <p class="h4 mb-4">Log in</p>
+
                 <!-- Email -->
+
                 <input type="text"   class="form-control mb-4"  
+                
                 id="username" name="username" placeholder="username">
+
                 <!-- Password -->
+
                 <input type="password"   class="form-control mb-4" 
 id="password" name="password" placeholder="password"
 >
@@ -55,8 +73,11 @@ id="password" name="password" placeholder="password"
 
         <!--Content-->
         <div class="modal-content">
+
+          
             <!--Body-->
             <div class="modal-body">
+
                 <!-- Material input name -->
                 <div class="md-form form-sm">
                     <i class="fas fa-user prefix"></i>
@@ -84,10 +105,11 @@ id="password" name="password" placeholder="password"
     </div>
     <!--/Modal: Contact form-->
 </div>
+		
+
+
 
 	<div th:replace="common/header :: footer"></div>
 	<!-- 	<div th:replace="common/header :: body-bottom-scripts" /> -->
 </body>
 </html>
-
-
