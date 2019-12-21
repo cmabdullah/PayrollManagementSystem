@@ -3,14 +3,9 @@ package com.abdullah.pms.rest.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,9 +25,6 @@ import com.abdullah.pms.service.AttendanceLogService;
 import com.abdullah.pms.service.AttendanceService;
 import com.abdullah.pms.service.BiomatricRestService;
 import com.abdullah.pms.service.UserInfoService;
-import com.machinezoo.sourceafis.FingerprintImage;
-import com.machinezoo.sourceafis.FingerprintMatcher;
-import com.machinezoo.sourceafis.FingerprintTemplate;
 
 import lombok.extern.slf4j.Slf4j;
 //https://www.roytuts.com/file-upload-example-using-spring-rest-controller/
