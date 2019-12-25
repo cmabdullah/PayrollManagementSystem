@@ -7,5 +7,5 @@ public interface RedisRepository {
     void add(String mapkey,String queueName,String message );
 	String findByKey( String mapkey,String queueName);
 	void delete(String mapkey, String queueName) ;
-	Map<Object, Object> findByMapKey( String mapkey);
+//	Map<Object, Object> findByMapKey( String mapkey);
 }
